@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Location1Assets
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Location1Assets
+  m_GUID: ff7577a2cab521547b24276193553654
+  m_SerializeEntries:
+  - m_GUID: 114fb5463c0bac84494bd3657856ae16
+    m_Address: Assets/FastTerrainMesh/Terrain0/TerrainMaterial_0.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2986e54104457b948995cf661a484439
+    m_Address: Assets/FastTerrainMesh/Terrain0/TerrainSplat_0.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96ffd6a2e2dc3724682998b33953342a
+    m_Address: Assets/Texures/CliffBright.tif
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0daf7ec05f3b0c45b16a54fc82f5070
+    m_Address: Assets/roundy/FastTerrainToMeshGenerator/Shaders/FastUnlitTerrainShader.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ea9b9bb1d55263045ad70aec90e015d6
+    m_Address: Assets/Texures/ground_grass.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: fa5a57c0c6e9cb740b45f47a2d43dd87, type: 2}
+    - {fileID: 11400000, guid: a465153c27f9e724d812899f1c0ad70e, type: 2}
