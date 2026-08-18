@@ -1,0 +1,11 @@
+using UnityEngine;
+
+namespace Assets.Scripts.Data
+{
+    [CreateAssetMenu(menuName = "Data/All data")]
+    public class AllDataContainer : ScriptableObject
+    {
+        [field: SerializeField] public DroneData DroneData { get; private set; }
+        [field: SerializeField] public UIData UIData { get; private set; }
+    }
+}
