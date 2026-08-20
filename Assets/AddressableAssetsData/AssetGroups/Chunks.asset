@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Chunks1
+  m_Name: Chunks
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Chunks1
+  m_GroupName: Chunks
   m_GUID: a8a0abb4e8ac42941a5d31a2141d7a40
   m_SerializeEntries:
   - m_GUID: 017216851948c124c963b2b622f3f167

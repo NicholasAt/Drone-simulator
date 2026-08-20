@@ -214,6 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0488bae9fe8356b4897c7d284bea1c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Infrastructure.GameRunner
+  _dontDestroyOnLoad:
+  - {fileID: 3023617142781684935}
 --- !u!223 &2757396634311836657
 Canvas:
   m_ObjectHideFlags: 0

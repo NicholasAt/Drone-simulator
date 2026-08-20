@@ -10,13 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Scenes
+  m_Name: MainMenuAssets
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Scenes
-  m_GUID: 8ddb1d91a4414b3419bee07645c2cd9f
+  m_GroupName: MainMenuAssets
+  m_GUID: 169484ae5adf303478d84f062c94e5d4
   m_SerializeEntries:
   - m_GUID: 308e4ad618338c048afe67cace89897c
     m_Address: MainMenu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55fe3d9fd0dd8c2468ee95d1d8c4bf86
+    m_Address: MainMenuWindow
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -24,5 +29,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 6f08036c31b81294ca39706268bc3673, type: 2}
-    - {fileID: 11400000, guid: f0a86c840a392544ab63b1a40fd6fe3c, type: 2}
+    - {fileID: 11400000, guid: 926fcdd0b95aedd4187fb71e6e978595, type: 2}
+    - {fileID: 11400000, guid: f8a127e72bcae064abbede41e396ebf0, type: 2}

@@ -2,36 +2,32 @@ using Assets.Scripts.Data;
 using Assets.Scripts.Services.AssetProvider;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Assets.Scripts.Services
 {
-    public class UIFactory
+    public class GameFactory
     {
         private readonly DiContainer _diContainer;
-        private readonly UIData _uIData;
         private readonly IAssetProviderService _assetProvider;
-        private Transform _uiRoot;
+        private readonly DroneData _droneData;
 
-        public UIFactory(DiContainer diContainer, UIData uIData, IAssetProviderService assetProviderService)
+        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData)
         {
             _diContainer = diContainer;
-            _uIData = uIData;
-            _assetProvider = assetProviderService;
+            _assetProvider = assetProvider;
+            _droneData = droneData;
         }
 
-        public async UniTask CreateUIRoot()
+        public async UniTask CreateDrone()
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.UIRootReference);
-            _uiRoot = InstantiateInject(prefab).transform;
+            AssetReferenceGameObject reference = _droneData.DroneConfigs[0].DroneReference;
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
+            InstantiateInject(prefab);
         }
 
-        public async UniTask CreateMenu()
-        {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MainMenuWindowReference);
-            InstantiateInject(prefab, _uiRoot);
-        }
         private GameObject InstantiateInject(GameObject prefab, Transform parent = null)
         {
             GameObject instance = _diContainer.InstantiatePrefab(prefab);

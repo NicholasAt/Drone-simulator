@@ -5,37 +5,36 @@ using Zenject;
 
 namespace Assets.Scripts.Infrastructure.EntryPoints
 {
-    public class MainMenuEntryPoint : BaseEntryPoint
+    public class Location1EntryPoint : BaseEntryPoint
     {
-        private UIFactory _uIFactory;
+        private GameFactory _gameFactory;
 
         public class Preparation
         {
             private readonly SceneLoader _sceneLoader;
             private readonly IAssetProviderService _assetProvider;
 
-            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProviderService)
+            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProvider)
             {
                 _sceneLoader = sceneLoader;
-                _assetProvider = assetProviderService;
+                _assetProvider = assetProvider;
             }
             public async UniTask Run()
             {
                 _assetProvider.ReleaseAll();
-                await _sceneLoader.LoadSingle(Constants.SceneConstants.MenuSceneKey);
+                await _sceneLoader.LoadSingle(Constants.SceneConstants.Location1SceneKey);
             }
         }
 
         [Inject]
-        private void Construct(UIFactory uIFactory)
+        private void Construct(GameFactory gameFactory)
         {
-            _uIFactory = uIFactory;
+            _gameFactory = gameFactory;
         }
 
         protected override async UniTask OnStart()
         {
-            await _uIFactory.CreateUIRoot();
-            await _uIFactory.CreateMenu();
+            await _gameFactory.CreateDrone();
         }
     }
 }

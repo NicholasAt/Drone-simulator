@@ -12,3 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 134bfe737f0ce5544932b7b08a84bd20, type: 3}
   m_Name: DroneData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.DroneData
+  _doneConfigs:
+  - <DroneID>k__BackingField: 1
+    <DroneReference>k__BackingField:
+      m_AssetGUID: 722ccf5230671084ab226f4880ee3031
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0

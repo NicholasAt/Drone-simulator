@@ -1,6 +1,7 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Infrastructure.EntryPoints;
 using Assets.Scripts.Services;
+using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameStates;
 using UnityEngine.AddressableAssets;
 using Zenject;
@@ -16,6 +17,8 @@ namespace Assets.Scripts.Infrastructure
 
             Container.Bind<SceneLoader>().AsSingle();
             Container.Bind<UIFactory>().AsSingle();
+            Container.Bind<GameFactory>().AsSingle();
+            Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();
 
             if (CheckingForUpdates.DataContainerHandle.IsValid())
                 Addressables.Release(CheckingForUpdates.DataContainerHandle);
@@ -30,8 +33,9 @@ namespace Assets.Scripts.Infrastructure
 
         private void BindStates()
         {
-            Container.Bind<GameStateMachine>().AsSingle();
             Container.Bind<MainMenuEntryPoint.Preparation>().AsSingle();
+            Container.Bind<Location1EntryPoint.Preparation>().AsSingle();
+            Container.Bind<GameStateMachine>().AsSingle();
         }
     }
 }

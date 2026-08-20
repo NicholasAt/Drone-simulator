@@ -1,6 +1,5 @@
 using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +7,7 @@ namespace Assets.Scripts.Infrastructure
 {
     public class GameRunner : MonoBehaviour
     {
+        [SerializeField] private GameObject[] _dontDestroyOnLoad;
         private GameStateMachine _stateMachine;
 
         [Inject]
@@ -18,7 +18,12 @@ namespace Assets.Scripts.Infrastructure
 
         public async UniTask Run()
         {
-           await _stateMachine.LoadMainMenu();
+            foreach (GameObject obj in _dontDestroyOnLoad)
+            {
+                obj.transform.parent = null;
+                DontDestroyOnLoad(obj);
+            }
+            await _stateMachine.LoadMainMenu();
         }
     }
 }

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: AllDataContainer
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.AllDataContainer
   <DroneData>k__BackingField: {fileID: 11400000, guid: 28d02dacb93efea4db63846a02fccb1a, type: 2}
+  <UIData>k__BackingField: {fileID: 11400000, guid: 7c17a50a8ec63fe4b94ddc5b7b7610fd, type: 2}

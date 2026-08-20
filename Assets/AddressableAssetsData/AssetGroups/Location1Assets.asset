@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad2378640ec743641b0905d490ff355e
+    m_Address: Location1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c0daf7ec05f3b0c45b16a54fc82f5070
     m_Address: Assets/roundy/FastTerrainToMeshGenerator/Shaders/FastUnlitTerrainShader.shader
     m_ReadOnly: 0

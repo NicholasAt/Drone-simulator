@@ -11,7 +11,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         }
         protected virtual async UniTask OnStart()
         {
-            await UniTask.Yield();
+            await UniTask.CompletedTask;
         }
     }
 }
