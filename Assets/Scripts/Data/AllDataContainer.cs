@@ -7,5 +7,6 @@ namespace Assets.Scripts.Data
     {
         [field: SerializeField] public DroneData DroneData { get; private set; }
         [field: SerializeField] public UIData UIData { get; private set; }
+        [field: SerializeField] public LocationData LocationData { get; private set; }
     }
 }

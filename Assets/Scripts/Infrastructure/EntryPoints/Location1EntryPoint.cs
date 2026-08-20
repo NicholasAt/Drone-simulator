@@ -1,6 +1,7 @@
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure.EntryPoints
@@ -34,7 +35,8 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 
         protected override async UniTask OnStart()
         {
-            await _gameFactory.CreateDrone();
+            GameObject drone = await _gameFactory.CreateDrone();
+            Camera.main.transform.SetParent(drone.transform, false);
         }
     }
 }

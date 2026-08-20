@@ -21,11 +21,12 @@ namespace Assets.Scripts.Services
             _droneData = droneData;
         }
 
-        public async UniTask CreateDrone()
+        public async UniTask<GameObject> CreateDrone()
         {
             AssetReferenceGameObject reference = _droneData.DroneConfigs[0].DroneReference;
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
-            InstantiateInject(prefab);
+            GameObject instance = InstantiateInject(prefab);
+            return instance;
         }
 
         private GameObject InstantiateInject(GameObject prefab, Transform parent = null)

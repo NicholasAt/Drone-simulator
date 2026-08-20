@@ -15,7 +15,7 @@ MonoBehaviour:
   _doneConfigs:
   - <DroneID>k__BackingField: 1
     <DroneReference>k__BackingField:
-      m_AssetGUID: 722ccf5230671084ab226f4880ee3031
+      m_AssetGUID: ee3a4ebcb56160f419f726b57f547430
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 

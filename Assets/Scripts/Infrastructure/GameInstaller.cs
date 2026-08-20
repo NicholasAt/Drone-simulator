@@ -29,6 +29,7 @@ namespace Assets.Scripts.Infrastructure
             AllDataContainer data = CheckingForUpdates.DataContainer;
             Container.BindInstance(data.DroneData).AsSingle();
             Container.BindInstance(data.UIData).AsSingle();
+            Container.BindInstance(data.LocationData).AsSingle();
         }
 
         private void BindStates()
