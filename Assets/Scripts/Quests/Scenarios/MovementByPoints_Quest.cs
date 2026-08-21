@@ -1,3 +1,4 @@
+using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Interactive;
 using Assets.Scripts.Services;
 using Cysharp.Threading.Tasks;
@@ -7,7 +8,7 @@ using Zenject;
 
 namespace Assets.Scripts.Quests.Scenarios
 {
-    public class DroneMove_Quest : BaseQuest
+    public class MovementByPoints_Quest : BaseQuest
     {
         [SerializeField] private Transform _initPoint;
         [SerializeField] private List<Transform> _movePoints;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Quests.Scenarios
         private GameFactory _gameFactory;
         private int _currentPointIndex = -1;
         private bool _isEnd;
+
         [Inject]
         private void Construct(GameFactory gameFactory)
         {
@@ -23,11 +25,11 @@ namespace Assets.Scripts.Quests.Scenarios
 
         protected override async UniTask OnRun()
         {
-            GameObject drone = await _gameFactory.CreateDrone(_initPoint.position, _initPoint.rotation);
+            GameObject drone = await _gameFactory.CreateDrone(DroneID.Drone1, _initPoint.position, _initPoint.rotation);
             Camera.main.transform.SetParent(drone.transform, false);
-
             await NextPoint();
         }
+
         private async UniTask NextPoint()
         {
             _currentPointIndex++;
@@ -64,7 +66,6 @@ namespace Assets.Scripts.Quests.Scenarios
             Destroy(reporter.gameObject);
             await NextPoint();
         }
-
 
         private void OnDrawGizmos()
         {

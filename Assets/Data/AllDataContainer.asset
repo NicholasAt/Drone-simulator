@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AllDataContainer
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.AllDataContainer
   <DroneData>k__BackingField: {fileID: 11400000, guid: 28d02dacb93efea4db63846a02fccb1a, type: 2}
+  <HelicopterData>k__BackingField: {fileID: 11400000, guid: fadb5279c343716428d34846b97a8d01, type: 2}
   <UIData>k__BackingField: {fileID: 11400000, guid: 7c17a50a8ec63fe4b94ddc5b7b7610fd, type: 2}
   <LocationData>k__BackingField: {fileID: 11400000, guid: bfb63c17657ea894d8031b8ae15550db, type: 2}
   <QuestsData>k__BackingField: {fileID: 11400000, guid: 19038a9524d354245a3f481ba4ab2609, type: 2}

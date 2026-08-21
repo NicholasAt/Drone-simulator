@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 134bfe737f0ce5544932b7b08a84bd20, type: 3}
-  m_Name: DroneData
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.DroneData
-  _droneConfigs:
-  - <DroneID>k__BackingField: 1
-    <DroneReference>k__BackingField:
-      m_AssetGUID: ee3a4ebcb56160f419f726b57f547430
+  m_Script: {fileID: 11500000, guid: e2f45c417d42f37418e0fef7e5d46a68, type: 3}
+  m_Name: HelicopterData
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.HelicoptersData.HelicopterData
+  _configs:
+  - <ID>k__BackingField: 1
+    <HelicopterReference>k__BackingField:
+      m_AssetGUID: 46a9cf9d3ef39e04189a89bf78112827
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 

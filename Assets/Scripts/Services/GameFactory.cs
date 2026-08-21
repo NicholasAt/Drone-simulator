@@ -1,4 +1,4 @@
-using Assets.Scripts.Data;
+using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Quests;
 using Assets.Scripts.Quests.Scenarios;
@@ -52,9 +52,9 @@ namespace Assets.Scripts.Services
             return null;
         }
 
-        public async UniTask<GameObject> CreateDrone(Vector3 pos, Quaternion rotate)
+        public async UniTask<GameObject> CreateDrone(DroneID droneID, Vector3 pos, Quaternion rotate)
         {
-            AssetReferenceGameObject reference = _droneData.DroneConfigs[0].DroneReference;
+            AssetReferenceGameObject reference = _droneData.GetConfig(droneID).DroneReference;
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
             GameObject instance = InstantiateInject(prefab);
 
