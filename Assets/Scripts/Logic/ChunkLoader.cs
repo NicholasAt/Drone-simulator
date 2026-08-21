@@ -77,17 +77,15 @@ namespace Assets.Scripts.Logic
         private Vector2Int _chunkKey;
         private StreamingChunk _streamingChunk;
 
-        private async UniTask Start()
+        private async UniTaskVoid Start()
         {
             if (_play == false)
                 return;
 
-            CancellationToken cancellationToken = this.GetCancellationTokenOnDestroy();
-            await Addressables.InitializeAsync().ToUniTask(cancellationToken: cancellationToken);
-
             _chunkData.Init();
             _streamingChunk = new(_chunkData);
 
+            CancellationToken cancellationToken = this.GetCancellationTokenOnDestroy();
             await UpdateLoad(GetChunkKey(), cancellationToken);
             CheckChunkTimer(0.5f, cancellationToken).Forget();
         }

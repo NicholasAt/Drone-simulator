@@ -30,6 +30,8 @@ namespace Assets.Scripts.Infrastructure
             Container.BindInstance(data.DroneData).AsSingle();
             Container.BindInstance(data.UIData).AsSingle();
             Container.BindInstance(data.LocationData).AsSingle();
+            Container.BindInstance(data.QuestsData).AsSingle();
+            Container.BindInstance(data.QuestObjectsData).AsSingle();
         }
 
         private void BindStates()

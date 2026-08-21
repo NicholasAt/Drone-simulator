@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 6977571990612850515}
   - component: {fileID: 4658688062421757665}
   - component: {fileID: 2826623933699818939}
+  - component: {fileID: 4804090579799086434}
   - component: {fileID: 7852913601703467388}
   - component: {fileID: 6063605677369093760}
   m_Layer: 0
@@ -254,7 +255,7 @@ Transform:
   m_GameObject: {fileID: 2618895545765178413}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4159, y: 300, z: 3226}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -284,7 +285,7 @@ MonoBehaviour:
     <Gravity>k__BackingField: -50
     <Drag>k__BackingField: {x: 0.7, y: 2, z: 0.7}
     <AngularDrag>k__BackingField: {x: 2, y: 1.5, z: 2}
-    <MinMaxAudio>k__BackingField: {x: 0.5, y: 1}
+    <MinMaxAudio>k__BackingField: {x: 0.5, y: 0.9}
     <SpeedUpAudio>k__BackingField: 3
     <SpeedDownAudio>k__BackingField: 1
 --- !u!114 &4658688062421757665
@@ -319,6 +320,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DroneEffect
   _droneInput: {fileID: 6977571990612850515}
   _audioSource: {fileID: 6063605677369093760}
+--- !u!114 &4804090579799086434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2618895545765178413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f0fbe69e7c9974e85b2b01b318d556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.CharacterMarker
 --- !u!54 &7852913601703467388
 Rigidbody:
   m_ObjectHideFlags: 0

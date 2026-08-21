@@ -1,4 +1,7 @@
 using Assets.Scripts.Data;
+using Assets.Scripts.Data.Quests;
+using Assets.Scripts.Quests;
+using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services.AssetProvider;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -14,18 +17,56 @@ namespace Assets.Scripts.Services
         private readonly IAssetProviderService _assetProvider;
         private readonly DroneData _droneData;
 
-        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData)
+        private readonly QuestsData _questsData;
+        private readonly QuestObjectsData _questObjectsData;
+
+        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, QuestsData questsData, QuestObjectsData questObjectsData)
         {
             _diContainer = diContainer;
             _assetProvider = assetProvider;
             _droneData = droneData;
+            _questsData = questsData;
+            _questObjectsData = questObjectsData;
         }
 
-        public async UniTask<GameObject> CreateDrone()
+        public async UniTask<GameObject> CreateQuestPoint(Vector3 pos, Quaternion rotate)
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_questObjectsData.QuestPointReference);
+            GameObject instance = InstantiateInject(prefab);
+            instance.transform.SetPositionAndRotation(pos, rotate);
+            return instance;
+        }
+
+        public IQuest CreateQuest(QuestID questID)
+        {
+            QuestConfig cfg = _questsData.GetQuest(questID);
+            IQuest questTemplate = cfg.QuestRunnerPrefab.Value;
+
+            if (questTemplate is BaseQuest baseQuest)
+            {
+                GameObject instance = InstantiateInject(baseQuest.gameObject);
+                return instance.GetComponent<IQuest>();
+            }
+
+            Debug.LogError("no logic");
+            return null;
+        }
+
+        public async UniTask<GameObject> CreateDrone(Vector3 pos, Quaternion rotate)
         {
             AssetReferenceGameObject reference = _droneData.DroneConfigs[0].DroneReference;
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
             GameObject instance = InstantiateInject(prefab);
+
+            if (instance.TryGetComponent(out Rigidbody rb))
+            {
+                rb.MovePosition(pos);
+                rb.MoveRotation(rotate);
+            }
+            else
+            {
+                instance.transform.SetPositionAndRotation(pos, rotate);
+            }
             return instance;
         }
 
