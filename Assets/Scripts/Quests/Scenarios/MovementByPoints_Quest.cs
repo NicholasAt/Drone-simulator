@@ -124,8 +124,12 @@ namespace Assets.Scripts.Quests.Scenarios
 
             if (_movePointsRoot != null)
             {
+                const int frequency = 25;
+                const float arrowSize = 7;
+                const float angle = 35;
+
                 Gizmos.color = Color.red;
-                Vector3 previousPos=Vector3.zero;
+                Vector3 previousPos = Vector3.zero;
                 for (int i = 0; i < _movePointsRoot.childCount; i++)
                 {
                     Transform point = _movePointsRoot.GetChild(i);
@@ -133,6 +137,27 @@ namespace Assets.Scripts.Quests.Scenarios
                     if (i != 0)
                     {
                         Gizmos.DrawLine(previousPos, point.position);
+
+                        Vector3 dir = previousPos - point.position;
+                        Vector3 right = Quaternion.AngleAxis(angle, Vector3.Cross(dir.normalized, Vector3.up)) * (dir.normalized * arrowSize);
+                        Vector3 left = Quaternion.AngleAxis(-angle, Vector3.Cross(dir.normalized, Vector3.up)) * (dir.normalized * arrowSize);
+                        Vector3 up = Quaternion.AngleAxis(angle, Vector3.Cross(dir.normalized, Vector3.right)) * (dir.normalized * arrowSize);
+                        Vector3 down = Quaternion.AngleAxis(-angle, Vector3.Cross(dir.normalized, Vector3.right)) * (dir.normalized * arrowSize);
+
+                        int distance = Mathf.RoundToInt(dir.magnitude);
+
+                        for (int j = 0; j < distance; j++)
+                        {
+                            if (j % frequency != frequency - 1)
+                                continue;
+
+                            float size = j;
+                            Vector3 pos = previousPos - (dir.normalized * size);
+                            Gizmos.DrawRay(pos, right);
+                            Gizmos.DrawRay(pos, left);
+                            Gizmos.DrawRay(pos, up);
+                            Gizmos.DrawRay(pos, down);
+                        }
                     }
                     previousPos = point.position;
                 }
