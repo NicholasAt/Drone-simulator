@@ -42,6 +42,7 @@ namespace Assets.Scripts.Data.Quests
     public enum QuestID
     {
         None,
-        DroneMove,
+        DroneMove = 1,
+        HelicopterMove = 2,
     }
 }

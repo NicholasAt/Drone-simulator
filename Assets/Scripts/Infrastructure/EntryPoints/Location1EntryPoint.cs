@@ -1,7 +1,7 @@
-using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Quests;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
+using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using Zenject;
 
@@ -10,6 +10,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
     public class Location1EntryPoint : BaseEntryPoint
     {
         private GameFactory _gameFactory;
+        private TempLevelProgress _levelProgress;
 
         public class Preparation
         {
@@ -29,14 +30,15 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         }
 
         [Inject]
-        private void Construct(GameFactory gameFactory)
+        private void Construct(GameFactory gameFactory, ProgressService progressService)
         {
             _gameFactory = gameFactory;
+            _levelProgress = progressService.TempLevelProgress;
         }
 
         protected override async UniTask OnStart()
         {
-            IQuest qeustInstance = _gameFactory.CreateQuest(QuestID.DroneMove);
+            IQuest qeustInstance = _gameFactory.CreateQuest(_levelProgress.QuestID);
             await qeustInstance.Run();
         }
     }

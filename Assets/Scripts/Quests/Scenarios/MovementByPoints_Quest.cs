@@ -1,6 +1,9 @@
 using Assets.Scripts.Data.DronesData;
+using Assets.Scripts.Data.HelicoptersData;
+using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Interactive;
 using Assets.Scripts.Services;
+using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,23 +14,58 @@ namespace Assets.Scripts.Quests.Scenarios
     public class MovementByPoints_Quest : BaseQuest
     {
         [SerializeField] private Transform _initPoint;
-        [SerializeField] private List<Transform> _movePoints;
+        [SerializeField] private Transform _movePointsRoot;
+        private readonly List<Transform> _movePoints = new();
 
         private GameFactory _gameFactory;
+        private TempLevelProgress _levelProgress;
         private int _currentPointIndex = -1;
         private bool _isEnd;
 
         [Inject]
-        private void Construct(GameFactory gameFactory)
+        private void Construct(GameFactory gameFactory, ProgressService progressService)
         {
             _gameFactory = gameFactory;
+            _levelProgress = progressService.TempLevelProgress;
         }
-
+        private void OnValidate()
+        {
+            RefreshNames();
+        }
         protected override async UniTask OnRun()
         {
-            GameObject drone = await _gameFactory.CreateDrone(DroneID.Drone1, _initPoint.position, _initPoint.rotation);
-            Camera.main.transform.SetParent(drone.transform, false);
+            InitPoints();
+            await CreateTransport();
             await NextPoint();
+        }
+        private void InitPoints()
+        {
+            for (int i = 0; i < _movePointsRoot.childCount; i++)
+            {
+                _movePoints.Add(_movePointsRoot.GetChild(i));
+            }
+        }
+        private async UniTask CreateTransport()
+        {
+            switch (_levelProgress.QuestID)
+            {
+                case QuestID.None:
+                    break;
+
+                case QuestID.DroneMove:
+                    GameObject drone = await _gameFactory.CreateDrone(DroneID.Drone1, _initPoint.position, _initPoint.rotation);
+                    Camera.main.transform.SetParent(drone.transform, false);
+                    break;
+
+                case QuestID.HelicopterMove:
+                    GameObject helicopter = await _gameFactory.CreateHelicopter(HelicopterID.Helicopter1, _initPoint.position, _initPoint.rotation);
+                    Camera.main.transform.SetParent(helicopter.transform, false);
+                    break;
+
+                default:
+                    Debug.LogError($"no logic [{_levelProgress.QuestID}]");
+                    break;
+            }
         }
 
         private async UniTask NextPoint()
@@ -66,7 +104,16 @@ namespace Assets.Scripts.Quests.Scenarios
             Destroy(reporter.gameObject);
             await NextPoint();
         }
-
+        private void RefreshNames()
+        {
+            if (_movePointsRoot != null)
+            {
+                for (int i = 0; i < _movePointsRoot.childCount; i++)
+                {
+                    _movePointsRoot.GetChild(i).gameObject.name = $"Point [{i + 1}]";
+                }
+            }
+        }
         private void OnDrawGizmos()
         {
             if (_initPoint != null)
@@ -74,6 +121,23 @@ namespace Assets.Scripts.Quests.Scenarios
                 Gizmos.color = Color.green;
                 Gizmos.DrawSphere(_initPoint.position, 15);
             }
+
+            if (_movePointsRoot != null)
+            {
+                Gizmos.color = Color.red;
+                Vector3 previousPos=Vector3.zero;
+                for (int i = 0; i < _movePointsRoot.childCount; i++)
+                {
+                    Transform point = _movePointsRoot.GetChild(i);
+                    Gizmos.DrawSphere(point.position, 5);
+                    if (i != 0)
+                    {
+                        Gizmos.DrawLine(previousPos, point.position);
+                    }
+                    previousPos = point.position;
+                }
+            }
+            RefreshNames();
         }
     }
 }

@@ -1,4 +1,5 @@
 using Assets.Scripts.Data.DronesData;
+using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Quests;
 using Assets.Scripts.Quests.Scenarios;
@@ -16,15 +17,17 @@ namespace Assets.Scripts.Services
         private readonly DiContainer _diContainer;
         private readonly IAssetProviderService _assetProvider;
         private readonly DroneData _droneData;
+        private readonly HelicopterData _helicopterData;
 
         private readonly QuestsData _questsData;
         private readonly QuestObjectsData _questObjectsData;
 
-        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, QuestsData questsData, QuestObjectsData questObjectsData)
+        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData)
         {
             _diContainer = diContainer;
             _assetProvider = assetProvider;
             _droneData = droneData;
+            _helicopterData = helicopterData;
             _questsData = questsData;
             _questObjectsData = questObjectsData;
         }
@@ -52,12 +55,23 @@ namespace Assets.Scripts.Services
             return null;
         }
 
+        public async UniTask<GameObject> CreateHelicopter(HelicopterID id, Vector3 pos, Quaternion rotate)
+        {
+            AssetReferenceGameObject reference = _helicopterData.GetConfig(id).HelicopterReference;
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
+            return InstantiateInject(prefab, pos, rotate);
+        }
+
         public async UniTask<GameObject> CreateDrone(DroneID droneID, Vector3 pos, Quaternion rotate)
         {
             AssetReferenceGameObject reference = _droneData.GetConfig(droneID).DroneReference;
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
-            GameObject instance = InstantiateInject(prefab);
+            return InstantiateInject(prefab, pos, rotate);
+        }
 
+        private GameObject InstantiateInject(GameObject prefab, Vector3 pos, Quaternion rotate, Transform parent = null)
+        {
+            GameObject instance = InstantiateInject(prefab);
             if (instance.TryGetComponent(out Rigidbody rb))
             {
                 rb.MovePosition(pos);
@@ -69,7 +83,6 @@ namespace Assets.Scripts.Services
             }
             return instance;
         }
-
         private GameObject InstantiateInject(GameObject prefab, Transform parent = null)
         {
             GameObject instance = _diContainer.InstantiatePrefab(prefab);

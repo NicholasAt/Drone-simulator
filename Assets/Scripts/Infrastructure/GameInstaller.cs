@@ -2,6 +2,7 @@ using Assets.Scripts.Data;
 using Assets.Scripts.Infrastructure.EntryPoints;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
+using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
 using UnityEngine.AddressableAssets;
 using Zenject;
@@ -18,6 +19,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<SceneLoader>().AsSingle();
             Container.Bind<UIFactory>().AsSingle();
             Container.Bind<GameFactory>().AsSingle();
+            Container.Bind<ProgressService>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();
 
             if (CheckingForUpdates.DataContainerHandle.IsValid())

@@ -741,6 +741,7 @@ GameObject:
   - component: {fileID: 4087853677187142901}
   - component: {fileID: 8477296572136866442}
   - component: {fileID: 4234880750575373835}
+  - component: {fileID: 4016869046190973735}
   - component: {fileID: 5954093913277989641}
   - component: {fileID: 3032707330016480869}
   m_Layer: 0
@@ -904,6 +905,18 @@ MonoBehaviour:
   _audioSource: {fileID: 5954093913277989641}
   _mainRotor: {fileID: 100397239861800811}
   _tailRotor: {fileID: 6508343547633874922}
+--- !u!114 &4016869046190973735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8996656804349026396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f0fbe69e7c9974e85b2b01b318d556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.CharacterMarker
 --- !u!82 &5954093913277989641
 AudioSource:
   m_ObjectHideFlags: 0
