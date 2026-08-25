@@ -4,6 +4,7 @@ using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Quests;
 using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services.AssetProvider;
+using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -21,8 +22,10 @@ namespace Assets.Scripts.Services
 
         private readonly QuestsData _questsData;
         private readonly QuestObjectsData _questObjectsData;
+        private readonly ProgressService _progressService;
+        public GameObject Player { get; private set; }
 
-        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData)
+        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService)
         {
             _diContainer = diContainer;
             _assetProvider = assetProvider;
@@ -30,6 +33,14 @@ namespace Assets.Scripts.Services
             _helicopterData = helicopterData;
             _questsData = questsData;
             _questObjectsData = questObjectsData;
+            _progressService = progressService;
+        }
+
+        public async UniTask<GameObject> CreateDeliverItem(Vector3 pos, Quaternion rotate)
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_questObjectsData.DeliveryItemReference);
+            GameObject instance = InstantiateInject(prefab, pos, rotate);
+            return instance;
         }
 
         public async UniTask<GameObject> CreateQuestPoint(Vector3 pos, Quaternion rotate)
@@ -68,7 +79,36 @@ namespace Assets.Scripts.Services
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
             return InstantiateInject(prefab, pos, rotate);
         }
+        public async UniTask CreateTransport(Vector3 pos, Quaternion rotate)
+        {
+            switch (_progressService.TempLevelProgress.QuestID)
+            {
+                case QuestID.DroneMove:
+                    GameObject drone = await CreateDrone(DroneID.Drone1, pos, rotate);
+                    Camera.main.transform.SetParent(drone.transform, false);
+                    Player = drone;
+                    break;
 
+                case QuestID.HelicopterMove:
+                    GameObject helicopterMove = await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
+                    Camera.main.transform.SetParent(helicopterMove.transform, false);
+                    Camera.main.transform.localPosition = new Vector3(0, 2, -14);
+                    Player = helicopterMove;
+                    break;
+
+                case QuestID.HelicopterDelivery:
+                    GameObject helicopterDelivery = await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
+                    Camera.main.transform.SetParent(helicopterDelivery.transform, false);
+                    Camera.main.transform.localPosition = new Vector3(0, 2, -14);
+                    Player = helicopterDelivery;
+                    break;
+
+                case QuestID.None:
+                default:
+                    Debug.LogError($"no logic [{_progressService.TempLevelProgress.QuestID}]");
+                    break;
+            }
+        }
         private GameObject InstantiateInject(GameObject prefab, Vector3 pos, Quaternion rotate, Transform parent = null)
         {
             GameObject instance = InstantiateInject(prefab);

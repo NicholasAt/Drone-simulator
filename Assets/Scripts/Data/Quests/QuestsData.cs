@@ -1,6 +1,3 @@
-using Assets.Scripts.Extensions;
-using Assets.Scripts.Quests;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +7,7 @@ namespace Assets.Scripts.Data.Quests
     public class QuestsData : ScriptableObject
     {
         [SerializeField] private List<QuestConfig> _questConfigs;
+
         private void OnValidate()
         {
             _questConfigs.ForEach(cfg => cfg.OnValidate());
@@ -17,6 +15,7 @@ namespace Assets.Scripts.Data.Quests
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }
+
         public QuestConfig GetQuest(QuestID iD)
         {
             foreach (QuestConfig cfg in _questConfigs)
@@ -27,22 +26,5 @@ namespace Assets.Scripts.Data.Quests
             Debug.LogError($"no id [{iD}]");
             return null;
         }
-    }
-    [Serializable]
-    public class QuestConfig
-    {
-        [field: SerializeField] public QuestID QuestID { get; private set; }
-        [field: SerializeField] public InterfaceReferenceGameObject<IQuest> QuestRunnerPrefab { get; private set; }
-
-        public void OnValidate()
-        {
-            QuestRunnerPrefab.OnValidate();
-        }
-    }
-    public enum QuestID
-    {
-        None,
-        DroneMove = 1,
-        HelicopterMove = 2,
     }
 }

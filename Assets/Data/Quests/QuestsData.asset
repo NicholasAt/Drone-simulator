@@ -18,4 +18,7 @@ MonoBehaviour:
       _target: {fileID: 4063667591074534612, guid: dcfdbc21f5548514fb801013e3d2347a, type: 3}
   - <QuestID>k__BackingField: 2
     <QuestRunnerPrefab>k__BackingField:
-      _target: {fileID: 4063667591074534612, guid: 649bdb3f7fb647c45a2c57f28b7aaf40, type: 3}
+      _target: {fileID: 4698879759970740936, guid: 649bdb3f7fb647c45a2c57f28b7aaf40, type: 3}
+  - <QuestID>k__BackingField: 3
+    <QuestRunnerPrefab>k__BackingField:
+      _target: {fileID: 860615553567335068, guid: bd12a1faca0bb844eafdc77aeb22423d, type: 3}

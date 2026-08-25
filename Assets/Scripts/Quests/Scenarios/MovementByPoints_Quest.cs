@@ -1,11 +1,6 @@
-using Assets.Scripts.Data.DronesData;
-using Assets.Scripts.Data.HelicoptersData;
-using Assets.Scripts.Data.Quests;
-using Assets.Scripts.Interactive;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -13,13 +8,11 @@ namespace Assets.Scripts.Quests.Scenarios
 {
     public class MovementByPoints_Quest : BaseQuest
     {
+        [SerializeField] private MovementByPoints _movementByPoints;
         [SerializeField] private Transform _initPoint;
-        [SerializeField] private Transform _movePointsRoot;
-        private readonly List<Transform> _movePoints = new();
 
         private GameFactory _gameFactory;
         private TempLevelProgress _levelProgress;
-        private int _currentPointIndex = -1;
         private bool _isEnd;
 
         [Inject]
@@ -28,64 +21,14 @@ namespace Assets.Scripts.Quests.Scenarios
             _gameFactory = gameFactory;
             _levelProgress = progressService.TempLevelProgress;
         }
-        private void OnValidate()
-        {
-            RefreshNames();
-        }
+
         protected override async UniTask OnRun()
         {
-            InitPoints();
-            await CreateTransport();
-            await NextPoint();
-        }
-        private void InitPoints()
-        {
-            for (int i = 0; i < _movePointsRoot.childCount; i++)
-            {
-                _movePoints.Add(_movePointsRoot.GetChild(i));
-            }
-        }
-        private async UniTask CreateTransport()
-        {
-            switch (_levelProgress.QuestID)
-            {
-                case QuestID.None:
-                    break;
-
-                case QuestID.DroneMove:
-                    GameObject drone = await _gameFactory.CreateDrone(DroneID.Drone1, _initPoint.position, _initPoint.rotation);
-                    Camera.main.transform.SetParent(drone.transform, false);
-                    break;
-
-                case QuestID.HelicopterMove:
-                    GameObject helicopter = await _gameFactory.CreateHelicopter(HelicopterID.Helicopter1, _initPoint.position, _initPoint.rotation);
-                    Camera.main.transform.SetParent(helicopter.transform, false);
-                    break;
-
-                default:
-                    Debug.LogError($"no logic [{_levelProgress.QuestID}]");
-                    break;
-            }
+            await _gameFactory.CreateTransport(_initPoint.position, _initPoint.rotation);
+            _movementByPoints.OnFinish += EndQuest;
+            await _movementByPoints.Run();
         }
 
-        private async UniTask NextPoint()
-        {
-            _currentPointIndex++;
-            if (_movePoints.Count <= _currentPointIndex)
-            {
-                EndQuest();
-            }
-            else
-            {
-                Transform movePoint = _movePoints[_currentPointIndex];
-                GameObject questPoint = await _gameFactory.CreateQuestPoint(movePoint.position, movePoint.rotation);
-
-                if (questPoint.TryGetComponent(out TriggerReporter triggerReporter) == false)
-                    Debug.LogError("no reporter");
-
-                triggerReporter.OnTrigger += (target) => OnTrigger(triggerReporter, target).Forget();
-            }
-        }
         private void EndQuest()
         {
             if (_isEnd)
@@ -93,76 +36,6 @@ namespace Assets.Scripts.Quests.Scenarios
 
             _isEnd = true;
             Debug.LogError("end");
-        }
-        private async UniTask OnTrigger(TriggerReporter reporter, GameObject target)
-        {
-            CharacterMarker character = target.GetComponentInParent<CharacterMarker>();
-            if (character == false)
-                return;
-
-            reporter.OnTrigger = null;
-            Destroy(reporter.gameObject);
-            await NextPoint();
-        }
-        private void RefreshNames()
-        {
-            if (_movePointsRoot != null)
-            {
-                for (int i = 0; i < _movePointsRoot.childCount; i++)
-                {
-                    _movePointsRoot.GetChild(i).gameObject.name = $"Point [{i + 1}]";
-                }
-            }
-        }
-        private void OnDrawGizmos()
-        {
-            if (_initPoint != null)
-            {
-                Gizmos.color = Color.green;
-                Gizmos.DrawSphere(_initPoint.position, 15);
-            }
-
-            if (_movePointsRoot != null)
-            {
-                const int frequency = 25;
-                const float arrowSize = 7;
-                const float angle = 35;
-
-                Gizmos.color = Color.red;
-                Vector3 previousPos = Vector3.zero;
-                for (int i = 0; i < _movePointsRoot.childCount; i++)
-                {
-                    Transform point = _movePointsRoot.GetChild(i);
-                    Gizmos.DrawSphere(point.position, 5);
-                    if (i != 0)
-                    {
-                        Gizmos.DrawLine(previousPos, point.position);
-
-                        Vector3 dir = previousPos - point.position;
-                        Vector3 right = Quaternion.AngleAxis(angle, Vector3.Cross(dir.normalized, Vector3.up)) * (dir.normalized * arrowSize);
-                        Vector3 left = Quaternion.AngleAxis(-angle, Vector3.Cross(dir.normalized, Vector3.up)) * (dir.normalized * arrowSize);
-                        Vector3 up = Quaternion.AngleAxis(angle, Vector3.Cross(dir.normalized, Vector3.right)) * (dir.normalized * arrowSize);
-                        Vector3 down = Quaternion.AngleAxis(-angle, Vector3.Cross(dir.normalized, Vector3.right)) * (dir.normalized * arrowSize);
-
-                        int distance = Mathf.RoundToInt(dir.magnitude);
-
-                        for (int j = 0; j < distance; j++)
-                        {
-                            if (j % frequency != frequency - 1)
-                                continue;
-
-                            float size = j;
-                            Vector3 pos = previousPos - (dir.normalized * size);
-                            Gizmos.DrawRay(pos, right);
-                            Gizmos.DrawRay(pos, left);
-                            Gizmos.DrawRay(pos, up);
-                            Gizmos.DrawRay(pos, down);
-                        }
-                    }
-                    previousPos = point.position;
-                }
-            }
-            RefreshNames();
         }
     }
 }

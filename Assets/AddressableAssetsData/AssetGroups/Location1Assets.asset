@@ -16,17 +16,17 @@ MonoBehaviour:
   m_GUID: ff7577a2cab521547b24276193553654
   m_SerializeEntries:
   - m_GUID: 114fb5463c0bac84494bd3657856ae16
-    m_Address: Assets/FastTerrainMesh/Terrain0/TerrainMaterial_0.mat
+    m_Address: TerrainMaterial_0
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2986e54104457b948995cf661a484439
-    m_Address: Assets/FastTerrainMesh/Terrain0/TerrainSplat_0.png
+    m_Address: TerrainSplat_0
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 96ffd6a2e2dc3724682998b33953342a
-    m_Address: Assets/Texures/CliffBright.tif
+    m_Address: CliffBright
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -36,12 +36,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c0daf7ec05f3b0c45b16a54fc82f5070
-    m_Address: Assets/roundy/FastTerrainToMeshGenerator/Shaders/FastUnlitTerrainShader.shader
+    m_Address: FastUnlitTerrainShader
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea9b9bb1d55263045ad70aec90e015d6
-    m_Address: Assets/Texures/ground_grass.png
+    m_Address: ground_grass
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

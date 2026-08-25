@@ -7,5 +7,6 @@ namespace Assets.Scripts.Data.Quests
     public class QuestObjectsData : ScriptableObject
     {
         [field: SerializeField] public AssetReferenceGameObject QuestPointReference { get; private set; }
+        [field: SerializeField] public AssetReferenceGameObject DeliveryItemReference { get; private set; }
     }
 }
