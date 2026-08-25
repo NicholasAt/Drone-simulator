@@ -91,14 +91,14 @@ namespace Assets.Scripts.Services
 
                 case QuestID.HelicopterMove:
                     GameObject helicopterMove = await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
-                    Camera.main.transform.SetParent(helicopterMove.transform, false);
+                    Camera.main.transform.SetParent(helicopterMove.transform);
                     Camera.main.transform.localPosition = new Vector3(0, 2, -14);
                     Player = helicopterMove;
                     break;
 
                 case QuestID.HelicopterDelivery:
                     GameObject helicopterDelivery = await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
-                    Camera.main.transform.SetParent(helicopterDelivery.transform, false);
+                    Camera.main.transform.SetParent(helicopterDelivery.transform);
                     Camera.main.transform.localPosition = new Vector3(0, 2, -14);
                     Player = helicopterDelivery;
                     break;
@@ -111,7 +111,7 @@ namespace Assets.Scripts.Services
         }
         private GameObject InstantiateInject(GameObject prefab, Vector3 pos, Quaternion rotate, Transform parent = null)
         {
-            GameObject instance = InstantiateInject(prefab);
+            GameObject instance = InstantiateInject(prefab, parent);
             if (instance.TryGetComponent(out Rigidbody rb))
             {
                 rb.MovePosition(pos);

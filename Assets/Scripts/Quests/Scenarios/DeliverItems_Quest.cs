@@ -1,6 +1,7 @@
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -44,13 +45,9 @@ namespace Assets.Scripts.Quests.Scenarios
                     return;
                 }
                 Transform point = triggerPoint.GetChild(0);
-                GameObject instance = await _gameFactory.CreateDeliverItem(point.position, point.rotation);
-                if (instance.TryGetComponent(out Rigidbody body))
-                {
-                    Vector3 playerPos = _gameFactory.Player.transform.position;
-                    Vector3 direction = point.position - playerPos;
-                    body.AddForce(direction.normalized * 1.5f, ForceMode.VelocityChange);
-                }
+                GameObject instance = await _gameFactory.CreateDeliverItem(_gameFactory.Player.transform.position, Quaternion.identity);
+                instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
+                instance.transform.DORotate(point.eulerAngles, 1);
             }
         }
 
@@ -87,7 +84,8 @@ namespace Assets.Scripts.Quests.Scenarios
                     {
                         Transform point = _pointsRoot.GetChild(i).GetChild(0);
                         Gizmos.DrawLine(point.position, _pointsRoot.GetChild(i).position);
-                        Gizmos.DrawSphere(point.position, 2);
+                        Gizmos.matrix = point.localToWorldMatrix;
+                        Gizmos.DrawCube(Vector3.zero, new Vector3(4, 2, 2));
                     }
                 }
                 RefreshNames();
