@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5067398638443326665}
   - component: {fileID: 1732534094767068242}
   - component: {fileID: 3599747378509524472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,6 +112,72 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &254366219931406664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 793792353509183695}
+  - component: {fileID: 2768131710594691083}
+  - component: {fileID: 5673931666243287993}
+  m_Layer: 6
+  m_Name: TurnedOver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &793792353509183695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254366219931406664}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5701948290885950440}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2768131710594691083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254366219931406664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5b190a8dfcf824e8cd37f145173840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.TurnedOver
+--- !u!65 &5673931666243287993
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254366219931406664}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7, y: 0.2, z: 0.7}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &499632753888922637
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +190,7 @@ GameObject:
   - component: {fileID: 7289765432847554757}
   - component: {fileID: 8345839230560662332}
   - component: {fileID: 6058157666661701371}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,9 +303,11 @@ GameObject:
   - component: {fileID: 4658688062421757665}
   - component: {fileID: 2826623933699818939}
   - component: {fileID: 4804090579799086434}
+  - component: {fileID: 8159434017923396623}
+  - component: {fileID: -3321345473456452882}
   - component: {fileID: 7852913601703467388}
   - component: {fileID: 6063605677369093760}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Drone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,6 +327,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 793792353509183695}
   - {fileID: 1749506945109278849}
   - {fileID: 1199492861531173190}
   - {fileID: 6387587894386554969}
@@ -332,6 +401,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f0fbe69e7c9974e85b2b01b318d556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.CharacterMarker
+  <IsBot>k__BackingField: 0
+--- !u!114 &8159434017923396623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2618895545765178413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8349d173a97e818439b3292a92b66f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.CharacterHit
+  _turnedOver: {fileID: 2768131710594691083}
+  _rb: {fileID: 7852913601703467388}
+--- !u!114 &-3321345473456452882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2618895545765178413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7fb111e8730cf479a47eb7ef0af2cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.CharacterRefresher
+  _rb: {fileID: 7852913601703467388}
 --- !u!54 &7852913601703467388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -468,7 +565,7 @@ GameObject:
   - component: {fileID: 8872172675018542550}
   - component: {fileID: 3199145618435835555}
   - component: {fileID: 149995102605412521}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +677,7 @@ GameObject:
   - component: {fileID: 7603144255686383367}
   - component: {fileID: 3080469693615808492}
   - component: {fileID: 8249693704907483344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -692,7 +789,7 @@ GameObject:
   - component: {fileID: 3402710615920059892}
   - component: {fileID: 5824734208584416651}
   - component: {fileID: 916034547252338422}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -45,7 +45,7 @@ namespace Assets.Scripts.Quests.Scenarios
                     return;
                 }
                 Transform point = triggerPoint.GetChild(0);
-                GameObject instance = await _gameFactory.CreateDeliverItem(_gameFactory.Player.transform.position, Quaternion.identity);
+                GameObject instance = await _gameFactory.CreateDeliverItem(_gameFactory.PlayerKeeper.Pos(), Quaternion.identity);
                 instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
                 instance.transform.DORotate(point.eulerAngles, 1);
             }

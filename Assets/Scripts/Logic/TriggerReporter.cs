@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Interactive
+namespace Assets.Scripts.Logic
 {
     public class TriggerReporter : MonoBehaviour
     {

@@ -1,6 +1,7 @@
 using Assets.Scripts.Bots;
+using Assets.Scripts.Character;
 using Assets.Scripts.Data.BotsData.CarData;
-using Assets.Scripts.Interactive;
+using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
 using Cysharp.Threading.Tasks;
 using System;

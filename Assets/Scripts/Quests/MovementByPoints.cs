@@ -1,4 +1,5 @@
-using Assets.Scripts.Interactive;
+using Assets.Scripts.Character;
+using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;

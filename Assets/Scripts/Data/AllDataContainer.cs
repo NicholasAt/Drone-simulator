@@ -1,4 +1,5 @@
 using Assets.Scripts.Data.BotsData.CarData;
+using Assets.Scripts.Data.CameraAnimationData;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
@@ -16,5 +17,6 @@ namespace Assets.Scripts.Data
         [field: SerializeField] public QuestsData QuestsData { get; private set; }
         [field: SerializeField] public QuestObjectsData QuestObjectsData { get; private set; }
         [field: SerializeField] public CarData CarData { get; private set; }
+        [field: SerializeField] public CameraData CameraData { get; private set; }
     }
 }

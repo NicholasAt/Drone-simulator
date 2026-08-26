@@ -2,6 +2,7 @@ using Assets.Scripts.Data;
 using Assets.Scripts.Infrastructure.EntryPoints;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
+using Assets.Scripts.Services.CameraService;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
 using UnityEngine.AddressableAssets;
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<UIFactory>().AsSingle();
             Container.Bind<GameFactory>().AsSingle();
             Container.Bind<ProgressService>().AsSingle();
+            Container.Bind<CameraStateService>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();
 
             if (CheckingForUpdates.DataContainerHandle.IsValid())
@@ -36,6 +38,7 @@ namespace Assets.Scripts.Infrastructure
             Container.BindInstance(data.QuestsData).AsSingle();
             Container.BindInstance(data.QuestObjectsData).AsSingle();
             Container.BindInstance(data.CarData).AsSingle();
+            Container.BindInstance(data.CameraData).AsSingle();
         }
 
         private void BindStates()
