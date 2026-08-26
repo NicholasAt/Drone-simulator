@@ -3,9 +3,11 @@ using Assets.Scripts.Character;
 using Assets.Scripts.Data.BotsData.CarData;
 using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
+using Assets.Scripts.Services.CameraService;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -20,17 +22,23 @@ namespace Assets.Scripts.Quests.Scenarios
             public Transform EndPoint;
             public CarID CarID;
         }
+        [SerializeField] private float _playerDamageRadius = 5;
         [SerializeField] private TriggerReporter _loseReporter;
         [SerializeField] private Transform _spawnPlayerPoint;
         [SerializeField] private List<PointsMarker> _pointsMarker;
 
+        private CameraStateService _cameraService;
+        private HitHandler _hitHandler;
         private GameFactory _gameFactory;
+        private CancellationToken _ct;
         private bool _isEnd;
-
+        private int _currentCarrs;
         [Inject]
-        private void Construct(GameFactory gameFactory)
+        private void Construct(GameFactory gameFactory, CameraStateService cameraService, HitHandler hitHandler)
         {
             _gameFactory = gameFactory;
+            _cameraService = cameraService;
+            _hitHandler = hitHandler;
         }
         private void OnValidate()
         {
@@ -38,12 +46,37 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         protected override async UniTask OnRun()
         {
-            _loseReporter.OnTrigger += OnTrigger;
+            _ct = this.GetCancellationTokenOnDestroy();
+            _hitHandler.Init(_playerDamageRadius);
             await _gameFactory.CreateTransport(_spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
-            await InitCar();
+            await InitCars();
+
+            _gameFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
+            _gameFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
+            _loseReporter.OnTrigger += OnLose;
         }
 
-        private async UniTask InitCar()
+        private void OnPlayerTurned()
+        {
+            if (_hitHandler.TryDamage(CharacterPos()))
+            {
+                PlayAnimation();
+            }
+            else
+                RestartPlayer();
+        }
+
+        private void OnPlayerHit(float impulse)
+        {
+            if (_hitHandler.TryDamage(CharacterPos()))
+            {
+                PlayAnimation();
+            }
+            else if (impulse > 10)
+                RestartPlayer();
+        }
+
+        private async UniTask InitCars()
         {
             foreach (PointsMarker marker in _pointsMarker)
             {
@@ -52,10 +85,38 @@ namespace Assets.Scripts.Quests.Scenarios
                     Transform point = marker.Root.GetChild(i);
                     BotCarMove car = await _gameFactory.CreateCar(marker.CarID, point.position, point.rotation);
                     car.SetPoint(marker.EndPoint.position);
+                    if (car.TryGetComponent(out IApplyDamage applyDamage) == false)
+                    {
+                        Debug.LogError("no apply damage");
+                    }
+                    _currentCarrs++;
+                    applyDamage.Happened += OnDestroyCar;
                 }
             }
         }
-        private void OnTrigger(GameObject obj)
+
+        private void OnDestroyCar()
+        {
+            _currentCarrs--;
+            if (_currentCarrs <= 0)
+                Debug.LogError("win");
+        }
+
+        private Vector3 CharacterPos()
+        {
+            return _gameFactory.PlayerKeeper.Pos();
+        }
+        private void PlayAnimation()
+        {
+            _cameraService.Show(CharacterPos(), _ct).ContinueWith(RestartPlayer);
+            _gameFactory.PlayerKeeper.CharacterRefresher.Hide();
+        }
+        private void RestartPlayer()
+        {
+            _gameFactory.PlayerKeeper.CharacterRefresher.Show(_spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
+            _cameraService.SetParent(_gameFactory.PlayerKeeper.Character.transform);
+        }
+        private void OnLose(GameObject obj)
         {
             CharacterMarker cahracter = obj.GetComponentInParent<CharacterMarker>();
             if (cahracter != null && cahracter.IsBot)

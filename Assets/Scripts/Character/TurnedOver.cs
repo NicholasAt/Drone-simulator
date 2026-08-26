@@ -8,7 +8,8 @@ namespace Assets.Scripts.Character
         public Action OnTrigger { get; set; }
         private void OnTriggerEnter(Collider other)
         {
-            OnTrigger?.Invoke();
+            if (other.isTrigger == false)
+                OnTrigger?.Invoke();
         }
     }
 }

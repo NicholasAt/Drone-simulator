@@ -1,5 +1,6 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Infrastructure.EntryPoints;
+using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.CameraService;
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Infrastructure
             BindData();
             BindStates();
 
+            Container.Bind<HitHandler>().AsTransient();
             Container.Bind<SceneLoader>().AsSingle();
             Container.Bind<UIFactory>().AsSingle();
             Container.Bind<GameFactory>().AsSingle();

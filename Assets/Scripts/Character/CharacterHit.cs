@@ -7,8 +7,10 @@ namespace Assets.Scripts.Character
     {
         [SerializeField] private TurnedOver _turnedOver;
         [SerializeField] private Rigidbody _rb;
+
         public Action<float> OnHit { get; set; }
         public Action OnTurned { get; set; }
+
         private void Start()
         {
             _turnedOver.OnTrigger += () => OnTurned?.Invoke();

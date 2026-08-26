@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8343029756256233460}
   - component: {fileID: 6939219201460898662}
   - component: {fileID: 1809552322092242761}
+  - component: {fileID: 8308644906384984165}
   - component: {fileID: 5807651793352848489}
   - component: {fileID: 9170128089720795814}
   m_Layer: 6
@@ -63,6 +64,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Bots.BotCarMove
   _agent: {fileID: 5807651793352848489}
+--- !u!114 &8308644906384984165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7051118856343292220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ce970c406077446a85e72130d663ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Bots.BotHealth
 --- !u!195 &5807651793352848489
 NavMeshAgent:
   m_ObjectHideFlags: 0
