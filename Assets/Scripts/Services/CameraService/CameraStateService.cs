@@ -67,7 +67,7 @@ namespace Assets.Scripts.Services.CameraService
                             continue;
                         }
 
-                        if (Physics.SphereCast(pos, CastSize, (from - pos).normalized, out RaycastHit hit, Vector3.Distance(from, pos) - 1, ~_ignoreMask, QueryTriggerInteraction.Ignore) == false)
+                        if (Physics.SphereCast(pos, CastSize, (from - pos).normalized, out RaycastHit hit, Vector3.Distance(from, pos) - 1.5f, ~_ignoreMask, QueryTriggerInteraction.Ignore) == false)
                             break;
                     }
 
