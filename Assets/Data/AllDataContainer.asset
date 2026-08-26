@@ -18,3 +18,4 @@ MonoBehaviour:
   <LocationData>k__BackingField: {fileID: 11400000, guid: bfb63c17657ea894d8031b8ae15550db, type: 2}
   <QuestsData>k__BackingField: {fileID: 11400000, guid: 19038a9524d354245a3f481ba4ab2609, type: 2}
   <QuestObjectsData>k__BackingField: {fileID: 11400000, guid: 6d42907be7fcb1e4a8d6f0d63e4d5d60, type: 2}
+  <CarData>k__BackingField: {fileID: 11400000, guid: 78cd150e016a1414f8dcdc40897aff1e, type: 2}

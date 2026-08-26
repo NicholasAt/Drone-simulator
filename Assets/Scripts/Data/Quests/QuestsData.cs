@@ -7,7 +7,7 @@ namespace Assets.Scripts.Data.Quests
     public class QuestsData : ScriptableObject
     {
         [SerializeField] private List<QuestConfig> _questConfigs;
-
+        public IList<QuestConfig> QuestConfigs => _questConfigs;
         private void OnValidate()
         {
             _questConfigs.ForEach(cfg => cfg.OnValidate());

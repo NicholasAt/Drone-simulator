@@ -6,5 +6,6 @@ namespace Assets.Scripts.Data.Quests
         DroneMove = 1,
         HelicopterMove = 2,
         HelicopterDelivery = 3,
+        DestroyMovingCar = 4,
     }
 }

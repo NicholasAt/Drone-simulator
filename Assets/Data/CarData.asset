@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b94d9ebac03b64b880af115f4c7cbe, type: 3}
+  m_Name: CarData
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.BotsData.CarData.BotCarData
+  _carConfigs:
+  - <ID>k__BackingField: 1
+    <PrefabReference>k__BackingField:
+      m_AssetGUID: 6cc89ebd41da57840a7e85474657534f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    <Speed>k__BackingField: 8
+  - <ID>k__BackingField: 2
+    <PrefabReference>k__BackingField:
+      m_AssetGUID: fc665c94bb506ec4797f48bf54899206
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    <Speed>k__BackingField: 5

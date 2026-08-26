@@ -1,3 +1,5 @@
+using Assets.Scripts.Bots;
+using Assets.Scripts.Data.BotsData.CarData;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
@@ -18,6 +20,7 @@ namespace Assets.Scripts.Services
         private readonly DiContainer _diContainer;
         private readonly IAssetProviderService _assetProvider;
         private readonly DroneData _droneData;
+        private readonly CarData _carData;
         private readonly HelicopterData _helicopterData;
 
         private readonly QuestsData _questsData;
@@ -25,11 +28,12 @@ namespace Assets.Scripts.Services
         private readonly ProgressService _progressService;
         public GameObject Player { get; private set; }
 
-        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService)
+        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService)
         {
             _diContainer = diContainer;
             _assetProvider = assetProvider;
             _droneData = droneData;
+            _carData = carData;
             _helicopterData = helicopterData;
             _questsData = questsData;
             _questObjectsData = questObjectsData;
@@ -79,6 +83,20 @@ namespace Assets.Scripts.Services
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
             return InstantiateInject(prefab, pos, rotate);
         }
+        public async UniTask<BotCarMove> CreateCar(CarID id, Vector3 pos, Quaternion rotate)
+        {
+            CarConfig cfg = _carData.GetConfig(id);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference);
+            GameObject instance = InstantiateInject(prefab, pos, rotate);
+
+            if (instance.TryGetComponent(out BotCarMove botCar))
+            {
+                botCar.Init(cfg.Speed);
+                return botCar;
+            }
+            Debug.LogError("no component");
+            return null;
+        }
         public async UniTask CreateTransport(Vector3 pos, Quaternion rotate)
         {
             switch (_progressService.TempLevelProgress.QuestID)
@@ -101,6 +119,12 @@ namespace Assets.Scripts.Services
                     Camera.main.transform.SetParent(helicopterDelivery.transform);
                     Camera.main.transform.localPosition = new Vector3(0, 2, -14);
                     Player = helicopterDelivery;
+                    break;
+
+                case QuestID.DestroyMovingCar:
+                    GameObject droneMovingCar = await CreateDrone(DroneID.Drone1, pos, rotate);
+                    Camera.main.transform.SetParent(droneMovingCar.transform, false);
+                    Player = droneMovingCar;
                     break;
 
                 case QuestID.None:

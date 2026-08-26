@@ -35,6 +35,7 @@ namespace Assets.Scripts.Infrastructure
             Container.BindInstance(data.LocationData).AsSingle();
             Container.BindInstance(data.QuestsData).AsSingle();
             Container.BindInstance(data.QuestObjectsData).AsSingle();
+            Container.BindInstance(data.CarData).AsSingle();
         }
 
         private void BindStates()
