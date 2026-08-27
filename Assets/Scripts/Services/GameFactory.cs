@@ -1,6 +1,7 @@
 using Assets.Scripts.Bots;
 using Assets.Scripts.Character;
 using Assets.Scripts.Data.BotsData.CarData;
+using Assets.Scripts.Data.BotsData.FlyData;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
@@ -9,6 +10,7 @@ using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
@@ -22,6 +24,7 @@ namespace Assets.Scripts.Services
         private readonly IAssetProviderService _assetProvider;
         private readonly DroneData _droneData;
         private readonly CarData _carData;
+        private readonly FlyingTransportData _flyingTransportData;
         private readonly HelicopterData _helicopterData;
 
         private readonly QuestsData _questsData;
@@ -29,12 +32,13 @@ namespace Assets.Scripts.Services
         private readonly ProgressService _progressService;
         public CharacterComponentsKeeper PlayerKeeper { get; private set; }
 
-        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService)
+        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, FlyingTransportData flyingTransportData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService)
         {
             _diContainer = diContainer;
             _assetProvider = assetProvider;
             _droneData = droneData;
             _carData = carData;
+            _flyingTransportData = flyingTransportData;
             _helicopterData = helicopterData;
             _questsData = questsData;
             _questObjectsData = questObjectsData;
@@ -84,10 +88,24 @@ namespace Assets.Scripts.Services
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
             return InstantiateInject(prefab, pos, rotate);
         }
-        public async UniTask<BotCarMove> CreateCar(CarID id, Vector3 pos, Quaternion rotate)
+        public async UniTask<BotMovementByArea> CreateFlying(FlyingTransportID id, Vector3 pos, Quaternion rotate, CancellationToken ct = default)
+        {
+            FlyingTransportConfig cfg = _flyingTransportData.GetConfig(id);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, ct);
+            GameObject instance = InstantiateInject(prefab, pos, rotate);
+
+            if (instance.TryGetComponent(out BotMovementByArea botFly))
+            {
+                botFly.Init(cfg.Speed);
+                return botFly;
+            }
+            Debug.LogError("no component");
+            return null;
+        }
+        public async UniTask<BotCarMove> CreateCar(CarID id, Vector3 pos, Quaternion rotate, CancellationToken ct = default)
         {
             CarConfig cfg = _carData.GetConfig(id);
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
 
             if (instance.TryGetComponent(out BotCarMove botCar))
@@ -128,6 +146,12 @@ namespace Assets.Scripts.Services
                     Camera.main.transform.SetParent(droneMovingCar.transform, false);
                     instance = droneMovingCar;
                     break;
+               
+                case QuestID.DestroyFlyingObjects:
+                    GameObject droneFlying = await CreateDrone(DroneID.Drone1, pos, rotate);
+                    Camera.main.transform.SetParent(droneFlying.transform, false);
+                    instance = droneFlying;
+                    break;
 
                 case QuestID.None:
                 default:
@@ -137,7 +161,7 @@ namespace Assets.Scripts.Services
             if (instance != null)
             {
                 instance.TryGetComponent(out CharacterHit hit);
-                instance.TryGetComponent(out CharacterRefresher refresher);
+                instance.TryGetComponent(out IRefreshPositions refresher);
                 PlayerKeeper = new(instance, refresher, hit);
             }
         }

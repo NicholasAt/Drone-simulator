@@ -41,6 +41,7 @@ namespace Assets.Scripts.Infrastructure
             Container.BindInstance(data.QuestObjectsData).AsSingle();
             Container.BindInstance(data.CarData).AsSingle();
             Container.BindInstance(data.CameraData).AsSingle();
+            Container.BindInstance(data.FlyingTransportData).AsSingle();
         }
 
         private void BindStates()

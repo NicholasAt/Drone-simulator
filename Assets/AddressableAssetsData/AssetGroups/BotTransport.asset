@@ -10,13 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Cars
+  m_Name: BotTransport
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Cars
+  m_GroupName: BotTransport
   m_GUID: bd9b899d3881b094db37e0cc3df7bcb6
   m_SerializeEntries:
   - m_GUID: 6cc89ebd41da57840a7e85474657534f
     m_Address: Hummer1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5fbf7ab644fddb40950fdc8d9054d64
+    m_Address: BotHelicopter1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -25,3 +25,6 @@ MonoBehaviour:
   - <QuestID>k__BackingField: 4
     <QuestRunnerPrefab>k__BackingField:
       _target: {fileID: 4688546103082769140, guid: 25b490259944d2148a4593cd55dbe88e, type: 3}
+  - <QuestID>k__BackingField: 5
+    <QuestRunnerPrefab>k__BackingField:
+      _target: {fileID: 3642531662350468159, guid: 404cb2bbf7730c74cbf4d84529a3333b, type: 3}

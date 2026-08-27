@@ -1,26 +1,34 @@
 using Assets.Scripts.Logic;
-using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Assets.Scripts.Bots
 {
-    public class BotHealth : MonoBehaviour, IApplyDamage
+    public class BotHealth : MonoBehaviour, IApplyDamage, IRefresh
     {
         public Action Happened { get; set; }
-        bool _isDead;
+        public bool Died { get; private set; }
+
+        private IRefreshPositions _refreshPositions;
+        private void Awake()
+        {
+            _refreshPositions = GetComponent<IRefreshPositions>();
+        }
         public void Hit(float damage)
         {
-            if (_isDead)
+            if (Died)
                 return;
 
-            _isDead = true;
-            const float TempPos = 5;
-            const float TempSpeed = 15;
+            Died = true;
             GetComponent<NavMeshAgent>().enabled = false;
-            transform.DOMove(transform.position + Vector3.down * TempPos, TempSpeed).OnComplete(() => gameObject.SetActive(false));
+            _refreshPositions.Hide();
             Happened?.Invoke();
+        }
+
+        public void Refresh()
+        {
+            Died = false;
         }
     }
 }
