@@ -15,7 +15,7 @@ namespace Assets.Scripts.Quests.Scenarios
     public class DestroyFlyingObjects_Quest : BaseQuest
     {
         [Serializable]
-        public class SpawnMarker
+        private class SpawnMarker
         {
             public Transform Point;
             public float Radius;
@@ -23,18 +23,18 @@ namespace Assets.Scripts.Quests.Scenarios
         }
 
         [Serializable]
-        public class Config
+        private class Config
         {
             public int MaxTargets = 3;
             public int MinTargets = 1;
-            public float DieImpulse = 15;
+            public float DieImpulse = 20;
+            public float PlayerDamageRadius = 5;
         }
         [SerializeField] private Config _config;
+        [SerializeField] private List<SpawnMarker> _spawnMarkers;
 
         [SerializeField] private WalkableArea _walkableArea;
-        [SerializeField] private float _playerDamageRadius = 5;
         [SerializeField] private Transform _playerSpawnPoint;
-        [SerializeField] private List<SpawnMarker> _spawnMarkers;
 
         private CameraStateService _cameraService;
         private HitHandler _hitHandler;
@@ -54,14 +54,14 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             if (_gameFactory.PlayerKeeper != null)
             {
-            _gameFactory.PlayerKeeper.CharacterHit.OnHit -= OnPlayerHit;
-            _gameFactory.PlayerKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
+                _gameFactory.PlayerKeeper.CharacterHit.OnHit -= OnPlayerHit;
+                _gameFactory.PlayerKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
             }
         }
         protected override async UniTask OnRun()
         {
             _ct = this.GetCancellationTokenOnDestroy();
-            _hitHandler.Init(_playerDamageRadius);
+            _hitHandler.Init(_config.PlayerDamageRadius);
             await _gameFactory.CreateTransport(_playerSpawnPoint.position, _playerSpawnPoint.rotation);
             await InitTransport();
 

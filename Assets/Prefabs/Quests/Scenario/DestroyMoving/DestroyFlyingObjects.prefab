@@ -48,9 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65c501463313bc44b9238200e89d591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DestroyFlyingObjects_Quest
-  _walkableArea: {fileID: 7632386550143753189}
-  _playerDamageRadius: 5
-  _playerSpawnPoint: {fileID: 6582716486917848263}
+  _config:
+    MaxTargets: 3
+    MinTargets: 1
+    DieImpulse: 20
+    PlayerDamageRadius: 5
   _spawnMarkers:
   - Point: {fileID: 3652758078039693086}
     Radius: 50
@@ -58,6 +60,8 @@ MonoBehaviour:
   - Point: {fileID: 5671048295433811151}
     Radius: 50
     Id: 1
+  _walkableArea: {fileID: 7632386550143753189}
+  _playerSpawnPoint: {fileID: 6582716486917848263}
 --- !u!1 &4108176731013583178
 GameObject:
   m_ObjectHideFlags: 0

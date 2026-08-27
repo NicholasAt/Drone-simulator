@@ -78,7 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DestroyStatic_Quest
   _config:
-    DieImpulse: 10
+    DieImpulse: 20
+    DamageRadius: 5
   _targetsRoot: {fileID: 7867328676289207682}
   _playerInitPoint: {fileID: 2015069983624001833}
 --- !u!1 &3265287397962244683

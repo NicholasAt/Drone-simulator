@@ -13,9 +13,10 @@ namespace Assets.Scripts.Quests.Scenarios
     public class DestroyStatic_Quest : BaseQuest
     {
         [Serializable]
-        public class Config
+        private class Config
         {
-            public float DieImpulse = 10;
+            public float DieImpulse = 20;
+            public float DamageRadius = 5;
         }
         [SerializeField] private Config _config;
         [SerializeField] private Transform _targetsRoot;
@@ -51,6 +52,7 @@ namespace Assets.Scripts.Quests.Scenarios
         protected override async UniTask OnRun()
         {
             _ct = this.GetCancellationTokenOnDestroy();
+            _hitHandler.Init(_config.DamageRadius);
             await _gameFactory.CreateTransport(_playerInitPoint.position, _playerInitPoint.rotation);
             await InitObjects();
             _gameFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;

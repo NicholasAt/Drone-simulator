@@ -16,16 +16,22 @@ namespace Assets.Scripts.Quests.Scenarios
     public class DestroyMovingCar_Quest : BaseQuest
     {
         [Serializable]
-        public class PointsMarker
+        private class PointsMarker
         {
             public Transform Root;
             public Transform EndPoint;
             public CarID CarID;
         }
-        [SerializeField] private float _playerDamageRadius = 5;
+        [Serializable]
+        private class Config
+        {
+            public float PlayerDamageRadius = 5;
+            public float DieImpulse = 20;
+        }
+        [SerializeField] private Config _config;
+        [SerializeField] private List<PointsMarker> _pointsMarker;
         [SerializeField] private TriggerReporter _loseReporter;
         [SerializeField] private Transform _spawnPlayerPoint;
-        [SerializeField] private List<PointsMarker> _pointsMarker;
 
         private CameraStateService _cameraService;
         private HitHandler _hitHandler;
@@ -47,7 +53,7 @@ namespace Assets.Scripts.Quests.Scenarios
         protected override async UniTask OnRun()
         {
             _ct = this.GetCancellationTokenOnDestroy();
-            _hitHandler.Init(_playerDamageRadius);
+            _hitHandler.Init(_config.PlayerDamageRadius);
             await _gameFactory.CreateTransport(_spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
             await InitCars();
 
@@ -72,7 +78,7 @@ namespace Assets.Scripts.Quests.Scenarios
             {
                 PlayAnimation();
             }
-            else if (impulse > 10)
+            else if (impulse > _config.DieImpulse)
                 RestartPlayer();
         }
 

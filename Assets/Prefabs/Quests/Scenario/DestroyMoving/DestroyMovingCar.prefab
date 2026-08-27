@@ -241,7 +241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b1d07d39373f047adc7795b41aca5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DestroyMovingCar_Quest
-  _playerDamageRadius: 5
+  _config:
+    PlayerDamageRadius: 5
+    DieImpulse: 20
   _loseReporter: {fileID: 1988377916961611088}
   _spawnPlayerPoint: {fileID: 3853981090400166865}
   _pointsMarker:
