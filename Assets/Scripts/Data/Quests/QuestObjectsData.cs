@@ -8,5 +8,6 @@ namespace Assets.Scripts.Data.Quests
     {
         [field: SerializeField] public AssetReferenceGameObject QuestPointReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject DeliveryItemReference { get; private set; }
+        [field: SerializeField] public AssetReferenceGameObject DestroyableItemReference { get; private set; }
     }
 }

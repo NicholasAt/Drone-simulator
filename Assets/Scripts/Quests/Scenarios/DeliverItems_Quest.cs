@@ -1,7 +1,9 @@
+using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -15,13 +17,16 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private GameFactory _gameFactory;
         private TempLevelProgress _levelProgress;
+        private QuestObjectsData _questObjectsData;
         private bool _isEnd;
+        private CancellationToken _ct;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, ProgressService progressService)
+        private void Construct(GameFactory gameFactory, ProgressService progressService, QuestObjectsData questObjectsData)
         {
             _gameFactory = gameFactory;
             _levelProgress = progressService.TempLevelProgress;
+            _questObjectsData = questObjectsData;
         }
         private void OnValidate()
         {
@@ -29,6 +34,7 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         protected override async UniTask OnRun()
         {
+            _ct = this.GetCancellationTokenOnDestroy();
             await _gameFactory.CreateTransport(_initPoint.position, _initPoint.rotation);
             _movementByPoints.OnTriggered += (point) => Triggered(point).Forget();
             _movementByPoints.OnFinish += EndQuest;
@@ -45,7 +51,7 @@ namespace Assets.Scripts.Quests.Scenarios
                     return;
                 }
                 Transform point = triggerPoint.GetChild(0);
-                GameObject instance = await _gameFactory.CreateDeliverItem(_gameFactory.PlayerKeeper.Pos(), Quaternion.identity);
+                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, _gameFactory.PlayerKeeper.Pos(), Quaternion.identity, _ct);
                 instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
                 instance.transform.DORotate(point.eulerAngles, 1);
             }

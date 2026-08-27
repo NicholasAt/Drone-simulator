@@ -11,9 +11,12 @@ namespace Assets.Scripts.Bots
         public bool Died { get; private set; }
 
         private IRefreshPositions _refreshPositions;
+        private NavMeshAgent _agent;
+
         private void Awake()
         {
             _refreshPositions = GetComponent<IRefreshPositions>();
+            _agent = GetComponent<NavMeshAgent>();
         }
         public void Hit(float damage)
         {
@@ -21,8 +24,9 @@ namespace Assets.Scripts.Bots
                 return;
 
             Died = true;
-            GetComponent<NavMeshAgent>().enabled = false;
-            _refreshPositions.Hide();
+            if (_agent != null)
+                _agent.enabled = false;
+            _refreshPositions?.Hide();
             Happened?.Invoke();
         }
 

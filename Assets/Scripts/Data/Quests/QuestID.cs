@@ -8,5 +8,6 @@ namespace Assets.Scripts.Data.Quests
         HelicopterDelivery = 3,
         DestroyMovingCar = 4,
         DestroyFlyingObjects = 5,
+        DestroyStatic = 6,
     }
 }

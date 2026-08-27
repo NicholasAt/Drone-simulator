@@ -42,6 +42,7 @@ namespace Assets.Scripts.Quests.Scenarios
         private CancellationToken _ct;
         private bool _isEnd;
         private readonly List<(IApplyDamage, BotRefresher)> _targers = new();
+
         [Inject]
         private void Construct(GameFactory gameFactory, CameraStateService cameraService, HitHandler hitHandler)
         {
@@ -49,7 +50,14 @@ namespace Assets.Scripts.Quests.Scenarios
             _cameraService = cameraService;
             _hitHandler = hitHandler;
         }
-
+        private void OnDestroy()
+        {
+            if (_gameFactory.PlayerKeeper != null)
+            {
+            _gameFactory.PlayerKeeper.CharacterHit.OnHit -= OnPlayerHit;
+            _gameFactory.PlayerKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
+            }
+        }
         protected override async UniTask OnRun()
         {
             _ct = this.GetCancellationTokenOnDestroy();

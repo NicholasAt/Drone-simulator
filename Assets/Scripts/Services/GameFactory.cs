@@ -45,9 +45,9 @@ namespace Assets.Scripts.Services
             _progressService = progressService;
         }
 
-        public async UniTask<GameObject> CreateDeliverItem(Vector3 pos, Quaternion rotate)
+        public async UniTask<GameObject> CreateQuestObject(AssetReferenceGameObject reference,Vector3 pos, Quaternion rotate, CancellationToken ct)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_questObjectsData.DeliveryItemReference);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
             return instance;
         }
@@ -151,6 +151,12 @@ namespace Assets.Scripts.Services
                     GameObject droneFlying = await CreateDrone(DroneID.Drone1, pos, rotate);
                     Camera.main.transform.SetParent(droneFlying.transform, false);
                     instance = droneFlying;
+                    break;
+
+                case QuestID.DestroyStatic:
+                    GameObject droneStatic = await CreateDrone(DroneID.Drone1, pos, rotate);
+                    Camera.main.transform.SetParent(droneStatic.transform, false);
+                    instance = droneStatic;
                     break;
 
                 case QuestID.None:
