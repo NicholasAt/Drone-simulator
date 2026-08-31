@@ -12,22 +12,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17f40e98235d487428782522ca204797, type: 3}
   m_Name: QuestsData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.Quests.QuestsData
-  _questConfigs:
-  - <QuestID>k__BackingField: 1
-    <QuestRunnerPrefab>k__BackingField:
-      _target: {fileID: 4063667591074534612, guid: dcfdbc21f5548514fb801013e3d2347a, type: 3}
-  - <QuestID>k__BackingField: 2
-    <QuestRunnerPrefab>k__BackingField:
-      _target: {fileID: 4063667591074534612, guid: 90b08088c52b2094d866af53dff6614d, type: 3}
-  - <QuestID>k__BackingField: 3
-    <QuestRunnerPrefab>k__BackingField:
-      _target: {fileID: 860615553567335068, guid: bd12a1faca0bb844eafdc77aeb22423d, type: 3}
-  - <QuestID>k__BackingField: 4
-    <QuestRunnerPrefab>k__BackingField:
-      _target: {fileID: 4688546103082769140, guid: 25b490259944d2148a4593cd55dbe88e, type: 3}
-  - <QuestID>k__BackingField: 5
-    <QuestRunnerPrefab>k__BackingField:
-      _target: {fileID: 3642531662350468159, guid: 404cb2bbf7730c74cbf4d84529a3333b, type: 3}
-  - <QuestID>k__BackingField: 6
-    <QuestRunnerPrefab>k__BackingField:
-      _target: {fileID: 2768051020019286453, guid: d05bd52f126654a4a983fa47df3ebafb, type: 3}
+  _categoryConfigs:
+  - <TransportName>k__BackingField: Helicopter
+    <Icon>k__BackingField: {fileID: 0}
+    _questConfig:
+    - <MissionName>k__BackingField: Point-to-Point Flight Training
+      <MissionDescription>k__BackingField: q
+      <Icon>k__BackingField: {fileID: 0}
+      <QuestID>k__BackingField: 2
+      <QuestRunnerPrefab>k__BackingField:
+        _target: {fileID: 4063667591074534612, guid: 90b08088c52b2094d866af53dff6614d, type: 3}
+    - <MissionName>k__BackingField: 
+      <MissionDescription>k__BackingField: 
+      <Icon>k__BackingField: {fileID: 0}
+      <QuestID>k__BackingField: 3
+      <QuestRunnerPrefab>k__BackingField:
+        _target: {fileID: 860615553567335068, guid: bd12a1faca0bb844eafdc77aeb22423d, type: 3}
+  - <TransportName>k__BackingField: Drone
+    <Icon>k__BackingField: {fileID: 0}
+    _questConfig:
+    - <MissionName>k__BackingField: Point-to-Point Flight Training
+      <MissionDescription>k__BackingField: 
+      <Icon>k__BackingField: {fileID: 0}
+      <QuestID>k__BackingField: 1
+      <QuestRunnerPrefab>k__BackingField:
+        _target: {fileID: 4063667591074534612, guid: dcfdbc21f5548514fb801013e3d2347a, type: 3}
+    - <MissionName>k__BackingField: 
+      <MissionDescription>k__BackingField: 
+      <Icon>k__BackingField: {fileID: 0}
+      <QuestID>k__BackingField: 6
+      <QuestRunnerPrefab>k__BackingField:
+        _target: {fileID: 2768051020019286453, guid: d05bd52f126654a4a983fa47df3ebafb, type: 3}
+    - <MissionName>k__BackingField: 
+      <MissionDescription>k__BackingField: 
+      <Icon>k__BackingField: {fileID: 0}
+      <QuestID>k__BackingField: 4
+      <QuestRunnerPrefab>k__BackingField:
+        _target: {fileID: 4688546103082769140, guid: 25b490259944d2148a4593cd55dbe88e, type: 3}
+    - <MissionName>k__BackingField: 
+      <MissionDescription>k__BackingField: 
+      <Icon>k__BackingField: {fileID: 0}
+      <QuestID>k__BackingField: 5
+      <QuestRunnerPrefab>k__BackingField:
+        _target: {fileID: 3642531662350468159, guid: 404cb2bbf7730c74cbf4d84529a3333b, type: 3}

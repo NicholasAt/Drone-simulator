@@ -3,11 +3,11 @@ namespace Assets.Scripts.Data.Quests
     public enum QuestID
     {
         None,
-        DroneMove = 1,
-        HelicopterMove = 2,
-        HelicopterDelivery = 3,
-        DestroyMovingCar = 4,
-        DestroyFlyingObjects = 5,
-        DestroyStatic = 6,
+        Drone_Move = 1,
+        Helicopter_Move = 2,
+        Helicopter_Delivery = 3,
+        Drone_DestroyMovingCar = 4,
+        Drone_DestroyFlyingObjects = 5,
+        Drone_DestroyStatic = 6,
     }
 }

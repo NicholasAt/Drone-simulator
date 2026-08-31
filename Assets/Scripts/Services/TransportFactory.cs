@@ -23,27 +23,27 @@ namespace Assets.Scripts.Services
         {
             switch (questID)
             {
-                case QuestID.DroneMove:
+                case QuestID.Drone_Move:
                     await CreateDrone(DroneID.Drone1, pos, rotate);
                     break;
 
-                case QuestID.HelicopterMove:
+                case QuestID.Helicopter_Move:
                     await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
                     break;
 
-                case QuestID.HelicopterDelivery:
+                case QuestID.Helicopter_Delivery:
                     await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
                     break;
 
-                case QuestID.DestroyMovingCar:
+                case QuestID.Drone_DestroyMovingCar:
                     await CreateDrone(DroneID.Drone1, pos, rotate);
                     break;
 
-                case QuestID.DestroyFlyingObjects:
+                case QuestID.Drone_DestroyFlyingObjects:
                     await CreateDrone(DroneID.Drone1, pos, rotate);
                     break;
 
-                case QuestID.DestroyStatic:
+                case QuestID.Drone_DestroyStatic:
                     await CreateDrone(DroneID.Drone1, pos, rotate);
                     break;
 

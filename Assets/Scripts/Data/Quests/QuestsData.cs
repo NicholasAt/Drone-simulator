@@ -6,22 +6,37 @@ namespace Assets.Scripts.Data.Quests
     [CreateAssetMenu(menuName = "Data/Quests/Data")]
     public class QuestsData : ScriptableObject
     {
-        [SerializeField] private List<QuestConfig> _questConfigs;
-        public IList<QuestConfig> QuestConfigs => _questConfigs;
+        [SerializeField] private List<QuestCategory> _categoryConfigs;
+        public IList<QuestCategory> CategoryConfigs => _categoryConfigs;
         private void OnValidate()
         {
-            _questConfigs.ForEach(cfg => cfg.OnValidate());
+            _categoryConfigs.ForEach(cfg => cfg.OnValidate());
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }
-
+        public QuestCategory GetCategoryByQuestId(QuestID id)
+        {
+            foreach (QuestCategory categoryConfig in _categoryConfigs)
+            {
+                foreach (QuestConfig questConfig in categoryConfig.QuestConfigs)
+                {
+                    if (questConfig.QuestID == id)
+                        return categoryConfig;
+                }
+            }
+            Debug.LogError($"no cfg [{id}]");
+            return null;
+        }
         public QuestConfig GetQuest(QuestID iD)
         {
-            foreach (QuestConfig cfg in _questConfigs)
+            foreach (QuestCategory categoryConfig in _categoryConfigs)
             {
-                if (cfg.QuestID == iD)
-                    return cfg;
+                foreach (QuestConfig cfg in categoryConfig.QuestConfigs)
+                {
+                    if (cfg.QuestID == iD)
+                        return cfg;
+                }
             }
             Debug.LogError($"no id [{iD}]");
             return null;
