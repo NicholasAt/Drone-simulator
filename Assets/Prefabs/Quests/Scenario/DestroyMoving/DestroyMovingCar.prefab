@@ -244,8 +244,6 @@ MonoBehaviour:
   _config:
     PlayerDamageRadius: 5
     DieImpulse: 20
-  _loseReporter: {fileID: 1988377916961611088}
-  _spawnPlayerPoint: {fileID: 3853981090400166865}
   _pointsMarker:
   - Root: {fileID: 6242659826366959034}
     EndPoint: {fileID: 8691593016598817331}
@@ -253,6 +251,8 @@ MonoBehaviour:
   - Root: {fileID: 6787070794217522787}
     EndPoint: {fileID: 8691593016598817331}
     CarID: 1
+  _loseReporter: {fileID: 1988377916961611088}
+  _spawnPlayerPoint: {fileID: 3853981090400166865}
 --- !u!1 &4787791065868947302
 GameObject:
   m_ObjectHideFlags: 0

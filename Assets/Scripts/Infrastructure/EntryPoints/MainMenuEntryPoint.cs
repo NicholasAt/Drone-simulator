@@ -34,7 +34,6 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 
         protected override async UniTask OnStart()
         {
-            await _uIFactory.CreateUIRoot();
             await _uIFactory.CreateMenu();
         }
     }

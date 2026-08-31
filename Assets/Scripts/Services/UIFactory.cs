@@ -12,7 +12,6 @@ namespace Assets.Scripts.Services
         private readonly DiContainer _diContainer;
         private readonly UIData _uIData;
         private readonly IAssetProviderService _assetProvider;
-        private Transform _uiRoot;
 
         public UIFactory(DiContainer diContainer, UIData uIData, IAssetProviderService assetProviderService)
         {
@@ -21,16 +20,10 @@ namespace Assets.Scripts.Services
             _assetProvider = assetProviderService;
         }
 
-        public async UniTask CreateUIRoot()
-        {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.UIRootReference);
-            _uiRoot = InstantiateInject(prefab).transform;
-        }
-
         public async UniTask CreateMenu()
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MainMenuWindowReference);
-            InstantiateInject(prefab, _uiRoot);
+            InstantiateInject(prefab);
         }
         private GameObject InstantiateInject(GameObject prefab, Transform parent = null)
         {

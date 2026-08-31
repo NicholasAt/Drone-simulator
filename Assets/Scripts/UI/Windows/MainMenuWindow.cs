@@ -13,6 +13,7 @@ namespace Assets.Scripts.UI.Windows
     public class MainMenuWindow : MonoBehaviour
     {
         [SerializeField] private Button _fieldButtonTemplate;
+
         private GameStateMachine _stateMachine;
         private UIFactory _uIFactory;
         private TempLevelProgress _levelProgress;
@@ -29,6 +30,11 @@ namespace Assets.Scripts.UI.Windows
         }
 
         private void Start()
+        {
+            InitSlots();
+        }
+
+        private void InitSlots()
         {
             foreach (QuestConfig cfg in _questsData.QuestConfigs)
             {
