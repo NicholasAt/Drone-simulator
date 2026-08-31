@@ -1,5 +1,7 @@
+using Assets.Scripts.Services.InputService;
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.Drone
 {
@@ -21,22 +23,21 @@ namespace Assets.Scripts.Drone
             [field: SerializeField] public float SpeedDownAudio { get; private set; } = 1;
         }
         public DroneConfig Config;
-        private InputSystem_Actions _inputActions;
+        private IInputService _inputService;
 
-        public Vector2 RollAndPitch { get; private set; }
+        public Vector2 RollAndPitch => _inputService.RollAndPitch;
         public float Thrust { get; private set; }
         public float Yaw { get; private set; }
 
-        private void Awake()
+        [Inject]
+        private void Construct(IInputService inputService)
         {
-            _inputActions = new();
-            _inputActions.Enable();
+            _inputService = inputService;
         }
 
         private void Update()
         {
-            RollAndPitch = _inputActions.Player.Move.ReadValue<Vector2>();
-            Vector2 thrustAndRoll = _inputActions.Player.ThrustAndYaw.ReadValue<Vector2>();
+            Vector2 thrustAndRoll = _inputService.ThrustAndRoll;
             Thrust = thrustAndRoll.y;
             Yaw = thrustAndRoll.x;
         }

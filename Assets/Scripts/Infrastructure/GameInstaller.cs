@@ -6,6 +6,7 @@ using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.CameraService;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
+using Assets.Scripts.Services.InputService;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<TransportFactory>().AsSingle();
             Container.Bind<ProgressService>().AsSingle();
             Container.Bind<CameraStateService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();
 
             if (CheckingForUpdates.DataContainerHandle.IsValid())
