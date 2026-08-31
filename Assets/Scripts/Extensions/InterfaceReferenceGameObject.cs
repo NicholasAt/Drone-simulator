@@ -7,14 +7,26 @@ namespace Assets.Scripts.Extensions
     public class InterfaceReferenceGameObject<T> where T : class
     {
         [SerializeField] private GameObject _target;
-        public T Value => _value ??= _value = _target.GetComponent<T>();
+
         private T _value;
+
+        public T Value
+        {
+            get
+            {
+                if (_value == null && _target != null)
+                    _value = _target.GetComponent<T>();
+
+                return _value;
+            }
+        }
+
         public void OnValidate()
         {
-            if (_target != null)
+            if (_target != null && _target.GetComponent<T>() == null)
             {
-                if (_target.TryGetComponent<T>(out _) == false)
-                    _target = null;
+                _target = null;
+                _value = null;
             }
         }
     }

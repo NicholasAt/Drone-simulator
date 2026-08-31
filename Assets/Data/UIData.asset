@@ -12,14 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01e78f62d6bdc6498973a8fe7afbb2d, type: 3}
   m_Name: UIData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.UIData
-  <UIRootReference>k__BackingField:
-    m_AssetGUID: 722ccf5230671084ab226f4880ee3031
+  <MainMenuWindowReference>k__BackingField:
+    m_AssetGUID: c8ba444092285e941ad78c2363c0289b
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  <MainMenuWindowReference>k__BackingField:
-    m_AssetGUID: c8ba444092285e941ad78c2363c0289b
+  <HUDReference>k__BackingField:
+    m_AssetGUID: 4ba4c03a42824b648866861c58bc8619
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  <PopUpHomeReference>k__BackingField:
+    m_AssetGUID: 06ac19e8ef781fb4680041b47b90f3c0
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

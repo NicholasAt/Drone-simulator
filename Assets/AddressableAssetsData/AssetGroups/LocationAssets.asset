@@ -15,6 +15,16 @@ MonoBehaviour:
   m_GroupName: LocationAssets
   m_GUID: 01909cb7a24c6d246bc035852e38d720
   m_SerializeEntries:
+  - m_GUID: 06ac19e8ef781fb4680041b47b90f3c0
+    m_Address: HomePopup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ba4c03a42824b648866861c58bc8619
+    m_Address: HUD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e2dc6e9ff27f7784faf16902b3311f24
     m_Address: FreeLook Camera
     m_ReadOnly: 0

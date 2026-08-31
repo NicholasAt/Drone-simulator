@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 4973557339299841949}
   - component: {fileID: -1413525774151654587}
   m_Layer: 0
-  m_Name: DestroyMovingCar
+  m_Name: DroneDestroyMovingCar_Quest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

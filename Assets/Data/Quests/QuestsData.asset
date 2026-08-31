@@ -20,14 +20,24 @@ MonoBehaviour:
       <MissionDescription>k__BackingField: q
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 2
-      <QuestRunnerPrefab>k__BackingField:
-        _target: {fileID: 4063667591074534612, guid: 90b08088c52b2094d866af53dff6614d, type: 3}
+      <BaseQuest>k__BackingField: {fileID: 1873827770679997520, guid: 90b08088c52b2094d866af53dff6614d, type: 3}
+      <QuestReference>k__BackingField:
+        m_AssetGUID: 90b08088c52b2094d866af53dff6614d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
     - <MissionName>k__BackingField: 
       <MissionDescription>k__BackingField: 
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 3
-      <QuestRunnerPrefab>k__BackingField:
-        _target: {fileID: 860615553567335068, guid: bd12a1faca0bb844eafdc77aeb22423d, type: 3}
+      <BaseQuest>k__BackingField: {fileID: 5073473656311601531, guid: bd12a1faca0bb844eafdc77aeb22423d, type: 3}
+      <QuestReference>k__BackingField:
+        m_AssetGUID: bd12a1faca0bb844eafdc77aeb22423d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
   - <TransportName>k__BackingField: Drone
     <Icon>k__BackingField: {fileID: 0}
     _questConfig:
@@ -35,23 +45,43 @@ MonoBehaviour:
       <MissionDescription>k__BackingField: 
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 1
-      <QuestRunnerPrefab>k__BackingField:
-        _target: {fileID: 4063667591074534612, guid: dcfdbc21f5548514fb801013e3d2347a, type: 3}
+      <BaseQuest>k__BackingField: {fileID: 1873827770679997520, guid: dcfdbc21f5548514fb801013e3d2347a, type: 3}
+      <QuestReference>k__BackingField:
+        m_AssetGUID: dcfdbc21f5548514fb801013e3d2347a
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
     - <MissionName>k__BackingField: 
       <MissionDescription>k__BackingField: 
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 6
-      <QuestRunnerPrefab>k__BackingField:
-        _target: {fileID: 2768051020019286453, guid: d05bd52f126654a4a983fa47df3ebafb, type: 3}
+      <BaseQuest>k__BackingField: {fileID: 8121088446216041632, guid: d05bd52f126654a4a983fa47df3ebafb, type: 3}
+      <QuestReference>k__BackingField:
+        m_AssetGUID: d05bd52f126654a4a983fa47df3ebafb
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
     - <MissionName>k__BackingField: 
       <MissionDescription>k__BackingField: 
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 4
-      <QuestRunnerPrefab>k__BackingField:
-        _target: {fileID: 4688546103082769140, guid: 25b490259944d2148a4593cd55dbe88e, type: 3}
+      <BaseQuest>k__BackingField: {fileID: -1413525774151654587, guid: 25b490259944d2148a4593cd55dbe88e, type: 3}
+      <QuestReference>k__BackingField:
+        m_AssetGUID: 25b490259944d2148a4593cd55dbe88e
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
     - <MissionName>k__BackingField: 
       <MissionDescription>k__BackingField: 
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 5
-      <QuestRunnerPrefab>k__BackingField:
-        _target: {fileID: 3642531662350468159, guid: 404cb2bbf7730c74cbf4d84529a3333b, type: 3}
+      <BaseQuest>k__BackingField: {fileID: 3934578146402858410, guid: 404cb2bbf7730c74cbf4d84529a3333b, type: 3}
+      <QuestReference>k__BackingField:
+        m_AssetGUID: 404cb2bbf7730c74cbf4d84529a3333b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0

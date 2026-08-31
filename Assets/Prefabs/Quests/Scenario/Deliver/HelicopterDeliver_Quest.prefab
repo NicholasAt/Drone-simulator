@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5073473656311601531}
   - component: {fileID: 1205666481666571340}
   m_Layer: 0
-  m_Name: Deliver_Quest
+  m_Name: HelicopterDeliver_Quest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

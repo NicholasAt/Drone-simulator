@@ -11,7 +11,7 @@ namespace Assets.Scripts.Quests.Scenarios
         [SerializeField] private float _dieImpulse = 20;
         [SerializeField] private MovementByPoints _movementByPoints;
         [SerializeField] private Transform _initPoint;
-        private TransportFactory _gameFactory;
+        private TransportFactory _transportFactory;
 
         private TempLevelProgress _levelProgress;
         private bool _isEnd;
@@ -19,24 +19,24 @@ namespace Assets.Scripts.Quests.Scenarios
         [Inject]
         private void Construct(TransportFactory transportFactory, ProgressService progressService)
         {
-            _gameFactory = transportFactory;
+            _transportFactory = transportFactory;
             _levelProgress = progressService.TempLevelProgress;
         }
 
         private void OnDestroy()
         {
-            if (_gameFactory.PlayerKeeper.CharacterHit != null)
+            if (_transportFactory.PlayerKeeper.CharacterHit != null)
             {
-                _gameFactory.PlayerKeeper.CharacterHit.OnHit -= OnHit;
-                _gameFactory.PlayerKeeper.CharacterHit.OnTurned -= OnTurned;
+                _transportFactory.PlayerKeeper.CharacterHit.OnHit -= OnHit;
+                _transportFactory.PlayerKeeper.CharacterHit.OnTurned -= OnTurned;
             }
         }
 
         protected override async UniTask OnRun()
         {
-            await _gameFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
-            _gameFactory.PlayerKeeper.CharacterHit.OnHit += OnHit;
-            _gameFactory.PlayerKeeper.CharacterHit.OnTurned += OnTurned;
+            await _transportFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
+            _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnHit;
+            _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnTurned;
             _movementByPoints.OnFinish += EndQuest;
             await _movementByPoints.Run();
         }
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private void RestartPlayer()
         {
-            _gameFactory.PlayerKeeper.CharacterRefresher.Show(_initPoint.position, _initPoint.rotation);
+            _transportFactory.PlayerKeeper.CharacterRefresher.Show(_initPoint.position, _initPoint.rotation);
         }
 
         private void EndQuest()

@@ -8,5 +8,7 @@ namespace Assets.Scripts.Data
     public class UIData : ScriptableObject
     {
         [field: SerializeField] public AssetReferenceGameObject MainMenuWindowReference{ get; private set; }
+        [field: SerializeField] public AssetReferenceGameObject HUDReference{ get; private set; }
+        [field: SerializeField] public AssetReferenceGameObject PopUpHomeReference{ get; private set; }
     }
 }

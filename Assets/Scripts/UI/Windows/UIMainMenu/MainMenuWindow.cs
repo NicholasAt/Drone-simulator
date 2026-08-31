@@ -84,7 +84,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             }
             RefreshMissionSelect();
         }
-        
+
         private void RefreshMissionSelect()
         {
             QuestID currentId = _levelProgress.QuestID;

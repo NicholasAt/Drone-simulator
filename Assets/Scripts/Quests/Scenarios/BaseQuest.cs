@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Assets.Scripts.Quests.Scenarios
 {
-    public abstract class BaseQuest : MonoBehaviour, IQuest
+    public abstract class BaseQuest : MonoBehaviour
     {
         public async UniTask Run()
         {

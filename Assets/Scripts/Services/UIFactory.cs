@@ -20,6 +20,17 @@ namespace Assets.Scripts.Services
             _assetProvider = assetProviderService;
         }
 
+        public async UniTask CreatePopupHome()
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpHomeReference);
+            InstantiateInject(prefab);
+        }
+
+        public async UniTask CreateHUD()
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.HUDReference);
+            InstantiateInject(prefab);
+        }
         public async UniTask CreateMenu()
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MainMenuWindowReference);

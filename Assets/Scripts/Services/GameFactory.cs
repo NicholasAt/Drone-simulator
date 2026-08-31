@@ -1,11 +1,9 @@
 using Assets.Scripts.Bots;
-using Assets.Scripts.Character;
 using Assets.Scripts.Data.BotsData.CarData;
 using Assets.Scripts.Data.BotsData.FlyData;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
-using Assets.Scripts.Quests;
 using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
@@ -44,7 +42,7 @@ namespace Assets.Scripts.Services
             _progressService = progressService;
         }
 
-        public async UniTask<GameObject> CreateQuestObject(AssetReferenceGameObject reference,Vector3 pos, Quaternion rotate, CancellationToken ct)
+        public async UniTask<GameObject> CreateQuestObject(AssetReferenceGameObject reference, Vector3 pos, Quaternion rotate, CancellationToken ct)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
@@ -59,19 +57,12 @@ namespace Assets.Scripts.Services
             return instance;
         }
 
-        public IQuest CreateQuest(QuestID questID)
+        public async UniTask<BaseQuest> CreateQuest(QuestID questID)
         {
             QuestConfig cfg = _questsData.GetQuest(questID);
-            IQuest questTemplate = cfg.QuestRunnerPrefab.Value;
-
-            if (questTemplate is BaseQuest baseQuest)
-            {
-                GameObject instance = InstantiateInject(baseQuest.gameObject);
-                return instance.GetComponent<IQuest>();
-            }
-
-            Debug.LogError("no logic");
-            return null;
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.QuestReference);
+            GameObject instance = InstantiateInject(prefab);
+            return instance.GetComponent<BaseQuest>();
         }
 
         public async UniTask<GameObject> CreateHelicopter(HelicopterID id, Vector3 pos, Quaternion rotate)
@@ -117,7 +108,7 @@ namespace Assets.Scripts.Services
             return null;
         }
 
-        
+
         private GameObject InstantiateInject(GameObject prefab, Vector3 pos, Quaternion rotate, Transform parent = null)
         {
             GameObject instance = InstantiateInject(prefab, parent);

@@ -15,11 +15,41 @@ MonoBehaviour:
   m_GroupName: Data
   m_GUID: 99ac8f9604e281c4aaaa2b858f8d95d8
   m_SerializeEntries:
+  - m_GUID: 25b490259944d2148a4593cd55dbe88e
+    m_Address: DroneDestroyMovingCar_Quest
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 404cb2bbf7730c74cbf4d84529a3333b
+    m_Address: DroneDestroyFlyingObjects_Quest
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90b08088c52b2094d866af53dff6614d
+    m_Address: HelicopterMove_Quest
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bbde640bde1673d448e625322135a594
     m_Address: AllDataContainer
     m_ReadOnly: 0
     m_SerializedLabels:
     - allData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd12a1faca0bb844eafdc77aeb22423d
+    m_Address: HelicopterDeliver_Quest
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d05bd52f126654a4a983fa47df3ebafb
+    m_Address: DroneDestroyStatic_Quest
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcfdbc21f5548514fb801013e3d2347a
+    m_Address: DroneMove_Quest
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}

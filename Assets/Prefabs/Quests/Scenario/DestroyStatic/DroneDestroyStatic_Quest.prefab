@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7208818848686069347}
   - component: {fileID: 8121088446216041632}
   m_Layer: 0
-  m_Name: DestroyStatic
+  m_Name: DroneDestroyStatic_Quest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

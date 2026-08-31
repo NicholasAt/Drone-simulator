@@ -8,13 +8,7 @@ namespace Assets.Scripts.Data.Quests
     {
         [SerializeField] private List<QuestCategory> _categoryConfigs;
         public IList<QuestCategory> CategoryConfigs => _categoryConfigs;
-        private void OnValidate()
-        {
-            _categoryConfigs.ForEach(cfg => cfg.OnValidate());
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(this);
-#endif
-        }
+
         public QuestCategory GetCategoryByQuestId(QuestID id)
         {
             foreach (QuestCategory categoryConfig in _categoryConfigs)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5611378025170678709}
   - component: {fileID: 3934578146402858410}
   m_Layer: 0
-  m_Name: DestroyFlyingObjects
+  m_Name: DroneDestroyFlyingObjects_Quest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
