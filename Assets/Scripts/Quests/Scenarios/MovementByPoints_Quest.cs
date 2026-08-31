@@ -1,29 +1,25 @@
 using Assets.Scripts.Services;
-using Assets.Scripts.Services.CameraService;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
-using System;
-using System.Threading;
 using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.Quests.Scenarios
 {
-   
-
     public class MovementByPoints_Quest : BaseQuest
     {
+        [SerializeField] private float _dieImpulse = 20;
         [SerializeField] private MovementByPoints _movementByPoints;
         [SerializeField] private Transform _initPoint;
+        private TransportFactory _gameFactory;
 
-        private GameFactory _gameFactory;
         private TempLevelProgress _levelProgress;
         private bool _isEnd;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, ProgressService progressService)
+        private void Construct(TransportFactory transportFactory, ProgressService progressService)
         {
-            _gameFactory = gameFactory;
+            _gameFactory = transportFactory;
             _levelProgress = progressService.TempLevelProgress;
         }
 
@@ -38,7 +34,7 @@ namespace Assets.Scripts.Quests.Scenarios
 
         protected override async UniTask OnRun()
         {
-            await _gameFactory.CreateTransport(_initPoint.position, _initPoint.rotation);
+            await _gameFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
             _gameFactory.PlayerKeeper.CharacterHit.OnHit += OnHit;
             _gameFactory.PlayerKeeper.CharacterHit.OnTurned += OnTurned;
             _movementByPoints.OnFinish += EndQuest;
@@ -52,15 +48,15 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private void OnHit(float force)
         {
-            if (force > 20)
+            if (force > _dieImpulse)
                 RestartPlayer();
         }
-       
+
         private void RestartPlayer()
         {
             _gameFactory.PlayerKeeper.CharacterRefresher.Show(_initPoint.position, _initPoint.rotation);
         }
-       
+
         private void EndQuest()
         {
             if (_isEnd)

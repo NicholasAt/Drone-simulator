@@ -14,17 +14,18 @@ namespace Assets.Scripts.Quests.Scenarios
         [SerializeField] private MovementByPoints _movementByPoints;
         [SerializeField] private Transform _initPoint;
         [SerializeField] private Transform _pointsRoot;
-
         private GameFactory _gameFactory;
+        private TransportFactory _transportFactory;
         private TempLevelProgress _levelProgress;
         private QuestObjectsData _questObjectsData;
         private bool _isEnd;
         private CancellationToken _ct;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, ProgressService progressService, QuestObjectsData questObjectsData)
+        private void Construct(GameFactory gameFactory,TransportFactory transportFactory, ProgressService progressService, QuestObjectsData questObjectsData)
         {
             _gameFactory = gameFactory;
+            _transportFactory = transportFactory;
             _levelProgress = progressService.TempLevelProgress;
             _questObjectsData = questObjectsData;
         }
@@ -35,7 +36,7 @@ namespace Assets.Scripts.Quests.Scenarios
         protected override async UniTask OnRun()
         {
             _ct = this.GetCancellationTokenOnDestroy();
-            await _gameFactory.CreateTransport(_initPoint.position, _initPoint.rotation);
+            await _transportFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
             _movementByPoints.OnTriggered += (point) => Triggered(point).Forget();
             _movementByPoints.OnFinish += EndQuest;
             await _movementByPoints.Run();
@@ -51,7 +52,7 @@ namespace Assets.Scripts.Quests.Scenarios
                     return;
                 }
                 Transform point = triggerPoint.GetChild(0);
-                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, _gameFactory.PlayerKeeper.Pos(), Quaternion.identity, _ct);
+                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, _transportFactory.PlayerKeeper.Pos(), Quaternion.identity, _ct);
                 instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
                 instance.transform.DORotate(point.eulerAngles, 1);
             }

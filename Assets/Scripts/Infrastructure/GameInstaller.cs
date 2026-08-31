@@ -22,6 +22,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<SceneLoader>().AsSingle();
             Container.Bind<UIFactory>().AsSingle();
             Container.Bind<GameFactory>().AsSingle();
+            Container.Bind<TransportFactory>().AsSingle();
             Container.Bind<ProgressService>().AsSingle();
             Container.Bind<CameraStateService>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();

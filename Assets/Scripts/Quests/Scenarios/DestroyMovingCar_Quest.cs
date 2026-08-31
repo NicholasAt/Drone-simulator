@@ -4,6 +4,7 @@ using Assets.Scripts.Data.BotsData.CarData;
 using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.CameraService;
+using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -32,19 +33,22 @@ namespace Assets.Scripts.Quests.Scenarios
         [SerializeField] private List<PointsMarker> _pointsMarker;
         [SerializeField] private TriggerReporter _loseReporter;
         [SerializeField] private Transform _spawnPlayerPoint;
-
+        private TransportFactory _transportFactory;
         private CameraStateService _cameraService;
         private HitHandler _hitHandler;
+        private TempLevelProgress _levelProgress;
         private GameFactory _gameFactory;
         private CancellationToken _ct;
         private bool _isEnd;
         private int _currentCarrs;
         [Inject]
-        private void Construct(GameFactory gameFactory, CameraStateService cameraService, HitHandler hitHandler)
+        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler)
         {
             _gameFactory = gameFactory;
+            _transportFactory = transportFactory;
             _cameraService = cameraService;
             _hitHandler = hitHandler;
+            _levelProgress = progressService.TempLevelProgress;
         }
         private void OnValidate()
         {
@@ -54,11 +58,11 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             _ct = this.GetCancellationTokenOnDestroy();
             _hitHandler.Init(_config.PlayerDamageRadius);
-            await _gameFactory.CreateTransport(_spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
+            await _transportFactory.CreateTransport(_levelProgress.QuestID, _spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
             await InitCars();
 
-            _gameFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
-            _gameFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
+            _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
+            _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
             _loseReporter.OnTrigger += OnLose;
         }
 
@@ -110,17 +114,17 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private Vector3 CharacterPos()
         {
-            return _gameFactory.PlayerKeeper.Pos();
+            return _transportFactory.PlayerKeeper.Pos();
         }
         private void PlayAnimation()
         {
             _cameraService.Show(CharacterPos(), _ct).ContinueWith(RestartPlayer);
-            _gameFactory.PlayerKeeper.CharacterRefresher.Hide();
+            _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
         }
         private void RestartPlayer()
         {
-            _gameFactory.PlayerKeeper.CharacterRefresher.Show(_spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
-            _cameraService.SetParent(_gameFactory.PlayerKeeper.Character.transform);
+            _transportFactory.PlayerKeeper.CharacterRefresher.Show(_spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
+            _cameraService.SetParent(_transportFactory.PlayerKeeper.Character.transform);
         }
         private void OnLose(GameObject obj)
         {

@@ -30,7 +30,6 @@ namespace Assets.Scripts.Services
         private readonly QuestsData _questsData;
         private readonly QuestObjectsData _questObjectsData;
         private readonly ProgressService _progressService;
-        public CharacterComponentsKeeper PlayerKeeper { get; private set; }
 
         public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, FlyingTransportData flyingTransportData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService)
         {
@@ -118,61 +117,7 @@ namespace Assets.Scripts.Services
             return null;
         }
 
-        public async UniTask CreateTransport(Vector3 pos, Quaternion rotate)
-        {
-            GameObject instance = null;
-            switch (_progressService.TempLevelProgress.QuestID)
-            {
-                case QuestID.DroneMove:
-                    GameObject drone = await CreateDrone(DroneID.Drone1, pos, rotate);
-                    Camera.main.transform.SetParent(drone.transform, false);
-                    instance = drone;
-                    break;
-
-                case QuestID.HelicopterMove:
-                    GameObject helicopterMove = await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
-                    Camera.main.transform.SetParent(helicopterMove.transform);
-                    Camera.main.transform.localPosition = new Vector3(0, 2, -14);
-                    instance = helicopterMove;
-                    break;
-
-                case QuestID.HelicopterDelivery:
-                    GameObject helicopterDelivery = await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
-                    Camera.main.transform.SetParent(helicopterDelivery.transform);
-                    Camera.main.transform.localPosition = new Vector3(0, 2, -14);
-                    instance = helicopterDelivery;
-                    break;
-
-                case QuestID.DestroyMovingCar:
-                    GameObject droneMovingCar = await CreateDrone(DroneID.Drone1, pos, rotate);
-                    Camera.main.transform.SetParent(droneMovingCar.transform, false);
-                    instance = droneMovingCar;
-                    break;
-               
-                case QuestID.DestroyFlyingObjects:
-                    GameObject droneFlying = await CreateDrone(DroneID.Drone1, pos, rotate);
-                    Camera.main.transform.SetParent(droneFlying.transform, false);
-                    instance = droneFlying;
-                    break;
-
-                case QuestID.DestroyStatic:
-                    GameObject droneStatic = await CreateDrone(DroneID.Drone1, pos, rotate);
-                    Camera.main.transform.SetParent(droneStatic.transform, false);
-                    instance = droneStatic;
-                    break;
-
-                case QuestID.None:
-                default:
-                    Debug.LogError($"no logic [{_progressService.TempLevelProgress.QuestID}]");
-                    break;
-            }
-            if (instance != null)
-            {
-                instance.TryGetComponent(out CharacterHit hit);
-                instance.TryGetComponent(out IRefreshPositions refresher);
-                PlayerKeeper = new(instance, refresher, hit);
-            }
-        }
+        
         private GameObject InstantiateInject(GameObject prefab, Vector3 pos, Quaternion rotate, Transform parent = null)
         {
             GameObject instance = InstantiateInject(prefab, parent);
