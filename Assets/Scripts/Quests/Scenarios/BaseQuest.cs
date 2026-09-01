@@ -31,7 +31,15 @@ namespace Assets.Scripts.Quests.Scenarios
             await UniTask.CompletedTask;
         }
 
-        protected async UniTask ProtectedWin()
+        protected async UniTask ProtectedLose(string message = "")
+        {
+            await WinLose(false, message);
+        }
+        protected async UniTask ProtectedWin(string message = "")
+        {
+            await WinLose(true, message);
+        }
+        private async UniTask WinLose(bool isWin, string title = "")
         {
             if (_baseIsEnd)
                 return;
@@ -44,7 +52,9 @@ namespace Assets.Scripts.Quests.Scenarios
             popup.OnLeftButtonClick += ToMainMenu;
             popup.OnRightButtonClick += Restart;
 
-            popup.Refresh("Congratulations", "To Menu", "Restart");
+            if (string.IsNullOrEmpty(title))
+                title = isWin ? "Congratulations" : "Lose";
+            popup.Refresh(title, "To Menu", "Restart");
         }
 
         private void Restart()

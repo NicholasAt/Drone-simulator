@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d20aeee4197ab242b75295894fb326e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DeliverItems_Quest
+  _winMessage: 'Congratulations
+
+    All packages delivered'
   _movementByPoints: {fileID: 1205666481666571340}
   _initPoint: {fileID: 4893933153268063403}
   _pointsRoot: {fileID: 6236537082703038097}

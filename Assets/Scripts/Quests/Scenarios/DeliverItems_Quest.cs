@@ -12,6 +12,7 @@ namespace Assets.Scripts.Quests.Scenarios
 {
     public class DeliverItems_Quest : BaseQuest
     {
+        [SerializeField, TextArea] private string _winMessage;
         [SerializeField] private MovementByPoints _movementByPoints;
         [SerializeField] private Transform _initPoint;
         [SerializeField] private Transform _pointsRoot;
@@ -43,7 +44,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _ct = this.GetCancellationTokenOnDestroy();
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
             _movementByPoints.OnTriggered += (point) => Triggered(point).Forget();
-            _movementByPoints.OnFinish += () => ProtectedWin().Forget();
+            _movementByPoints.OnFinish += () => ProtectedWin(_winMessage).Forget();
             await _movementByPoints.Run();
         }
 

@@ -28,6 +28,8 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             public float PlayerDamageRadius = 5;
             public float DieImpulse = 20;
+           [TextArea] public string WinMessage;
+           [TextArea] public string LoseMessage;
         }
         [SerializeField] private Config _config;
         [SerializeField] private List<PointsMarker> _pointsMarker;
@@ -39,7 +41,7 @@ namespace Assets.Scripts.Quests.Scenarios
         private TempLevelProgress _levelProgress;
         private GameFactory _gameFactory;
         private CancellationToken _ct;
-        private bool _isEnd;
+
         private int _currentCarrs;
         [Inject]
         private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler)
@@ -109,7 +111,7 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             _currentCarrs--;
             if (_currentCarrs <= 0)
-                ProtectedWin().Forget(Debug.LogError);
+                ProtectedWin(_config.WinMessage).Forget(Debug.LogError);
         }
 
         private Vector3 CharacterPos()
@@ -126,20 +128,12 @@ namespace Assets.Scripts.Quests.Scenarios
             _transportFactory.PlayerKeeper.CharacterRefresher.Show(_spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
             _cameraService.SetParent(_transportFactory.PlayerKeeper.Character.transform);
         }
+
         private void OnLose(GameObject obj)
         {
             CharacterMarker cahracter = obj.GetComponentInParent<CharacterMarker>();
             if (cahracter != null && cahracter.IsBot)
-                Lose();
-        }
-
-        private void Lose()
-        {
-            if (_isEnd)
-                return;
-            _isEnd = true;
-
-            Debug.LogError("Lose");
+                ProtectedLose(_config.LoseMessage).Forget(Debug.LogError);
         }
 
         private void RefreshName()

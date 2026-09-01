@@ -4,7 +4,7 @@ namespace Assets.Scripts.Services.GameProgress
 {
     public class TempLevelProgress
     {
-        public QuestID QuestID { get; private set; } = QuestID.Helicopter_Move;
+        public QuestID QuestID { get; private set; }
         public void SetQuestId(QuestID questID)
         {
             QuestID = questID;
