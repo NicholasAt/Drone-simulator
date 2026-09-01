@@ -114,6 +114,7 @@ namespace Assets.Scripts.Services
             GameObject instance = InstantiateInject(prefab, parent);
             if (instance.TryGetComponent(out Rigidbody rb))
             {
+                instance.transform.SetPositionAndRotation(pos, rotate);
                 rb.MovePosition(pos);
                 rb.MoveRotation(rotate);
             }

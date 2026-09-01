@@ -339,6 +339,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8854331294247905705}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3669266441377363240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1546131686103935050}
+  - component: {fileID: 5361401413457988668}
+  - component: {fileID: 5260905507246194173}
+  m_Layer: 6
+  m_Name: TurnOver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1546131686103935050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669266441377363240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8854331294247905705}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5361401413457988668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669266441377363240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5b190a8dfcf824e8cd37f145173840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.TurnedOver
+--- !u!65 &5260905507246194173
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669266441377363240}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.3, y: 0.6, z: 4.2}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &4108078173077605736
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +808,8 @@ GameObject:
   - component: {fileID: 8477296572136866442}
   - component: {fileID: 4234880750575373835}
   - component: {fileID: 4016869046190973735}
+  - component: {fileID: 8953633216818199406}
+  - component: {fileID: 485102092840756923}
   - component: {fileID: 5954093913277989641}
   - component: {fileID: 3032707330016480869}
   m_Layer: 6
@@ -764,6 +832,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1546131686103935050}
   - {fileID: 3451036058915803325}
   - {fileID: 1815262211601014841}
   - {fileID: 116538746979829181}
@@ -918,6 +987,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.CharacterMarker
   <IsBot>k__BackingField: 0
+--- !u!114 &8953633216818199406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8996656804349026396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8349d173a97e818439b3292a92b66f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.CharacterHit
+  _turnedOver: {fileID: 5361401413457988668}
+  _rb: {fileID: 3032707330016480869}
+--- !u!114 &485102092840756923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8996656804349026396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7fb111e8730cf479a47eb7ef0af2cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.CharacterRefresher
+  _rb: {fileID: 3032707330016480869}
 --- !u!82 &5954093913277989641
 AudioSource:
   m_ObjectHideFlags: 0

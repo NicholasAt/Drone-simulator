@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
 
 namespace Assets.Scripts.Quests
@@ -43,7 +44,7 @@ namespace Assets.Scripts.Quests
         public bool IsLastPoint()
         {
             return _movePoints.Count <= _currentPointIndex + 1;
-            
+
         }
         private async UniTask NextPoint()
         {
@@ -83,7 +84,7 @@ namespace Assets.Scripts.Quests
             _isEnd = true;
             OnFinish?.Invoke();
         }
-       
+
         private async UniTask OnTrigger(TriggerReporter reporter, GameObject target)
         {
             CharacterMarker character = target.GetComponentInParent<CharacterMarker>();
@@ -105,6 +106,7 @@ namespace Assets.Scripts.Quests
                 }
             }
         }
+
         private void OnDrawGizmos()
         {
             if (_initPoint != null)
