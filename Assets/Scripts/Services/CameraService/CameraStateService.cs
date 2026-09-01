@@ -107,6 +107,7 @@ namespace Assets.Scripts.Services.CameraService
             _cameraData = cameraData;
             _animation = new(gameObserver);
         }
+
         public void Prepare()
         {
             _mainCamera = Camera.main;

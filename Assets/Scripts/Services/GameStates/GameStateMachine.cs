@@ -25,7 +25,7 @@ namespace Assets.Scripts.Services.GameStates
         {
             await _locationEntryPoint.Run();
         }
-        public void Pause(bool isPause)
+        public void SetPause(bool isPause)
         {
             _pauseState.Run(isPause);
         }

@@ -38,10 +38,37 @@ namespace Assets.Scripts.UI.Windows.UIHUD
 
             try
             {
-                _gameStateMachine.Pause(true);
-                await _uIFactory.CreatePopupHome(this.GetCancellationTokenOnDestroy());
+                _gameStateMachine.SetPause(true);
+                Popup.PopupTwoButtons popup = await _uIFactory.CreatePopupTwoButtons(this.GetCancellationTokenOnDestroy());
+
+                popup.OnLeftButtonClick += () => LoadMenu().Forget();
+                popup.OnRightButtonClick += () => ContinueGame(popup);
+                popup.Refresh("Return to Menu?", "Yes", "No");
             }
-            
+
+            finally
+            {
+                _inProcess = false;
+            }
+        }
+
+        private void ContinueGame(Popup.PopupTwoButtons popup)
+        {
+            popup.Close();
+            _gameStateMachine.SetPause(false);
+        }
+
+        private async UniTask LoadMenu()
+        {
+            if (_inProcess)
+                return;
+            _inProcess = true;
+
+            try
+            {
+                await _gameStateMachine.LoadMainMenu();
+            }
+
             finally
             {
                 _inProcess = false;

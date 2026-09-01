@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2825f9c438c9a544a8a66b470ebe0e72
+    m_Address: PopupTwoButtonsCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ba4c03a42824b648866861c58bc8619
     m_Address: HUD
     m_ReadOnly: 0

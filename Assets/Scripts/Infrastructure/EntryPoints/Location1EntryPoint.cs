@@ -10,6 +10,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
     public class Location1EntryPoint : BaseEntryPoint
     {
         private GameFactory _gameFactory;
+        private GameObserver _gameObserver;
         private UIFactory _uIFactory;
         private TempLevelProgress _levelProgress;
         private CameraStateService _cameraService;
@@ -32,9 +33,10 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         }
 
         [Inject]
-        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService)
+        private void Construct(GameFactory gameFactory, GameObserver gameObserver, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService)
         {
             _gameFactory = gameFactory;
+            _gameObserver = gameObserver;
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;
             _cameraService = cameraService;
@@ -42,6 +44,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 
         protected override async UniTask OnStart()
         {
+            _gameObserver.SendChangePause(false, false);
             _cameraService.Prepare();
             await _uIFactory.CreateHUD();
             Quests.Scenarios.BaseQuest qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID);

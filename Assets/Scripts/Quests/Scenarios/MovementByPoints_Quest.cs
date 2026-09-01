@@ -1,5 +1,6 @@
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameProgress;
+using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -14,13 +15,16 @@ namespace Assets.Scripts.Quests.Scenarios
         private TransportFactory _transportFactory;
 
         private TempLevelProgress _levelProgress;
-        private bool _isEnd;
+        private UIFactory _uIFactory;
+        private GameStateMachine _gameStateMachine;
 
         [Inject]
-        private void Construct(TransportFactory transportFactory, ProgressService progressService)
+        private void Construct(TransportFactory transportFactory, ProgressService progressService, UIFactory uIFactory, GameStateMachine gameStateMachine)
         {
             _transportFactory = transportFactory;
             _levelProgress = progressService.TempLevelProgress;
+            _uIFactory = uIFactory;
+            _gameStateMachine = gameStateMachine;
         }
 
         private void OnDestroy()
@@ -37,7 +41,7 @@ namespace Assets.Scripts.Quests.Scenarios
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
             _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnHit;
             _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnTurned;
-            _movementByPoints.OnFinish += EndQuest;
+            _movementByPoints.OnFinish += () => ProtectedWin().Forget();
             await _movementByPoints.Run();
         }
 
@@ -55,15 +59,6 @@ namespace Assets.Scripts.Quests.Scenarios
         private void RestartPlayer()
         {
             _transportFactory.PlayerKeeper.CharacterRefresher.Show(_initPoint.position, _initPoint.rotation);
-        }
-
-        private void EndQuest()
-        {
-            if (_isEnd)
-                return;
-
-            _isEnd = true;
-            Debug.LogError("end");
         }
     }
 }

@@ -43,7 +43,6 @@ namespace Assets.Scripts.Quests.Scenarios
         private GameFactory _gameFactory;
         private TransportFactory _transportFactory;
         private CancellationToken _ct;
-        private bool _isEnd;
         private readonly List<(IApplyDamage, BotRefresher)> _targers = new();
 
         [Inject]

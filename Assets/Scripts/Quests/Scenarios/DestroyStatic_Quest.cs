@@ -3,6 +3,7 @@ using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.CameraService;
 using Assets.Scripts.Services.GameProgress;
+using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
@@ -23,7 +24,8 @@ namespace Assets.Scripts.Quests.Scenarios
         [SerializeField] private Transform _targetsRoot;
         [SerializeField] private Transform _playerInitPoint;
         private TransportFactory _transportFactory;
-
+        private GameStateMachine _gameStateMachine;
+        private UIFactory _uIFactory;
         private GameFactory _gameFactory;
         private CameraStateService _cameraService;
         private HitHandler _hitHandler;
@@ -33,10 +35,12 @@ namespace Assets.Scripts.Quests.Scenarios
         private int _currentLives;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, QuestObjectsData questObjectsData)
+        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, QuestObjectsData questObjectsData)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
+            _gameStateMachine = gameStateMachine;
+            _uIFactory = uIFactory;
             _cameraService = cameraService;
             _hitHandler = hitHandler;
             _questObjectsData = questObjectsData;
@@ -83,13 +87,10 @@ namespace Assets.Scripts.Quests.Scenarios
             _currentLives--;
             if (_currentLives <= 0)
             {
-                Win();
+                ProtectedWin().Forget(Debug.LogError);
             }
         }
-        private void Win()
-        {
-            Debug.LogError("win");
-        }
+
         private void OnPlayerTurned()
         {
             if (_hitHandler.TryDamage(CharacterPos()))

@@ -1,6 +1,7 @@
 using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameProgress;
+using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System.Threading;
@@ -14,17 +15,21 @@ namespace Assets.Scripts.Quests.Scenarios
         [SerializeField] private MovementByPoints _movementByPoints;
         [SerializeField] private Transform _initPoint;
         [SerializeField] private Transform _pointsRoot;
+
         private GameFactory _gameFactory;
+        private GameStateMachine _gameStateMachine;
+        private UIFactory _uIFactory;
         private TransportFactory _transportFactory;
         private TempLevelProgress _levelProgress;
         private QuestObjectsData _questObjectsData;
-        private bool _isEnd;
         private CancellationToken _ct;
 
         [Inject]
-        private void Construct(GameFactory gameFactory,TransportFactory transportFactory, ProgressService progressService, QuestObjectsData questObjectsData)
+        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, QuestObjectsData questObjectsData)
         {
             _gameFactory = gameFactory;
+            _gameStateMachine = gameStateMachine;
+            _uIFactory = uIFactory;
             _transportFactory = transportFactory;
             _levelProgress = progressService.TempLevelProgress;
             _questObjectsData = questObjectsData;
@@ -38,7 +43,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _ct = this.GetCancellationTokenOnDestroy();
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
             _movementByPoints.OnTriggered += (point) => Triggered(point).Forget();
-            _movementByPoints.OnFinish += EndQuest;
+            _movementByPoints.OnFinish += () => ProtectedWin().Forget();
             await _movementByPoints.Run();
         }
 
@@ -56,15 +61,6 @@ namespace Assets.Scripts.Quests.Scenarios
                 instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
                 instance.transform.DORotate(point.eulerAngles, 1);
             }
-        }
-
-        private void EndQuest()
-        {
-            if (_isEnd)
-                return;
-
-            _isEnd = true;
-            Debug.LogError("end");
         }
         private void RefreshNames()
         {

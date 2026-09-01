@@ -27,7 +27,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_SubObjectGUID: 
         m_EditorAssetChanged: 0
-    - <MissionName>k__BackingField: 
+    - <MissionName>k__BackingField: 2
       <MissionDescription>k__BackingField: 
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 3
@@ -52,7 +52,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_SubObjectGUID: 
         m_EditorAssetChanged: 0
-    - <MissionName>k__BackingField: 
+    - <MissionName>k__BackingField: 2
       <MissionDescription>k__BackingField: 
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 6
@@ -63,7 +63,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_SubObjectGUID: 
         m_EditorAssetChanged: 0
-    - <MissionName>k__BackingField: 
+    - <MissionName>k__BackingField: 3
       <MissionDescription>k__BackingField: 
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 4

@@ -1,5 +1,6 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Services.AssetProvider;
+using Assets.Scripts.UI.Windows.Popup;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
@@ -21,9 +22,21 @@ namespace Assets.Scripts.Services
             _assetProvider = assetProviderService;
         }
 
-        public async UniTask CreatePopupHome(CancellationToken ct=default)
+        public async UniTask<PopupTwoButtons> CreatePopupTwoButtons(CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpHomeReference,ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpTwoButtonsReference, ct);
+            GameObject instance = InstantiateInject(prefab);
+            
+            if (instance.TryGetComponent(out PopupTwoButtons popupTwo))
+                return popupTwo;
+
+            Debug.LogError("no component");
+            return null;
+        }
+
+        public async UniTask CreatePopupHome(CancellationToken ct = default)
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpHomeReference, ct);
             InstantiateInject(prefab);
         }
 

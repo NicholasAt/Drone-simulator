@@ -109,7 +109,7 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             _currentCarrs--;
             if (_currentCarrs <= 0)
-                Debug.LogError("win");
+                ProtectedWin().Forget(Debug.LogError);
         }
 
         private Vector3 CharacterPos()

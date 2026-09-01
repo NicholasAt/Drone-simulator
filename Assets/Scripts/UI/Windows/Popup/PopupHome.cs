@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Assets.Scripts.UI.Windows.UIHUD
+namespace Assets.Scripts.UI.Windows.Popup
 {
     public class PopupHome : MonoBehaviour
     {
@@ -51,7 +51,7 @@ namespace Assets.Scripts.UI.Windows.UIHUD
                 return;
 
             _loading = true;
-            _stateMachine.Pause(false);
+            _stateMachine.SetPause(false);
             Destroy(gameObject);
         }
     }
