@@ -1,4 +1,5 @@
 using Assets.Scripts.Services;
+using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,12 +11,14 @@ namespace Assets.Scripts.UI.Windows.UIHUD
     {
         [SerializeField] private Button _menuButton;
         private UIFactory _uIFactory;
+        private GameStateMachine _gameStateMachine;
         private bool _inProcess;
 
         [Inject]
-        private void Construct(UIFactory uIFactory)
+        private void Construct(UIFactory uIFactory, GameStateMachine gameStateMachine)
         {
             _uIFactory = uIFactory;
+            _gameStateMachine = gameStateMachine;
         }
 
         private void Start()
@@ -35,8 +38,10 @@ namespace Assets.Scripts.UI.Windows.UIHUD
 
             try
             {
-                await _uIFactory.CreatePopupHome();
+                _gameStateMachine.Pause(true);
+                await _uIFactory.CreatePopupHome(this.GetCancellationTokenOnDestroy());
             }
+            
             finally
             {
                 _inProcess = false;

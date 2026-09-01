@@ -9,11 +9,19 @@ namespace Assets.Scripts.Bots
         private Transform _matrix;
         private Vector3 _size;
         private Vector3 _currentTarget;
+        private bool _setPoint;
 
         public void Init(float speed)
         {
             _agent.speed = speed;
         }
+
+        private void OnEnable()
+        {
+            if (_setPoint)
+                _agent.SetDestination(_currentTarget);
+        }
+
         private void Update()
         {
             if (_agent.enabled)
@@ -22,6 +30,7 @@ namespace Assets.Scripts.Bots
                     NewPosition();
             }
         }
+
         void IRefreshPositions.Show(Vector3 pos, Quaternion rotate)
         {
             gameObject.SetActive(true);
@@ -46,6 +55,7 @@ namespace Assets.Scripts.Bots
         {
             _currentTarget = GetRandomPos();
             _agent.SetDestination(_currentTarget);
+            _setPoint = true;
         }
         private Vector3 GetRandomPos()
         {

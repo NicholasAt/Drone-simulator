@@ -34,6 +34,10 @@ namespace Assets.Scripts.Logic
                             await handler.ToUniTask(cancellationToken: ct);
                             return true;
                         }
+                        catch (OperationCanceledException)
+                        {
+                            return false;
+                        }
                         catch (Exception e)
                         {
                             Debug.LogError(e);
@@ -64,6 +68,14 @@ namespace Assets.Scripts.Logic
                 }
                 _candidatesForUnloading.Clear();
             }
+            public void ClearAll()
+            {
+                foreach (AsyncOperationHandle item in Active.Values)
+                {
+                    if (item.IsValid())
+                        Addressables.ReleaseInstance(item);
+                }
+            }
         }
         [SerializeField] private bool _play = true;
         [SerializeField] private ChunkData _chunkData;
@@ -89,7 +101,10 @@ namespace Assets.Scripts.Logic
             await UpdateLoad(GetChunkKey(), cancellationToken);
             CheckChunkTimer(0.5f, cancellationToken).Forget();
         }
-
+        private void OnDestroy()
+        {
+            _streamingChunk.ClearAll();
+        }
         private async UniTask CheckChunkTimer(float delay, CancellationToken ct)
         {
             while (true)

@@ -26,6 +26,8 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<TransportFactory>().AsSingle();
             Container.Bind<ProgressService>().AsSingle();
             Container.Bind<CameraStateService>().AsSingle();
+            Container.Bind<PauseState>().AsSingle();
+            Container.Bind<GameObserver>().AsSingle();
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();
 

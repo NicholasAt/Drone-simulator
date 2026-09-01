@@ -133,7 +133,7 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private void PlayAnimation()
         {
-            _cameraService.Show(CharacterPos(), _ct).ContinueWith(RestartPlayer);
+            _cameraService.Show(CharacterPos(), RestartPlayer, _ct).Forget(Debug.LogError);
             _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
         }
 

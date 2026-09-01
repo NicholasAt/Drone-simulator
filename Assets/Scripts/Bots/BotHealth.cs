@@ -7,6 +7,7 @@ namespace Assets.Scripts.Bots
 {
     public class BotHealth : MonoBehaviour, IApplyDamage, IRefresh
     {
+        [SerializeField] private bool _disable;
         public Action Happened { get; set; }
         public bool Died { get; private set; }
 
@@ -18,6 +19,7 @@ namespace Assets.Scripts.Bots
             _refreshPositions = GetComponent<IRefreshPositions>();
             _agent = GetComponent<NavMeshAgent>();
         }
+
         public void Hit(float damage)
         {
             if (Died)
@@ -27,6 +29,8 @@ namespace Assets.Scripts.Bots
             if (_agent != null)
                 _agent.enabled = false;
             _refreshPositions?.Hide();
+            if (_disable)
+                gameObject.SetActive(false);
             Happened?.Invoke();
         }
 

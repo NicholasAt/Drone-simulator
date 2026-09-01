@@ -305,6 +305,7 @@ GameObject:
   - component: {fileID: 4804090579799086434}
   - component: {fileID: 8159434017923396623}
   - component: {fileID: -3321345473456452882}
+  - component: {fileID: -417017265537926227}
   - component: {fileID: 7852913601703467388}
   - component: {fileID: 6063605677369093760}
   m_Layer: 6
@@ -429,6 +430,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.CharacterRefresher
   _rb: {fileID: 7852913601703467388}
+--- !u!114 &-417017265537926227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2618895545765178413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f77911013dd54478aeb1857e450e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.CharacterPause
+  _disableComponents:
+  - {fileID: 6977571990612850515}
+  - {fileID: 4658688062421757665}
+  - {fileID: 2826623933699818939}
+  _audioSource: {fileID: 6063605677369093760}
+  _rigidbody: {fileID: 7852913601703467388}
 --- !u!54 &7852913601703467388
 Rigidbody:
   m_ObjectHideFlags: 0

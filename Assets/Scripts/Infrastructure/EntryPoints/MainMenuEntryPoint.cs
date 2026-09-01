@@ -7,8 +7,6 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 {
     public class MainMenuEntryPoint : BaseEntryPoint
     {
-        private UIFactory _uIFactory;
-
         public class Preparation
         {
             private readonly SceneLoader _sceneLoader;
@@ -26,14 +24,19 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             }
         }
 
+        private UIFactory _uIFactory;
+        private GameObserver _gameObserver;
+
         [Inject]
-        private void Construct(UIFactory uIFactory)
+        private void Construct(UIFactory uIFactory, GameObserver gameObserver)
         {
             _uIFactory = uIFactory;
+            _gameObserver = gameObserver;
         }
 
         protected override async UniTask OnStart()
         {
+            _gameObserver.SendChangePause(false, false);
             await _uIFactory.CreateMenu();
         }
     }

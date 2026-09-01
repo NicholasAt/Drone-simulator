@@ -49,7 +49,9 @@ namespace Assets.Scripts.UI.Windows.UIHUD
         {
             if (_loading)
                 return;
+
             _loading = true;
+            _stateMachine.Pause(false);
             Destroy(gameObject);
         }
     }

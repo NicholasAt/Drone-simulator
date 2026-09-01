@@ -1,6 +1,7 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Services.AssetProvider;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -20,9 +21,9 @@ namespace Assets.Scripts.Services
             _assetProvider = assetProviderService;
         }
 
-        public async UniTask CreatePopupHome()
+        public async UniTask CreatePopupHome(CancellationToken ct=default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpHomeReference);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpHomeReference,ct);
             InstantiateInject(prefab);
         }
 

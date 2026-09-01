@@ -1,5 +1,6 @@
 using Assets.Scripts.Data.CameraAnimationData;
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -21,6 +22,12 @@ namespace Assets.Scripts.Services.CameraService
             private LayerMask _ignoreMask;
             private readonly List<int> _angles = new();
             private readonly Collider[] _colliders = new Collider[150];
+            private readonly GameObserver _gameObserver;
+
+            public CameraAnimation(GameObserver gameObserver)
+            {
+                _gameObserver = gameObserver;
+            }
             public void Prepare(Transform cameraTransform, float height, float width, float duration, LayerMask ignoreMask)
             {
                 _cameraTransform = cameraTransform;
@@ -30,7 +37,7 @@ namespace Assets.Scripts.Services.CameraService
                 _ignoreMask = ignoreMask;
             }
 
-            public async UniTask Play(Vector3 from, CancellationToken ct)
+            public async UniTask Play(Vector3 from, Action onEnd, CancellationToken ct)
             {
                 try
                 {
@@ -53,7 +60,7 @@ namespace Assets.Scripts.Services.CameraService
                         if (_angles.Count <= 0)
                             continue;
 
-                        int index = Random.Range(0, _angles.Count);
+                        int index = UnityEngine.Random.Range(0, _angles.Count);
                         int angle = _angles[index];
                         _angles.RemoveAt(index);
 
@@ -76,6 +83,9 @@ namespace Assets.Scripts.Services.CameraService
                     _cameraTransform.LookAt(from);
 
                     await UniTask.WaitForSeconds(_duration, cancellationToken: ct);
+                    await UniTask.WaitUntil(() => _gameObserver.IsPause == false, cancellationToken: ct);
+
+                    onEnd?.Invoke();
                 }
                 catch (System.OperationCanceledException)
                 {
@@ -89,12 +99,13 @@ namespace Assets.Scripts.Services.CameraService
         }
 
         private Camera _mainCamera;
-        private readonly CameraAnimation _animation = new();
+        private readonly CameraAnimation _animation;
         private readonly CameraData _cameraData;
 
-        public CameraStateService(CameraData cameraData)
+        public CameraStateService(CameraData cameraData, GameObserver gameObserver)
         {
             _cameraData = cameraData;
+            _animation = new(gameObserver);
         }
         public void Prepare()
         {
@@ -102,9 +113,9 @@ namespace Assets.Scripts.Services.CameraService
             _animation.Prepare(_mainCamera.transform, _cameraData.Height, _cameraData.Width, _cameraData.Duration, _cameraData.IgnoreMask);
         }
 
-        public async UniTask Show(Vector3 from, CancellationToken ct)
+        public async UniTask Show(Vector3 from, Action onEnd, CancellationToken ct)
         {
-            await _animation.Play(from, ct);
+            await _animation.Play(from, onEnd, ct);
         }
 
         public void SetParent(Transform parent)

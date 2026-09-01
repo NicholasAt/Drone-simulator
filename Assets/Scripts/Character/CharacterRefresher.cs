@@ -10,6 +10,8 @@ namespace Assets.Scripts.Character
         public void Show(Vector3 pos, Quaternion rotate)
         {
             transform.SetPositionAndRotation(pos, rotate);
+            _rb.MovePosition(pos);
+            _rb.MoveRotation(rotate);
             _rb.linearVelocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
             gameObject.SetActive(true);
@@ -17,6 +19,8 @@ namespace Assets.Scripts.Character
 
         public void Hide()
         {
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
             gameObject.SetActive(false);
         }
     }

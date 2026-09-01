@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8308644906384984165}
   - component: {fileID: 5807651793352848489}
   - component: {fileID: 9170128089720795814}
+  - component: {fileID: -7809952772518429478}
   m_Layer: 6
   m_Name: Hummer1
   m_TagString: Untagged
@@ -76,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ce970c406077446a85e72130d663ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Bots.BotHealth
+  _disable: 1
 --- !u!195 &5807651793352848489
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -117,6 +119,22 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-7809952772518429478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7051118856343292220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d642173974635649a51871fb4c549f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Bots.BotPause
+  _disableComponents:
+  - {fileID: 1809552322092242761}
+  - {fileID: 9170128089720795814}
+  _agent: {fileID: 5807651793352848489}
 --- !u!1 &9166670457730914192
 GameObject:
   m_ObjectHideFlags: 0
