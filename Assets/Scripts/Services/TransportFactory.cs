@@ -19,30 +19,19 @@ namespace Assets.Scripts.Services
             _gameFactory = gameFactory;
             _questsData = questsData;
         }
+
         public async UniTask CreateTransport(QuestID questID, Vector3 pos, Quaternion rotate)
         {
             switch (questID)
             {
-                case QuestID.Drone_Move:
-                    await CreateDrone(DroneID.Drone1, pos, rotate);
-                    break;
-
                 case QuestID.Helicopter_Move:
-                    await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
-                    break;
-
                 case QuestID.Helicopter_Delivery:
                     await CreateHelicopter(HelicopterID.Helicopter1, pos, rotate);
                     break;
 
+                case QuestID.Drone_Move:
                 case QuestID.Drone_DestroyMovingCar:
-                    await CreateDrone(DroneID.Drone1, pos, rotate);
-                    break;
-
                 case QuestID.Drone_DestroyFlyingObjects:
-                    await CreateDrone(DroneID.Drone1, pos, rotate);
-                    break;
-
                 case QuestID.Drone_DestroyStatic:
                     await CreateDrone(DroneID.Drone1, pos, rotate);
                     break;
@@ -53,6 +42,7 @@ namespace Assets.Scripts.Services
                     break;
             }
         }
+
         private async UniTask CreateHelicopter(HelicopterID id, Vector3 pos, Quaternion rotate)
         {
             GameObject helicopter = await _gameFactory.CreateHelicopter(id, pos, rotate);

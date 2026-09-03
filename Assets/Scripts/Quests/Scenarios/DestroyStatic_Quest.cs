@@ -18,6 +18,8 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             public float DieImpulse = 20;
             public float DamageRadius = 5;
+            public int BestSeconds = 5;
+            public int BadSeconds = 15;
         }
         [SerializeField] private Config _config;
         [SerializeField] private Transform _targetsRoot;
@@ -31,10 +33,11 @@ namespace Assets.Scripts.Quests.Scenarios
         private QuestObjectsData _questObjectsData;
         private TempLevelProgress _levelProgress;
         private TimerService _timerService;
+        private CalculateStarsService _calculateStars;
         private int _currentLives;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, QuestObjectsData questObjectsData, TimerService timerService)
+        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, QuestObjectsData questObjectsData, TimerService timerService, CalculateStarsService calculateStarsService)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
@@ -45,6 +48,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _questObjectsData = questObjectsData;
             _levelProgress = progressService.TempLevelProgress;
             _timerService = timerService;
+            _calculateStars = calculateStarsService;
         }
         private void OnValidate()
         {
@@ -87,7 +91,8 @@ namespace Assets.Scripts.Quests.Scenarios
             _currentLives--;
             if (_currentLives <= 0)
             {
-                ProtectedWin().Forget(Debug.LogError);
+                int stars = _calculateStars.Calculate(_config.BadSeconds, _config.BestSeconds, _timerService.Seconds);
+                ProtectedWin(stars).Forget(Debug.LogError);
             }
         }
 

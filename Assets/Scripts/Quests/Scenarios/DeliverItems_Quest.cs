@@ -4,6 +4,7 @@ using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +12,15 @@ namespace Assets.Scripts.Quests.Scenarios
 {
     public class DeliverItems_Quest : BaseQuest
     {
-        [SerializeField, TextArea] private string _winMessage;
+        [Serializable]
+        private class Config
+        {
+            [TextArea] public string WinMessage;
+            public int BestSeconds = 5;
+            public int BadSeconds = 15;
+        }
+
+        [SerializeField] private Config _config;
         [SerializeField] private MovementByPoints _movementByPoints;
         [SerializeField] private Transform _initPoint;
         [SerializeField] private Transform _pointsRoot;
@@ -23,9 +32,10 @@ namespace Assets.Scripts.Quests.Scenarios
         private TempLevelProgress _levelProgress;
         private QuestObjectsData _questObjectsData;
         private TimerService _timerService;
+        private CalculateStarsService _calculateStars;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, QuestObjectsData questObjectsData, TimerService timerService)
+        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, QuestObjectsData questObjectsData, TimerService timerService, CalculateStarsService calculateStarsService)
         {
             _gameFactory = gameFactory;
             _gameStateMachine = gameStateMachine;
@@ -34,20 +44,26 @@ namespace Assets.Scripts.Quests.Scenarios
             _levelProgress = progressService.TempLevelProgress;
             _questObjectsData = questObjectsData;
             _timerService = timerService;
+            _calculateStars = calculateStarsService;
         }
         private void OnValidate()
         {
             RefreshNames();
         }
+
         protected override async UniTask OnRun()
         {
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
             _movementByPoints.OnTriggered += (point) => Triggered(point).Forget();
-            _movementByPoints.OnFinish += () => ProtectedWin(_winMessage).Forget();
+            _movementByPoints.OnFinish += () => Win().Forget();
             await _movementByPoints.Run();
             _timerService.Start();
         }
-
+        private async UniTask Win()
+        {
+            int stars = _calculateStars.Calculate(_config.BadSeconds, _config.BestSeconds, _timerService.Seconds);
+            await ProtectedWin(stars, _config.WinMessage);
+        }
         private async UniTask Triggered(Transform triggerPoint)
         {
             if (_movementByPoints.IsLastPoint() == false)

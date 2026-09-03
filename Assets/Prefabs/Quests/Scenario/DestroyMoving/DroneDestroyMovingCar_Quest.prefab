@@ -121,6 +121,8 @@ MonoBehaviour:
     LoseMessage: 'Lose
 
       Machines reached the point'
+    BestSeconds: 5
+    BadSeconds: 15
   _pointsMarker:
   - Root: {fileID: 6242659826366959034}
     EndPoint: {fileID: 8691593016598817331}

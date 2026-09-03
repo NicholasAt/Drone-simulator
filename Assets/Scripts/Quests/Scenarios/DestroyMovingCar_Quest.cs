@@ -8,7 +8,6 @@ using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -28,8 +27,10 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             public float PlayerDamageRadius = 5;
             public float DieImpulse = 20;
-           [TextArea] public string WinMessage;
-           [TextArea] public string LoseMessage;
+            [TextArea] public string WinMessage;
+            [TextArea] public string LoseMessage;
+            public int BestSeconds = 5;
+            public int BadSeconds = 15;
         }
         [SerializeField] private Config _config;
         [SerializeField] private List<PointsMarker> _pointsMarker;
@@ -40,12 +41,12 @@ namespace Assets.Scripts.Quests.Scenarios
         private HitHandler _hitHandler;
         private TempLevelProgress _levelProgress;
         private TimerService _timerService;
+        private CalculateStarsService _calculateStars;
         private GameFactory _gameFactory;
-        private CancellationToken _ct;
 
         private int _currentCarrs;
         [Inject]
-        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler,TimerService timerService)
+        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, TimerService timerService, CalculateStarsService calculateStarsService)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
@@ -53,6 +54,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _hitHandler = hitHandler;
             _levelProgress = progressService.TempLevelProgress;
             _timerService = timerService;
+            _calculateStars = calculateStarsService;
         }
         private void OnValidate()
         {
@@ -60,7 +62,6 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         protected override async UniTask OnRun()
         {
-            _ct = this.GetCancellationTokenOnDestroy();
             _hitHandler.Init(_config.PlayerDamageRadius);
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
             await InitCars();
@@ -98,7 +99,7 @@ namespace Assets.Scripts.Quests.Scenarios
                 for (int i = 0; i < marker.Root.childCount; i++)
                 {
                     Transform point = marker.Root.GetChild(i);
-                    BotCarMove car = await _gameFactory.CreateCar(marker.CarID, point.position, point.rotation, _ct);
+                    BotCarMove car = await _gameFactory.CreateCar(marker.CarID, point.position, point.rotation, this.GetCancellationTokenOnDestroy());
                     car.SetPoint(marker.EndPoint.position);
                     if (car.TryGetComponent(out IApplyDamage applyDamage) == false)
                     {
@@ -114,7 +115,10 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             _currentCarrs--;
             if (_currentCarrs <= 0)
-                ProtectedWin(_config.WinMessage).Forget(Debug.LogError);
+            {
+                int stars = _calculateStars.Calculate(_config.BadSeconds, _config.BestSeconds, _timerService.Seconds);
+                ProtectedWin(stars, _config.WinMessage).Forget(Debug.LogError);
+            }
         }
 
         private Vector3 CharacterPos()
@@ -123,7 +127,7 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         private void PlayAnimation()
         {
-            _cameraService.Show(CharacterPos(), RestartPlayer, _ct).Forget(Debug.LogError);
+            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogError);
             _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
         }
         private void RestartPlayer()
@@ -136,7 +140,7 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             CharacterMarker cahracter = obj.GetComponentInParent<CharacterMarker>();
             if (cahracter != null && cahracter.IsBot)
-                ProtectedLose(_config.LoseMessage).Forget(Debug.LogError);
+                ProtectedLose(0,_config.LoseMessage).Forget(Debug.LogError);
         }
 
         private void RefreshName()

@@ -50,6 +50,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 
                 slot.SetId(categoryConfig.TransportName);
                 slot.Refresh(categoryConfig.TransportName, categoryConfig.Icon);
+                slot.ShowHideStars(false);
                 slot.OnClick += () => SetQuestCategory(categoryConfig);
             }
 
@@ -80,6 +81,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 
                 slot.SetId(cfg.QuestID);
                 slot.Refresh(cfg.MissionName, cfg.Icon);
+                slot.RefreshStars(Random.Range(0, 6));
                 slot.OnClick += () => SetQuestId(cfg.QuestID);
             }
             RefreshMissionSelect();

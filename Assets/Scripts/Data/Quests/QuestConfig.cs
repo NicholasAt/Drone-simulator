@@ -14,7 +14,6 @@ namespace Assets.Scripts.Data.Quests
 
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField] public QuestID QuestID { get; private set; }
-        [field: SerializeField] public BaseQuest BaseQuest { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject QuestReference { get; private set; }
     }
 

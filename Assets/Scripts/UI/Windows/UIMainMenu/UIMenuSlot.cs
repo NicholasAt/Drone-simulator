@@ -8,6 +8,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 {
     public class UIMenuSlot : MonoBehaviour, IPointerClickHandler
     {
+        [SerializeField] private UIStars _uIStars;
         [SerializeField] private TMP_Text _titleText;
         [SerializeField] private Image _iconImage;
         [SerializeField] private Image _selectImage;
@@ -31,6 +32,14 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         public void SetSelect(bool isSelect)
         {
             _selectImage.color = isSelect ? _selectColor : _defaultColor;
+        }
+        public void RefreshStars(int enableCount)
+        {
+            _uIStars.RefreshStars(enableCount);
+        }
+        public void ShowHideStars(bool isShow)
+        {
+            _uIStars.ShowHideStars(isShow);
         }
         public void Close()
         {

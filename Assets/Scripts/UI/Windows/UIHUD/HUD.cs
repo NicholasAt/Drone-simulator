@@ -56,6 +56,7 @@ namespace Assets.Scripts.UI.Windows.UIHUD
 
                 popup.OnLeftButtonClick += () => LoadMenu().Forget();
                 popup.OnRightButtonClick += () => ContinueGame(popup);
+                popup.ShowHideStars(false);
                 popup.Refresh("Return to Menu?", "Yes", "No");
             }
 

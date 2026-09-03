@@ -29,6 +29,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<PauseState>().AsSingle();
             Container.Bind<GameObserver>().AsSingle();
             Container.Bind<TimerService>().AsSingle();
+            Container.Bind<CalculateStarsService>().AsSingle();
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();
 

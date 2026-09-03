@@ -29,6 +29,8 @@ namespace Assets.Scripts.Quests.Scenarios
             public int MinTargets = 1;
             public float DieImpulse = 20;
             public float PlayerDamageRadius = 5;
+            public int BestKills = 5;
+            public int BadKills = 15;
         }
         [SerializeField] private Config _config;
         [SerializeField] private List<SpawnMarker> _spawnMarkers;
@@ -40,12 +42,13 @@ namespace Assets.Scripts.Quests.Scenarios
         private HitHandler _hitHandler;
         private TempLevelProgress _levelProgress;
         private TimerService _timerService;
+        private CalculateStarsService _calculateStars;
         private GameFactory _gameFactory;
         private TransportFactory _transportFactory;
         private readonly List<(IApplyDamage, BotRefresher)> _targers = new();
-
+        private int _currentKillCont;
         [Inject]
-        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, TimerService timerService)
+        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, TimerService timerService, CalculateStarsService calculateStarsService)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
@@ -53,6 +56,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _hitHandler = hitHandler;
             _levelProgress = progressService.TempLevelProgress;
             _timerService = timerService;
+            _calculateStars = calculateStarsService;
         }
         private void OnDestroy()
         {
@@ -80,7 +84,8 @@ namespace Assets.Scripts.Quests.Scenarios
             if (_timerService.Seconds <= 0)
             {
                 _timerService.Stop();
-                ProtectedWin().Forget();
+                int stars = _calculateStars.Calculate(_config.BadKills, _config.BestKills, _currentKillCont);
+                ProtectedWin(stars).Forget();
             }
         }
 
@@ -101,7 +106,13 @@ namespace Assets.Scripts.Quests.Scenarios
                 if (instance.TryGetComponent(out BotRefresher refresher) == false)
                     Debug.LogError("no refresher");
                 _targers.Add((applyDamage, refresher));
+                applyDamage.Happened += IncreaseKill;
             }
+        }
+
+        private void IncreaseKill()
+        {
+            _currentKillCont++;
         }
 
         private Quaternion RandomRotate()
