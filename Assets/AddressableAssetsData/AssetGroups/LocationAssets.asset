@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9651a7b18b1b901408e7e065bc55c221
+    m_Address: ScreenTargetWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e2dc6e9ff27f7784faf16902b3311f24
     m_Address: FreeLook Camera
     m_ReadOnly: 0

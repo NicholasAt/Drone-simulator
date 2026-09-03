@@ -13,21 +13,18 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         {
             private readonly SceneLoader _sceneLoader;
             private readonly IAssetProviderService _assetProvider;
-            private readonly GameObserver _gameObserver;
-            private readonly TimerService _timerService;
+            private readonly CleanupService _cleanupService;
 
-            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProviderService, GameObserver gameObserver,TimerService timerService)
+            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProviderService, CleanupService cleanupService)
             {
                 _sceneLoader = sceneLoader;
                 _assetProvider = assetProviderService;
-                _gameObserver = gameObserver;
-                _timerService = timerService;
+                _cleanupService = cleanupService;
             }
             public async UniTask Run()
             {
                 _assetProvider.ReleaseAll();
-                _timerService.Stop();
-                _gameObserver.Cleanup();
+                _cleanupService.Cleanup();
                 await _sceneLoader.LoadSingle(Constants.SceneConstants.MenuSceneKey);
             }
         }
@@ -44,8 +41,8 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 
         protected override async UniTask OnStart()
         {
-            _levelProgress.SetQuestId(QuestID.Helicopter_Move);//first quest
-            await _uIFactory.CreateMenu();
+            _levelProgress.SetQuestId(QuestID.Drone_DestroyMovingCar);//first quest
+            await _uIFactory.CreateMenu(this.GetCancellationTokenOnDestroy());
         }
     }
 }

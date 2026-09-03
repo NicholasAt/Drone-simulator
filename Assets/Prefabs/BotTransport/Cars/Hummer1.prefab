@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5807651793352848489}
   - component: {fileID: 9170128089720795814}
   - component: {fileID: -7809952772518429478}
+  - component: {fileID: 4986075665567169101}
   m_Layer: 6
   m_Name: Hummer1
   m_TagString: Untagged
@@ -135,6 +136,18 @@ MonoBehaviour:
   - {fileID: 1809552322092242761}
   - {fileID: 9170128089720795814}
   _agent: {fileID: 5807651793352848489}
+--- !u!114 &4986075665567169101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7051118856343292220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39a5764d5bc05146a8a0561203c3dc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Logic.ScreenTarget
 --- !u!1 &9166670457730914192
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ namespace Assets.Scripts.Services.CameraService
             private float _duration;
             private LayerMask _ignoreMask;
             private readonly List<int> _angles = new();
-            private readonly Collider[] _colliders = new Collider[150];
+            private readonly Collider[] _colliders = new Collider[100];
             private readonly GameObserver _gameObserver;
 
             public CameraAnimation(GameObserver gameObserver)

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5886494783489642768}
   - component: {fileID: 694361011474329916}
   - component: {fileID: 8152404049921317214}
+  - component: {fileID: -2362710569457958425}
   m_Layer: 6
   m_Name: Tank1
   m_TagString: Untagged
@@ -135,6 +136,18 @@ MonoBehaviour:
   - {fileID: 679157014207684904}
   - {fileID: 694361011474329916}
   _agent: {fileID: 5886494783489642768}
+--- !u!114 &-2362710569457958425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401185580664649279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39a5764d5bc05146a8a0561203c3dc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Logic.ScreenTarget
 --- !u!1 &2257271132057860757
 GameObject:
   m_ObjectHideFlags: 0

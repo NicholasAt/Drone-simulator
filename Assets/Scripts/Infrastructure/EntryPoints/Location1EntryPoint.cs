@@ -13,21 +13,18 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         {
             private readonly SceneLoader _sceneLoader;
             private readonly IAssetProviderService _assetProvider;
-            private readonly GameObserver _gameObserver;
-            private readonly TimerService _timerService;
+            private readonly CleanupService _cleanupService;
 
-            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProvider, GameObserver gameObserver, TimerService timerService)
+            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProvider, CleanupService cleanupService)
             {
                 _sceneLoader = sceneLoader;
                 _assetProvider = assetProvider;
-                _gameObserver = gameObserver;
-                _timerService = timerService;
+                _cleanupService = cleanupService;
             }
             public async UniTask Run()
             {
                 _assetProvider.ReleaseAll();
-                _timerService.Stop();
-                _gameObserver.Cleanup();
+                _cleanupService.Cleanup();
                 await _sceneLoader.LoadSingle(Constants.SceneConstants.Location1SceneKey);
             }
         }
@@ -36,21 +33,25 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private UIFactory _uIFactory;
         private TempLevelProgress _levelProgress;
         private CameraStateService _cameraService;
+        private CleanupService _cleanupService;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService)
+        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService,CleanupService cleanupService)
         {
             _gameFactory = gameFactory;
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;
             _cameraService = cameraService;
+            _cleanupService = cleanupService;
         }
 
         protected override async UniTask OnStart()
         {
+            _cleanupService.Cleanup();
             _cameraService.Prepare();
-            await _uIFactory.CreateHUD();
+            await _uIFactory.CreateHUD(this.GetCancellationTokenOnDestroy());
             Quests.Scenarios.BaseQuest qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID);
+            _uIFactory.CreateScreenTarget(this.GetCancellationTokenOnDestroy()).Forget(UnityEngine.Debug.LogException);
             await qeustInstance.Run();
         }
     }

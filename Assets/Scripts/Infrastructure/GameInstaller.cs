@@ -20,18 +20,22 @@ namespace Assets.Scripts.Infrastructure
             BindStates();
 
             Container.Bind<HitHandler>().AsTransient();
-            Container.Bind<SceneLoader>().AsSingle();
-            Container.Bind<UIFactory>().AsSingle();
-            Container.Bind<GameFactory>().AsSingle();
+
+            Container.Bind<CalculateStarsService>().AsSingle();
+            Container.Bind<CameraStateService>().AsSingle();
+            Container.Bind<OffScreenContainer>().AsSingle();
             Container.Bind<TransportFactory>().AsSingle();
             Container.Bind<ProgressService>().AsSingle();
-            Container.Bind<CameraStateService>().AsSingle();
-            Container.Bind<PauseState>().AsSingle();
+            Container.Bind<CleanupService>().AsSingle();
             Container.Bind<GameObserver>().AsSingle();
             Container.Bind<TimerService>().AsSingle();
-            Container.Bind<CalculateStarsService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
+            Container.Bind<GameFactory>().AsSingle();
+            Container.Bind<SceneLoader>().AsSingle();
+            Container.Bind<PauseState>().AsSingle();
+            Container.Bind<UIFactory>().AsSingle();
+
             Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();
+            Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
 
             if (CheckingForUpdates.DataContainerHandle.IsValid())
                 Addressables.Release(CheckingForUpdates.DataContainerHandle);
@@ -49,6 +53,7 @@ namespace Assets.Scripts.Infrastructure
             Container.BindInstance(data.CarData).AsSingle();
             Container.BindInstance(data.CameraData).AsSingle();
             Container.BindInstance(data.FlyingTransportData).AsSingle();
+            Container.BindInstance(data.OutScreenData).AsSingle();
         }
 
         private void BindStates()

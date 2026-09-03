@@ -20,5 +20,6 @@ namespace Assets.Scripts.Data
         [field: SerializeField] public CarData CarData { get; private set; }
         [field: SerializeField] public CameraData CameraData { get; private set; }
         [field: SerializeField] public FlyingTransportData FlyingTransportData { get; private set; }
+        [field: SerializeField] public OutScreenData OutScreenData { get; private set; }
     }
 }
