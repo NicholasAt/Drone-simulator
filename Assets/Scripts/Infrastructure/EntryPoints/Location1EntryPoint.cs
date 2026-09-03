@@ -13,33 +13,34 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         {
             private readonly SceneLoader _sceneLoader;
             private readonly IAssetProviderService _assetProvider;
+            private readonly GameObserver _gameObserver;
             private readonly TimerService _timerService;
 
-            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProvider, TimerService timerService)
+            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProvider, GameObserver gameObserver, TimerService timerService)
             {
                 _sceneLoader = sceneLoader;
                 _assetProvider = assetProvider;
+                _gameObserver = gameObserver;
                 _timerService = timerService;
             }
             public async UniTask Run()
             {
                 _assetProvider.ReleaseAll();
                 _timerService.Stop();
+                _gameObserver.Cleanup();
                 await _sceneLoader.LoadSingle(Constants.SceneConstants.Location1SceneKey);
             }
         }
 
         private GameFactory _gameFactory;
-        private GameObserver _gameObserver;
         private UIFactory _uIFactory;
         private TempLevelProgress _levelProgress;
         private CameraStateService _cameraService;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, GameObserver gameObserver, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService)
+        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService)
         {
             _gameFactory = gameFactory;
-            _gameObserver = gameObserver;
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;
             _cameraService = cameraService;
@@ -47,7 +48,6 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 
         protected override async UniTask OnStart()
         {
-            _gameObserver.SendChangePause(false, false);
             _cameraService.Prepare();
             await _uIFactory.CreateHUD();
             Quests.Scenarios.BaseQuest qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID);

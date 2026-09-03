@@ -6,7 +6,6 @@ using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
 using System;
-using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -31,11 +30,11 @@ namespace Assets.Scripts.Quests.Scenarios
         private HitHandler _hitHandler;
         private QuestObjectsData _questObjectsData;
         private TempLevelProgress _levelProgress;
-        private CancellationToken _ct;
+        private TimerService _timerService;
         private int _currentLives;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, QuestObjectsData questObjectsData)
+        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, QuestObjectsData questObjectsData, TimerService timerService)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
@@ -45,6 +44,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _hitHandler = hitHandler;
             _questObjectsData = questObjectsData;
             _levelProgress = progressService.TempLevelProgress;
+            _timerService = timerService;
         }
         private void OnValidate()
         {
@@ -60,12 +60,12 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         protected override async UniTask OnRun()
         {
-            _ct = this.GetCancellationTokenOnDestroy();
             _hitHandler.Init(_config.DamageRadius);
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _playerInitPoint.position, _playerInitPoint.rotation);
             await InitObjects();
             _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
             _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
+            _timerService.Start();
         }
 
         private async UniTask InitObjects()
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Quests.Scenarios
             for (int i = 0; i < _targetsRoot.childCount; i++)
             {
                 Transform point = _targetsRoot.GetChild(i);
-                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DestroyableItemReference, point.position, point.rotation, _ct);
+                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DestroyableItemReference, point.position, point.rotation, this.GetCancellationTokenOnDestroy());
                 if (instance.TryGetComponent(out IApplyDamage applyDamage) == false)
                     Debug.LogError("no damage");
 
@@ -116,7 +116,7 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private void PlayAnimation()
         {
-            _cameraService.Show(CharacterPos(), RestartPlayer, _ct).Forget(Debug.LogError);
+            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogError);
             _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
         }
 

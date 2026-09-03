@@ -7,7 +7,6 @@ using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -40,19 +39,20 @@ namespace Assets.Scripts.Quests.Scenarios
         private CameraStateService _cameraService;
         private HitHandler _hitHandler;
         private TempLevelProgress _levelProgress;
+        private TimerService _timerService;
         private GameFactory _gameFactory;
         private TransportFactory _transportFactory;
-        private CancellationToken _ct;
         private readonly List<(IApplyDamage, BotRefresher)> _targers = new();
 
         [Inject]
-        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler)
+        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, TimerService timerService)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
             _cameraService = cameraService;
             _hitHandler = hitHandler;
             _levelProgress = progressService.TempLevelProgress;
+            _timerService = timerService;
         }
         private void OnDestroy()
         {
@@ -61,16 +61,27 @@ namespace Assets.Scripts.Quests.Scenarios
                 _transportFactory.PlayerKeeper.CharacterHit.OnHit -= OnPlayerHit;
                 _transportFactory.PlayerKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
             }
+            _timerService.OnTick -= OnTimerTick;
         }
         protected override async UniTask OnRun()
         {
-            _ct = this.GetCancellationTokenOnDestroy();
             _hitHandler.Init(_config.PlayerDamageRadius);
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _playerSpawnPoint.position, _playerSpawnPoint.rotation);
             await InitTransport();
 
             _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
             _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
+            _timerService.OnTick += OnTimerTick;
+            _timerService.Start(15, false);
+        }
+
+        private void OnTimerTick()
+        {
+            if (_timerService.Seconds <= 0)
+            {
+                _timerService.Stop();
+                ProtectedWin().Forget();
+            }
         }
 
         private async UniTask InitTransport()
@@ -81,7 +92,7 @@ namespace Assets.Scripts.Quests.Scenarios
                 SpawnMarker marker = _spawnMarkers[UnityEngine.Random.Range(0, _spawnMarkers.Count - 1)];
                 Vector3 pos = RandomSpawnPos();
                 Quaternion rotate = RandomRotate();
-                BotMovementByArea instance = await _gameFactory.CreateFlying(marker.Id, pos, rotate, _ct);
+                BotMovementByArea instance = await _gameFactory.CreateFlying(marker.Id, pos, rotate, this.GetCancellationTokenOnDestroy());
                 instance.SetArea(matrix, size);
                 if (instance.TryGetComponent(out IApplyDamage applyDamage) == false)
                 {
@@ -132,7 +143,8 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private void PlayAnimation()
         {
-            _cameraService.Show(CharacterPos(), RestartPlayer, _ct).Forget(Debug.LogError);
+            _timerService.SetPause(true);
+            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogException);
             _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
         }
 
@@ -141,6 +153,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _transportFactory.PlayerKeeper.CharacterRefresher.Show(_playerSpawnPoint.position, _playerSpawnPoint.rotation);
             _cameraService.SetParent(_transportFactory.PlayerKeeper.Character.transform);
             CheckTransports();
+            _timerService.SetPause(false);
         }
 
         private void CheckTransports()

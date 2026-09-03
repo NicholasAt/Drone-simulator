@@ -82,8 +82,17 @@ namespace Assets.Scripts.Services.CameraService
                     _cameraTransform.position = pos;
                     _cameraTransform.LookAt(from);
 
-                    await UniTask.WaitForSeconds(_duration, cancellationToken: ct);
-                    await UniTask.WaitUntil(() => _gameObserver.IsPause == false, cancellationToken: ct);
+                    float current = 0;
+                    while (true)
+                    {
+                        await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: ct);
+                        if (_gameObserver.IsPause)
+                            continue;
+
+                        current += Time.deltaTime;
+                        if (current >= _duration)
+                            break;
+                    }
 
                     onEnd?.Invoke();
                 }

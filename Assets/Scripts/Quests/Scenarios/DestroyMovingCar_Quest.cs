@@ -39,18 +39,20 @@ namespace Assets.Scripts.Quests.Scenarios
         private CameraStateService _cameraService;
         private HitHandler _hitHandler;
         private TempLevelProgress _levelProgress;
+        private TimerService _timerService;
         private GameFactory _gameFactory;
         private CancellationToken _ct;
 
         private int _currentCarrs;
         [Inject]
-        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler)
+        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler,TimerService timerService)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
             _cameraService = cameraService;
             _hitHandler = hitHandler;
             _levelProgress = progressService.TempLevelProgress;
+            _timerService = timerService;
         }
         private void OnValidate()
         {
@@ -66,6 +68,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
             _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
             _loseReporter.OnTrigger += OnLose;
+            _timerService.Start();
         }
 
         private void OnPlayerTurned()

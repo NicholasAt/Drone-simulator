@@ -7,11 +7,15 @@ namespace Assets.Scripts.Services
         public bool IsPause { get; private set; }
         public Action OnPauseChange { get; set; }
 
-        public void SendChangePause(bool isPause, bool send = true)
+        public void Cleanup()
+        {
+            OnPauseChange = null;
+            IsPause = false;
+        }
+        public void SendChangePause(bool isPause)
         {
             IsPause = isPause;
-            if (send)
-                OnPauseChange?.Invoke();
+            OnPauseChange?.Invoke();
         }
     }
 }

@@ -4,7 +4,6 @@ using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -23,10 +22,10 @@ namespace Assets.Scripts.Quests.Scenarios
         private TransportFactory _transportFactory;
         private TempLevelProgress _levelProgress;
         private QuestObjectsData _questObjectsData;
-        private CancellationToken _ct;
+        private TimerService _timerService;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, QuestObjectsData questObjectsData)
+        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, QuestObjectsData questObjectsData, TimerService timerService)
         {
             _gameFactory = gameFactory;
             _gameStateMachine = gameStateMachine;
@@ -34,6 +33,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _transportFactory = transportFactory;
             _levelProgress = progressService.TempLevelProgress;
             _questObjectsData = questObjectsData;
+            _timerService = timerService;
         }
         private void OnValidate()
         {
@@ -41,11 +41,11 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         protected override async UniTask OnRun()
         {
-            _ct = this.GetCancellationTokenOnDestroy();
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
             _movementByPoints.OnTriggered += (point) => Triggered(point).Forget();
             _movementByPoints.OnFinish += () => ProtectedWin(_winMessage).Forget();
             await _movementByPoints.Run();
+            _timerService.Start();
         }
 
         private async UniTask Triggered(Transform triggerPoint)
@@ -58,7 +58,7 @@ namespace Assets.Scripts.Quests.Scenarios
                     return;
                 }
                 Transform point = triggerPoint.GetChild(0);
-                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, _transportFactory.PlayerKeeper.Pos(), Quaternion.identity, _ct);
+                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, _transportFactory.PlayerKeeper.Pos(), Quaternion.identity, this.GetCancellationTokenOnDestroy());
                 instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
                 instance.transform.DORotate(point.eulerAngles, 1);
             }

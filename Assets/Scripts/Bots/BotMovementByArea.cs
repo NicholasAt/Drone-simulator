@@ -18,7 +18,7 @@ namespace Assets.Scripts.Bots
 
         private void OnEnable()
         {
-            if (_setPoint)
+            if (_setPoint && _agent.enabled)
                 _agent.SetDestination(_currentTarget);
         }
 

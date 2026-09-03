@@ -17,14 +17,16 @@ namespace Assets.Scripts.Quests.Scenarios
         private TempLevelProgress _levelProgress;
         private UIFactory _uIFactory;
         private GameStateMachine _gameStateMachine;
+        private TimerService _timerService;
 
         [Inject]
-        private void Construct(TransportFactory transportFactory, ProgressService progressService, UIFactory uIFactory, GameStateMachine gameStateMachine)
+        private void Construct(TransportFactory transportFactory, ProgressService progressService, UIFactory uIFactory, GameStateMachine gameStateMachine,TimerService timerService)
         {
             _transportFactory = transportFactory;
             _levelProgress = progressService.TempLevelProgress;
             _uIFactory = uIFactory;
             _gameStateMachine = gameStateMachine;
+            _timerService = timerService;
         }
 
         private void OnDestroy()
@@ -43,6 +45,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnTurned;
             _movementByPoints.OnFinish += () => ProtectedWin().Forget();
             await _movementByPoints.Run();
+            _timerService.Start();
         }
         private void OnTurned()
         {
