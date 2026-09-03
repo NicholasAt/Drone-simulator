@@ -28,6 +28,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<CameraStateService>().AsSingle();
             Container.Bind<PauseState>().AsSingle();
             Container.Bind<GameObserver>().AsSingle();
+            Container.Bind<TimerService>().AsSingle();
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();
 

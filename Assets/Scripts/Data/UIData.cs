@@ -8,7 +8,6 @@ namespace Assets.Scripts.Data
     {
         [field: SerializeField] public AssetReferenceGameObject MainMenuWindowReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject HUDReference { get; private set; }
-        [field: SerializeField] public AssetReferenceGameObject PopUpHomeReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject PopUpTwoButtonsReference { get; private set; }
     }
 }

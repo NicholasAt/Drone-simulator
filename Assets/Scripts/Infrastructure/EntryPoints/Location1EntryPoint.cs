@@ -9,28 +9,31 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 {
     public class Location1EntryPoint : BaseEntryPoint
     {
+        public class Preparation
+        {
+            private readonly SceneLoader _sceneLoader;
+            private readonly IAssetProviderService _assetProvider;
+            private readonly TimerService _timerService;
+
+            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProvider, TimerService timerService)
+            {
+                _sceneLoader = sceneLoader;
+                _assetProvider = assetProvider;
+                _timerService = timerService;
+            }
+            public async UniTask Run()
+            {
+                _assetProvider.ReleaseAll();
+                _timerService.Stop();
+                await _sceneLoader.LoadSingle(Constants.SceneConstants.Location1SceneKey);
+            }
+        }
+
         private GameFactory _gameFactory;
         private GameObserver _gameObserver;
         private UIFactory _uIFactory;
         private TempLevelProgress _levelProgress;
         private CameraStateService _cameraService;
-
-        public class Preparation
-        {
-            private readonly SceneLoader _sceneLoader;
-            private readonly IAssetProviderService _assetProvider;
-
-            public Preparation(SceneLoader sceneLoader, IAssetProviderService assetProvider)
-            {
-                _sceneLoader = sceneLoader;
-                _assetProvider = assetProvider;
-            }
-            public async UniTask Run()
-            {
-                _assetProvider.ReleaseAll();
-                await _sceneLoader.LoadSingle(Constants.SceneConstants.Location1SceneKey);
-            }
-        }
 
         [Inject]
         private void Construct(GameFactory gameFactory, GameObserver gameObserver, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService)

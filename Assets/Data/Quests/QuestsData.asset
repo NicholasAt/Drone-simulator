@@ -13,31 +13,6 @@ MonoBehaviour:
   m_Name: QuestsData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.Quests.QuestsData
   _categoryConfigs:
-  - <TransportName>k__BackingField: Helicopter
-    <Icon>k__BackingField: {fileID: 0}
-    _questConfig:
-    - <MissionName>k__BackingField: Point-to-Point Flight Training
-      <MissionDescription>k__BackingField: q
-      <Icon>k__BackingField: {fileID: 0}
-      <QuestID>k__BackingField: 2
-      <BaseQuest>k__BackingField: {fileID: 1873827770679997520, guid: 90b08088c52b2094d866af53dff6614d, type: 3}
-      <QuestReference>k__BackingField:
-        m_AssetGUID: 90b08088c52b2094d866af53dff6614d
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-    - <MissionName>k__BackingField: 2
-      <MissionDescription>k__BackingField: 
-      <Icon>k__BackingField: {fileID: 0}
-      <QuestID>k__BackingField: 3
-      <BaseQuest>k__BackingField: {fileID: 5073473656311601531, guid: bd12a1faca0bb844eafdc77aeb22423d, type: 3}
-      <QuestReference>k__BackingField:
-        m_AssetGUID: bd12a1faca0bb844eafdc77aeb22423d
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
   - <TransportName>k__BackingField: Drone
     <Icon>k__BackingField: {fileID: 0}
     _questConfig:
@@ -81,6 +56,31 @@ MonoBehaviour:
       <BaseQuest>k__BackingField: {fileID: 3934578146402858410, guid: 404cb2bbf7730c74cbf4d84529a3333b, type: 3}
       <QuestReference>k__BackingField:
         m_AssetGUID: 404cb2bbf7730c74cbf4d84529a3333b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+  - <TransportName>k__BackingField: Helicopter
+    <Icon>k__BackingField: {fileID: 0}
+    _questConfig:
+    - <MissionName>k__BackingField: Point-to-Point Flight Training
+      <MissionDescription>k__BackingField: q
+      <Icon>k__BackingField: {fileID: 0}
+      <QuestID>k__BackingField: 2
+      <BaseQuest>k__BackingField: {fileID: 1873827770679997520, guid: 90b08088c52b2094d866af53dff6614d, type: 3}
+      <QuestReference>k__BackingField:
+        m_AssetGUID: 90b08088c52b2094d866af53dff6614d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+    - <MissionName>k__BackingField: 2
+      <MissionDescription>k__BackingField: 
+      <Icon>k__BackingField: {fileID: 0}
+      <QuestID>k__BackingField: 3
+      <BaseQuest>k__BackingField: {fileID: 5073473656311601531, guid: bd12a1faca0bb844eafdc77aeb22423d, type: 3}
+      <QuestReference>k__BackingField:
+        m_AssetGUID: bd12a1faca0bb844eafdc77aeb22423d
         m_SubObjectName: 
         m_SubObjectType: 
         m_SubObjectGUID: 

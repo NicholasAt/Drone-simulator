@@ -44,7 +44,6 @@ namespace Assets.Scripts.Quests.Scenarios
             _movementByPoints.OnFinish += () => ProtectedWin().Forget();
             await _movementByPoints.Run();
         }
-
         private void OnTurned()
         {
             RestartPlayer();

@@ -1,6 +1,7 @@
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -10,24 +11,36 @@ namespace Assets.Scripts.UI.Windows.UIHUD
     public class HUD : MonoBehaviour
     {
         [SerializeField] private Button _menuButton;
+        [SerializeField] private TMP_Text _timerText;
+
         private UIFactory _uIFactory;
         private GameStateMachine _gameStateMachine;
+        private TimerService _timerService;
         private bool _inProcess;
 
         [Inject]
-        private void Construct(UIFactory uIFactory, GameStateMachine gameStateMachine)
+        private void Construct(UIFactory uIFactory, GameStateMachine gameStateMachine, TimerService timerService)
         {
             _uIFactory = uIFactory;
             _gameStateMachine = gameStateMachine;
+            _timerService = timerService;
         }
 
         private void Start()
         {
             _menuButton.onClick.AddListener(() => HomePopup().Forget(Debug.LogError));
+            _timerService.OnTick += RefreshTimer;
         }
         private void OnDestroy()
         {
             _menuButton.onClick.RemoveAllListeners();
+            _timerService.OnTick -= RefreshTimer;
+        }
+
+        private void RefreshTimer()
+        {
+            string time = $"Min:{_timerService.Seconds / 60} Sec:{_timerService.Seconds % 60:D2}";
+            _timerText.text = time;
         }
 
         private async UniTask HomePopup()

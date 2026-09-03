@@ -34,12 +34,6 @@ namespace Assets.Scripts.Services
             return null;
         }
 
-        public async UniTask CreatePopupHome(CancellationToken ct = default)
-        {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpHomeReference, ct);
-            InstantiateInject(prefab);
-        }
-
         public async UniTask CreateHUD()
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.HUDReference);
