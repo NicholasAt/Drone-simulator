@@ -18,7 +18,8 @@ namespace Assets.Scripts.Character
 
         private void OnCollisionEnter(Collision collision)
         {
-            OnHit?.Invoke(collision.impulse.magnitude);
+            if (gameObject.activeInHierarchy)
+                OnHit?.Invoke(collision.impulse.magnitude);
         }
     }
 }

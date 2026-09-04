@@ -8,7 +8,7 @@ namespace Assets.Scripts.Character
         public Action OnTrigger { get; set; }
         private void OnTriggerEnter(Collider other)
         {
-            if (other.isTrigger == false)
+            if (gameObject.activeInHierarchy && other.isTrigger == false)
                 OnTrigger?.Invoke();
         }
     }

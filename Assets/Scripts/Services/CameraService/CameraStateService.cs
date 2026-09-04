@@ -102,7 +102,7 @@ namespace Assets.Scripts.Services.CameraService
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError(e);
+                    Debug.LogException(e);
                 }
             }
         }
