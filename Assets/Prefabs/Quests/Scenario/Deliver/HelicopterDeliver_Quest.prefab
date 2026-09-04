@@ -51,6 +51,8 @@ MonoBehaviour:
     WinMessage: 'Congratulations
 
       All packages delivered'
+    DestroyedMessage: You destroyed the helicopter
+    DieImpulse: 30
     BestSeconds: 15
     BadSeconds: 25
   _movementByPoints: {fileID: 1205666481666571340}

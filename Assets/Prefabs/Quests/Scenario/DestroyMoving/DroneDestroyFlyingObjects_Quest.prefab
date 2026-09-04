@@ -53,6 +53,11 @@ MonoBehaviour:
     MinTargets: 1
     DieImpulse: 20
     PlayerDamageRadius: 5
+    Time: 15
+    BestKills: 4
+    BadKills: 0
+    WinMessage: Targets destroyed
+    DestroyedMessage: You destroyed the drone
   _spawnMarkers:
   - Point: {fileID: 3652758078039693086}
     Radius: 50

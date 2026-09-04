@@ -16,6 +16,8 @@ namespace Assets.Scripts.Quests.Scenarios
         private class Config
         {
             [TextArea] public string WinMessage;
+            [TextArea] public string DestroyedMessage;
+            public float DieImpulse = 20;
             public int BestSeconds = 5;
             public int BadSeconds = 15;
         }
@@ -27,7 +29,6 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private GameFactory _gameFactory;
         private GameStateMachine _gameStateMachine;
-        private UIFactory _uIFactory;
         private TransportFactory _transportFactory;
         private TempLevelProgress _levelProgress;
         private QuestObjectsData _questObjectsData;
@@ -35,16 +36,23 @@ namespace Assets.Scripts.Quests.Scenarios
         private CalculateStarsService _calculateStars;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, QuestObjectsData questObjectsData, TimerService timerService, CalculateStarsService calculateStarsService)
+        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, TransportFactory transportFactory, ProgressService progressService, QuestObjectsData questObjectsData, TimerService timerService, CalculateStarsService calculateStarsService)
         {
             _gameFactory = gameFactory;
             _gameStateMachine = gameStateMachine;
-            _uIFactory = uIFactory;
             _transportFactory = transportFactory;
             _levelProgress = progressService.TempLevelProgress;
             _questObjectsData = questObjectsData;
             _timerService = timerService;
             _calculateStars = calculateStarsService;
+        }
+        private void OnDestroy()
+        {
+            if (_transportFactory.PlayerKeeper != null)
+            {
+                _transportFactory.PlayerKeeper.CharacterHit.OnHit -= OnPlayerHit;
+                _transportFactory.PlayerKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
+            }
         }
         private void OnValidate()
         {
@@ -56,8 +64,28 @@ namespace Assets.Scripts.Quests.Scenarios
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _initPoint.position, _initPoint.rotation);
             _movementByPoints.OnTriggered += (point) => Triggered(point).Forget();
             _movementByPoints.OnFinish += () => Win().Forget();
+
             await _movementByPoints.Run();
             _timerService.Start();
+
+            _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
+            _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
+        }
+
+        private void OnPlayerHit(float obj)
+        {
+            if (obj > _config.DieImpulse)
+                RestartPlayer();
+        }
+
+        private void OnPlayerTurned()
+        {
+            RestartPlayer();
+        }
+        private void RestartPlayer()
+        {
+            ShowPopupMessage(_config.DestroyedMessage);
+            _transportFactory.PlayerKeeper.CharacterRefresher.Show(_initPoint.position, _initPoint.rotation);
         }
         private async UniTask Win()
         {
@@ -74,7 +102,7 @@ namespace Assets.Scripts.Quests.Scenarios
                     return;
                 }
                 Transform point = triggerPoint.GetChild(0);
-                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, _transportFactory.PlayerKeeper.Pos(), Quaternion.identity, this.GetCancellationTokenOnDestroy());
+                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, _transportFactory.PlayerKeeper.Pos(), Quaternion.identity, this.GetCancellationTokenOnDestroy(), "");
                 instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
                 instance.transform.DORotate(point.eulerAngles, 1);
             }

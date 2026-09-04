@@ -4,6 +4,7 @@ using Assets.Scripts.Services;
 using Assets.Scripts.Services.CameraService;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
+using Assets.Scripts.UI.Windows.Popup;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
@@ -20,10 +21,12 @@ namespace Assets.Scripts.Quests.Scenarios
             public float DamageRadius = 5;
             public int BestSeconds = 5;
             public int BadSeconds = 15;
+            [TextArea] public string DestroyedMessage;
         }
         [SerializeField] private Config _config;
         [SerializeField] private Transform _targetsRoot;
         [SerializeField] private Transform _playerInitPoint;
+
         private TransportFactory _transportFactory;
         private GameStateMachine _gameStateMachine;
         private UIFactory _uIFactory;
@@ -34,10 +37,12 @@ namespace Assets.Scripts.Quests.Scenarios
         private TempLevelProgress _levelProgress;
         private TimerService _timerService;
         private CalculateStarsService _calculateStars;
+        private ShowKills _showKills;
         private int _currentLives;
+        private PopupMessage _popup;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, QuestObjectsData questObjectsData, TimerService timerService, CalculateStarsService calculateStarsService)
+        private void Construct(GameFactory gameFactory, GameStateMachine gameStateMachine, UIFactory uIFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, QuestObjectsData questObjectsData, TimerService timerService, CalculateStarsService calculateStarsService, ShowKills showKills)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
@@ -49,7 +54,9 @@ namespace Assets.Scripts.Quests.Scenarios
             _levelProgress = progressService.TempLevelProgress;
             _timerService = timerService;
             _calculateStars = calculateStarsService;
+            _showKills = showKills;
         }
+
         private void OnValidate()
         {
             RefreshNames();
@@ -62,11 +69,16 @@ namespace Assets.Scripts.Quests.Scenarios
                 _transportFactory.PlayerKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
             }
         }
+
         protected override async UniTask OnRun()
         {
             _hitHandler.Init(_config.DamageRadius);
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _playerInitPoint.position, _playerInitPoint.rotation);
             await InitObjects();
+
+            _popup = await _uIFactory.CreatePopupMessage(this.GetCancellationTokenOnDestroy());
+            _showKills.Init(_popup);
+
             _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
             _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
             _timerService.Start();
@@ -77,7 +89,7 @@ namespace Assets.Scripts.Quests.Scenarios
             for (int i = 0; i < _targetsRoot.childCount; i++)
             {
                 Transform point = _targetsRoot.GetChild(i);
-                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DestroyableItemReference, point.position, point.rotation, this.GetCancellationTokenOnDestroy());
+                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DestroyableItemReference, point.position, point.rotation, this.GetCancellationTokenOnDestroy(), "Helicopter");
                 if (instance.TryGetComponent(out IApplyDamage applyDamage) == false)
                     Debug.LogError("no damage");
 
@@ -100,20 +112,28 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             if (_hitHandler.TryDamage(CharacterPos()))
             {
+                _showKills.Run(_hitHandler.Targets);
                 PlayAnimation();
             }
             else
+            {
+                ShowPopupMessage(_config.DestroyedMessage);
                 RestartPlayer();
+            }
         }
 
         private void OnPlayerHit(float impulse)
         {
             if (_hitHandler.TryDamage(CharacterPos()))
             {
+                _showKills.Run(_hitHandler.Targets);
                 PlayAnimation();
             }
             else if (impulse > _config.DieImpulse)
+            {
+                ShowPopupMessage(_config.DestroyedMessage);
                 RestartPlayer();
+            }
         }
 
         private Vector3 CharacterPos() =>
@@ -121,8 +141,8 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private void PlayAnimation()
         {
-            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogError);
             _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
+            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogError);
         }
 
         private void RestartPlayer()

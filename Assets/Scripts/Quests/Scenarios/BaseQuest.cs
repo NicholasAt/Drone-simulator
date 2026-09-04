@@ -9,20 +9,23 @@ namespace Assets.Scripts.Quests.Scenarios
 {
     public abstract class BaseQuest : MonoBehaviour
     {
-        private GameStateMachine _gameStateMachine;
-        private UIFactory _uIFactory;
+        protected GameStateMachine GameStateMachine;
+        protected UIFactory UIFactory;
+        protected PopupMessage PopupMessage;
 
         private bool _baseIsEnd;
         private bool _baseInProcess;
 
+
         [Inject]
         private void Construct(GameStateMachine gameStateMachine, UIFactory uIFactory)
         {
-            _gameStateMachine = gameStateMachine;
-            _uIFactory = uIFactory;
+            GameStateMachine = gameStateMachine;
+            UIFactory = uIFactory;
         }
         public async UniTask Run()
         {
+            PopupMessage = await UIFactory.CreatePopupMessage(this.GetCancellationTokenOnDestroy());
             await OnRun();
         }
 
@@ -39,15 +42,19 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             await WinLose(true, stars, message);
         }
+        protected void ShowPopupMessage(string message)
+        {
+            PopupMessage.Show(message);
+        }
         private async UniTask WinLose(bool isWin, int stars, string title = "")
         {
             if (_baseIsEnd)
                 return;
 
             _baseIsEnd = true;
-            _gameStateMachine.SetPause(true);
+            GameStateMachine.SetPause(true);
 
-            PopupTwoButtons popup = await _uIFactory.CreatePopupTwoButtons(this.GetCancellationTokenOnDestroy());
+            PopupTwoButtons popup = await UIFactory.CreatePopupTwoButtons(this.GetCancellationTokenOnDestroy());
 
             popup.OnLeftButtonClick += ToMainMenu;
             popup.OnRightButtonClick += Restart;
@@ -68,7 +75,7 @@ namespace Assets.Scripts.Quests.Scenarios
                 return;
 
             _baseInProcess = true;
-            _gameStateMachine.LoadLocation1().Forget(Debug.LogError);
+            GameStateMachine.LoadLocation1().Forget(Debug.LogError);
         }
 
         private void ToMainMenu()
@@ -77,7 +84,7 @@ namespace Assets.Scripts.Quests.Scenarios
                 return;
 
             _baseInProcess = true;
-            _gameStateMachine.LoadMainMenu().Forget(Debug.LogError);
+            GameStateMachine.LoadMainMenu().Forget(Debug.LogError);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Assets.Scripts.Quests.Scenarios
             public float DieImpulse = 20;
             [TextArea] public string WinMessage;
             [TextArea] public string LoseMessage;
+            [TextArea] public string DestroyedMessage;
             public int BestSeconds = 5;
             public int BadSeconds = 15;
         }
@@ -45,8 +46,10 @@ namespace Assets.Scripts.Quests.Scenarios
         private GameFactory _gameFactory;
 
         private int _currentCarrs;
+        private ShowKills _showKills;
+
         [Inject]
-        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, TimerService timerService, CalculateStarsService calculateStarsService)
+        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, TimerService timerService, CalculateStarsService calculateStarsService, ShowKills showKills)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
@@ -55,6 +58,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _levelProgress = progressService.TempLevelProgress;
             _timerService = timerService;
             _calculateStars = calculateStarsService;
+            _showKills = showKills;
         }
         private void OnValidate()
         {
@@ -66,6 +70,8 @@ namespace Assets.Scripts.Quests.Scenarios
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
             await InitCars();
 
+            _showKills.Init(PopupMessage);
+
             _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
             _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
             _loseReporter.OnTrigger += OnLose;
@@ -76,20 +82,28 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             if (_hitHandler.TryDamage(CharacterPos()))
             {
+                _showKills.Run(_hitHandler.Targets);
                 PlayAnimation();
             }
             else
+            {
+                ShowPopupMessage(_config.DestroyedMessage);
                 RestartPlayer();
+            }
         }
 
         private void OnPlayerHit(float impulse)
         {
             if (_hitHandler.TryDamage(CharacterPos()))
             {
+                _showKills.Run(_hitHandler.Targets);
                 PlayAnimation();
             }
             else if (impulse > _config.DieImpulse)
+            {
+                ShowPopupMessage(_config.DestroyedMessage);
                 RestartPlayer();
+            }
         }
 
         private async UniTask InitCars()
@@ -127,8 +141,8 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         private void PlayAnimation()
         {
-            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogError);
             _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
+            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogError);
         }
         private void RestartPlayer()
         {
@@ -140,7 +154,7 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             CharacterMarker cahracter = obj.GetComponentInParent<CharacterMarker>();
             if (cahracter != null && cahracter.IsBot)
-                ProtectedLose(0,_config.LoseMessage).Forget(Debug.LogError);
+                ProtectedLose(0, _config.LoseMessage).Forget(Debug.LogError);
         }
 
         private void RefreshName()

@@ -22,6 +22,16 @@ namespace Assets.Scripts.Services
             _assetProvider = assetProviderService;
         }
 
+        public async UniTask<PopupMessage> CreatePopupMessage(CancellationToken ct = default)
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpMessageReference, ct);
+            GameObject instance = InstantiateInject(prefab);
+
+            if (instance.TryGetComponent(out PopupMessage popup))
+                return popup;
+            Debug.LogError("no component");
+            return null;
+        }
         public async UniTask<PopupTwoButtons> CreatePopupTwoButtons(CancellationToken ct = default)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpTwoButtonsReference, ct);
@@ -41,12 +51,12 @@ namespace Assets.Scripts.Services
         }
         public async UniTask CreateHUD(CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.HUDReference,ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.HUDReference, ct);
             InstantiateInject(prefab);
         }
         public async UniTask CreateMenu(CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MainMenuWindowReference,ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MainMenuWindowReference, ct);
             InstantiateInject(prefab);
         }
         private GameObject InstantiateInject(GameObject prefab, Transform parent = null)

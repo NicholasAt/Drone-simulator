@@ -4,6 +4,7 @@ using Assets.Scripts.Data.BotsData.FlyData;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
+using Assets.Scripts.ObjecstName;
 using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
@@ -42,10 +43,14 @@ namespace Assets.Scripts.Services
             _progressService = progressService;
         }
 
-        public async UniTask<GameObject> CreateQuestObject(AssetReferenceGameObject reference, Vector3 pos, Quaternion rotate, CancellationToken ct)
+        public async UniTask<GameObject> CreateQuestObject(AssetReferenceGameObject reference, Vector3 pos, Quaternion rotate, CancellationToken ct, string objectName)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
+            if (instance.TryGetComponent(out IObjectName name))
+            {
+                name.SetName(objectName);
+            }
             return instance;
         }
 
@@ -84,6 +89,10 @@ namespace Assets.Scripts.Services
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
 
+            if (instance.TryGetComponent(out IObjectName objectName))
+            {
+                objectName.SetName(cfg.TransportName);
+            }
             if (instance.TryGetComponent(out BotMovementByArea botFly))
             {
                 botFly.Init(cfg.Speed);
@@ -99,6 +108,10 @@ namespace Assets.Scripts.Services
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
 
+            if (instance.TryGetComponent(out IObjectName objectName))
+            {
+                objectName.SetName(cfg.Name);
+            }
             if (instance.TryGetComponent(out BotCarMove botCar))
             {
                 botCar.Init(cfg.Speed);

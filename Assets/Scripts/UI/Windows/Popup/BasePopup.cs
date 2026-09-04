@@ -8,6 +8,7 @@ namespace Assets.Scripts.UI.Windows.Popup
         {
             OnClose();
         }
+       
         protected virtual void OnClose() { }
     }
 }

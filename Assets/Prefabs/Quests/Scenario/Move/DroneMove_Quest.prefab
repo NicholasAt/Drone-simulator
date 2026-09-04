@@ -144,6 +144,7 @@ MonoBehaviour:
     DieImpulse: 20
     BestSeconds: 5
     BadSeconds: 15
+    DestroyedMessage: You destroyed the drone
   _movementByPoints: {fileID: 866411700548603729}
   _initPoint: {fileID: 7350850229377884433}
 --- !u!114 &866411700548603729

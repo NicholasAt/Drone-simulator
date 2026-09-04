@@ -29,8 +29,11 @@ namespace Assets.Scripts.Quests.Scenarios
             public int MinTargets = 1;
             public float DieImpulse = 20;
             public float PlayerDamageRadius = 5;
+            public int Time = 15;
             public int BestKills = 5;
             public int BadKills = 15;
+            [TextArea] public string WinMessage;
+            [TextArea] public string DestroyedMessage;
         }
         [SerializeField] private Config _config;
         [SerializeField] private List<SpawnMarker> _spawnMarkers;
@@ -43,12 +46,14 @@ namespace Assets.Scripts.Quests.Scenarios
         private TempLevelProgress _levelProgress;
         private TimerService _timerService;
         private CalculateStarsService _calculateStars;
+        private ShowKills _showKills;
         private GameFactory _gameFactory;
         private TransportFactory _transportFactory;
         private readonly List<(IApplyDamage, BotRefresher)> _targers = new();
         private int _currentKillCont;
+
         [Inject]
-        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, TimerService timerService, CalculateStarsService calculateStarsService)
+        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, TimerService timerService, CalculateStarsService calculateStarsService, ShowKills showKills)
         {
             _gameFactory = gameFactory;
             _transportFactory = transportFactory;
@@ -57,6 +62,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _levelProgress = progressService.TempLevelProgress;
             _timerService = timerService;
             _calculateStars = calculateStarsService;
+            _showKills = showKills;
         }
         private void OnDestroy()
         {
@@ -72,11 +78,12 @@ namespace Assets.Scripts.Quests.Scenarios
             _hitHandler.Init(_config.PlayerDamageRadius);
             await _transportFactory.CreateTransport(_levelProgress.QuestID, _playerSpawnPoint.position, _playerSpawnPoint.rotation);
             await InitTransport();
+            _showKills.Init(PopupMessage);
 
             _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
             _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
             _timerService.OnTick += OnTimerTick;
-            _timerService.Start(15, false);
+            _timerService.Start(_config.Time, false);
         }
 
         private void OnTimerTick()
@@ -84,8 +91,8 @@ namespace Assets.Scripts.Quests.Scenarios
             if (_timerService.Seconds <= 0)
             {
                 _timerService.Stop();
-                int stars = _calculateStars.Calculate(_config.BadKills, _config.BestKills, _currentKillCont);
-                ProtectedWin(stars).Forget();
+                int stars = _calculateStars.InvertCalculate(_config.BadKills, _config.BestKills, _currentKillCont);
+                ProtectedWin(stars, $"{_config.WinMessage}: {_currentKillCont}").Forget();
             }
         }
 
@@ -131,20 +138,28 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             if (_hitHandler.TryDamage(CharacterPos()))
             {
+                _showKills.Run(_hitHandler.Targets);
                 PlayAnimation();
             }
             else
+            {
+                ShowPopupMessage(_config.DestroyedMessage);
                 RestartPlayer();
+            }
         }
 
         private void OnPlayerHit(float impulse)
         {
             if (_hitHandler.TryDamage(CharacterPos()))
             {
+                _showKills.Run(_hitHandler.Targets);
                 PlayAnimation();
             }
             else if (impulse > _config.DieImpulse)
+            {
+                ShowPopupMessage(_config.DestroyedMessage);
                 RestartPlayer();
+            }
         }
 
         private Vector3 CharacterPos()
@@ -155,16 +170,16 @@ namespace Assets.Scripts.Quests.Scenarios
         private void PlayAnimation()
         {
             _timerService.SetPause(true);
-            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogException);
             _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
+            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogException);
         }
 
         private void RestartPlayer()
         {
-            _transportFactory.PlayerKeeper.CharacterRefresher.Show(_playerSpawnPoint.position, _playerSpawnPoint.rotation);
             _cameraService.SetParent(_transportFactory.PlayerKeeper.Character.transform);
             CheckTransports();
             _timerService.SetPause(false);
+            _transportFactory.PlayerKeeper.CharacterRefresher.Show(_playerSpawnPoint.position, _playerSpawnPoint.rotation);
         }
 
         private void CheckTransports()

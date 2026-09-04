@@ -82,6 +82,7 @@ MonoBehaviour:
     DamageRadius: 5
     BestSeconds: 13
     BadSeconds: 25
+    DestroyedMessage: You destroyed the drone
   _targetsRoot: {fileID: 7867328676289207682}
   _playerInitPoint: {fileID: 2015069983624001833}
 --- !u!1 &3265287397962244683

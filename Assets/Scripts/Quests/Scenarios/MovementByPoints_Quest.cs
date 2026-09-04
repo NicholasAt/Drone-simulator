@@ -16,6 +16,7 @@ namespace Assets.Scripts.Quests.Scenarios
             public float DieImpulse = 20;
             public int BestSeconds = 5;
             public int BadSeconds = 15;
+            [TextArea] public string DestroyedMessage;
         }
         [SerializeField] private Config _config;
         [SerializeField] private MovementByPoints _movementByPoints;
@@ -23,17 +24,15 @@ namespace Assets.Scripts.Quests.Scenarios
         private TransportFactory _transportFactory;
 
         private TempLevelProgress _levelProgress;
-        private UIFactory _uIFactory;
         private GameStateMachine _gameStateMachine;
         private TimerService _timerService;
         private CalculateStarsService _calculateStars;
 
         [Inject]
-        private void Construct(TransportFactory transportFactory, ProgressService progressService, UIFactory uIFactory, GameStateMachine gameStateMachine, TimerService timerService, CalculateStarsService calculateStarsService)
+        private void Construct(TransportFactory transportFactory, ProgressService progressService, GameStateMachine gameStateMachine, TimerService timerService, CalculateStarsService calculateStarsService)
         {
             _transportFactory = transportFactory;
             _levelProgress = progressService.TempLevelProgress;
-            _uIFactory = uIFactory;
             _gameStateMachine = gameStateMachine;
             _timerService = timerService;
             _calculateStars = calculateStarsService;
@@ -57,15 +56,17 @@ namespace Assets.Scripts.Quests.Scenarios
             await _movementByPoints.Run();
             _timerService.Start();
         }
-        private void OnTurned()
-        {
-            RestartPlayer();
-        }
+
         private async UniTask Win()
         {
             int stars = _calculateStars.Calculate(_config.BadSeconds, _config.BestSeconds, _timerService.Seconds);
             await ProtectedWin(stars);
         }
+        private void OnTurned()
+        {
+            RestartPlayer();
+        }
+
         private void OnHit(float force)
         {
             if (force > _config.DieImpulse)
@@ -74,6 +75,7 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private void RestartPlayer()
         {
+            ShowPopupMessage(_config.DestroyedMessage);
             _transportFactory.PlayerKeeper.CharacterRefresher.Show(_initPoint.position, _initPoint.rotation);
         }
     }

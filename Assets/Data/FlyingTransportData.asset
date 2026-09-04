@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: FlyingTransportData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.BotsData.FlyData.FlyingTransportData
   _configs:
-  - <ID>k__BackingField: 1
+  - <TransportName>k__BackingField: Helicopter
+    <ID>k__BackingField: 1
     <PrefabReference>k__BackingField:
       m_AssetGUID: e5fbf7ab644fddb40950fdc8d9054d64
       m_SubObjectName: 

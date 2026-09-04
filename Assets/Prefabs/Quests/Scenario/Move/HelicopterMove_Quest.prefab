@@ -144,6 +144,7 @@ MonoBehaviour:
     DieImpulse: 40
     BestSeconds: 11
     BadSeconds: 25
+    DestroyedMessage: You destroyed the helicopter
   _movementByPoints: {fileID: 866411700548603729}
   _initPoint: {fileID: 7350850229377884433}
 --- !u!114 &866411700548603729

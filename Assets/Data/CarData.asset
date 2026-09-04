@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CarData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.BotsData.CarData.BotCarData
   _carConfigs:
-  - <ID>k__BackingField: 1
+  - <Name>k__BackingField: Hummer
+    <ID>k__BackingField: 1
     <PrefabReference>k__BackingField:
       m_AssetGUID: 6cc89ebd41da57840a7e85474657534f
       m_SubObjectName: 
@@ -21,7 +22,8 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     <Speed>k__BackingField: 8
-  - <ID>k__BackingField: 2
+  - <Name>k__BackingField: Tank
+    <ID>k__BackingField: 2
     <PrefabReference>k__BackingField:
       m_AssetGUID: fc665c94bb506ec4797f48bf54899206
       m_SubObjectName: 
