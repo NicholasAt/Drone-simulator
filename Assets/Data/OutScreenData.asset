@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: OutScreenData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.OutScreenData
   <RendererDistance>k__BackingField: 100
-  <EdgeOffset>k__BackingField: 50
+  <EdgeOffset>k__BackingField: 80

@@ -65,6 +65,7 @@ namespace Assets.Scripts.UI.Windows.UIScreenTarget
             {
                 Vector3 screenPos = _mainCamera.WorldToScreenPoint(target.position);
                 UIScreenTargetPoint indicator = _currentPoints[i];
+                float distance = Vector3.Distance(_mainCamera.transform.position, target.position);
 
                 bool isBehind = screenPos.z < 0;
 
@@ -106,10 +107,10 @@ namespace Assets.Scripts.UI.Windows.UIScreenTarget
                         edgePos.x = screenCenter.x + (edgePos.y - screenCenter.y) / slope;
                     }
                     indicator.Show(edgePos, dir);
+                    indicator.UpdateDistance(distance);
                 }
                 else
                 {
-                    float distance = Vector3.Distance(_mainCamera.transform.position, target.position);
                     if (distance < _outScreenData.RendererDistance)
                     {
                         indicator.Hide();
@@ -120,6 +121,7 @@ namespace Assets.Scripts.UI.Windows.UIScreenTarget
                         screenPos.y = Mathf.Clamp(screenPos.y, _outScreenData.EdgeOffset, Screen.height - _outScreenData.EdgeOffset);
 
                         indicator.Show(screenPos);
+                        indicator.UpdateDistance(distance);
                     }
                 }
                 i++;

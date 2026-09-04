@@ -64,7 +64,6 @@ namespace Assets.Scripts.Quests.Scenarios
         private async UniTask Win()
         {
             int stars = _calculateStars.Calculate(_config.BadSeconds, _config.BestSeconds, _timerService.Seconds);
-            Debug.LogError($"{stars}");
             await ProtectedWin(stars);
         }
         private void OnHit(float force)
