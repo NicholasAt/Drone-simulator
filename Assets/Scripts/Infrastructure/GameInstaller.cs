@@ -1,6 +1,7 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Infrastructure.EntryPoints;
 using Assets.Scripts.Logic;
+using Assets.Scripts.Pool;
 using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
@@ -24,6 +25,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<ShowKills>().AsTransient();
 
             Container.Bind<CalculateStarsService>().AsSingle();
+            Container.Bind<VehiclesDestroyPool>().AsSingle();
             Container.Bind<CameraStateService>().AsSingle();
             Container.Bind<OffScreenContainer>().AsSingle();
             Container.Bind<TransportFactory>().AsSingle();

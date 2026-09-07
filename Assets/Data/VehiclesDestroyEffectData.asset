@@ -35,3 +35,15 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+  - <EffectId>k__BackingField: 3
+    <Force>k__BackingField: 50
+    <Torque>k__BackingField: 5
+    <CircleRadius>k__BackingField: 10
+    <ConeHeight>k__BackingField: 5
+    <Reference>k__BackingField:
+      m_AssetGUID: 3235902a3e1fe0f4cbc6eaf9124b650f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  <LifeSeconds>k__BackingField: 30

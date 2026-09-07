@@ -7,6 +7,7 @@ namespace Assets.Scripts.Data.DestroyVehiclesEffect
     public class VehiclesDestroyEffectData : ScriptableObject
     {
         [SerializeField] private List<VehiclesDestroyEffectConfig> _effectConfigs;
+        [field: SerializeField] public float LifeSeconds { get; private set; } = 30;
         public VehiclesDestroyEffectConfig GetConfig(DestroyEffectId id)
         {
             foreach (VehiclesDestroyEffectConfig cfg in _effectConfigs)

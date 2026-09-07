@@ -15,6 +15,7 @@ MonoBehaviour:
   _configs:
   - <TransportName>k__BackingField: Helicopter
     <ID>k__BackingField: 1
+    <EffectId>k__BackingField: 3
     <PrefabReference>k__BackingField:
       m_AssetGUID: e5fbf7ab644fddb40950fdc8d9054d64
       m_SubObjectName: 

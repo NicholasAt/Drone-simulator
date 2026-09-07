@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2988988111816207440}
   - component: {fileID: 8233261715911632918}
   - component: {fileID: -4447539536198083622}
+  - component: {fileID: 9133403326223623367}
   m_Layer: 0
   m_Name: Helicopter
   m_TagString: Untagged
@@ -85,6 +86,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f5a1cc9ef57d64a84fae04d867dc0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.ObjecstName.ObjectName
+--- !u!114 &9133403326223623367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517152546246462574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505ed0f18630bee4dab0a17992d5eb0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Effects.Vehicles.VehiclesDestroyEffectPlayer
 --- !u!1001 &3746729194706840832
 PrefabInstance:
   m_ObjectHideFlags: 0

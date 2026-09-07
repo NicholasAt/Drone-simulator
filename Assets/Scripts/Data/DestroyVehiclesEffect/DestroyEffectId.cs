@@ -5,5 +5,6 @@ namespace Assets.Scripts.Data.DestroyVehiclesEffect
         None,
         Hummer1,
         Tank1,
+        Helicopter1
     }
 }

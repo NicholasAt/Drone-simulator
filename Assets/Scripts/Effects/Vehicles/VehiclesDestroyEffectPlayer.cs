@@ -1,5 +1,5 @@
 using Assets.Scripts.Data.DestroyVehiclesEffect;
-using Assets.Scripts.Services;
+using Assets.Scripts.Pool;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -13,13 +13,13 @@ namespace Assets.Scripts.Effects.Vehicles
 
     public class VehiclesDestroyEffectPlayer : MonoBehaviour, IVehiclesDestroyEffectPlayer
     {
-        private GameFactory _gameFactory;
         private DestroyEffectId _id;
+        private VehiclesDestroyPool _vehiclesPool;
 
         [Inject]
-        private void Construct(GameFactory gameFactory)
+        private void Construct(VehiclesDestroyPool vehiclesDestroyPool)
         {
-            _gameFactory = gameFactory;
+            _vehiclesPool = vehiclesDestroyPool;
         }
 
         public void Init(DestroyEffectId id)
@@ -29,8 +29,8 @@ namespace Assets.Scripts.Effects.Vehicles
 
         public async UniTask Play()
         {
-            IVehiclesDestroyEffect effect = await _gameFactory.CreateVehiclesDestroyEffect(_id, this.GetCancellationTokenOnDestroy());
-            effect.Run(transform.position + Vector3.up, Vector3.up);
+            IVehiclesDestroyEffect effect = await _vehiclesPool.Get(_id, this.GetCancellationTokenOnDestroy());
+            effect.Show(transform.position + Vector3.up, Vector3.up);
         }
     }
 }

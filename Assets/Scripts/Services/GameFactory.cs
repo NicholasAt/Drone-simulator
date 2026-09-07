@@ -63,6 +63,10 @@ namespace Assets.Scripts.Services
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
+            if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))
+            {
+                effectPlayer.Init(DestroyEffectId.Helicopter1);
+            }
             if (instance.TryGetComponent(out IObjectName name))
             {
                 name.SetName(objectName);
@@ -104,7 +108,10 @@ namespace Assets.Scripts.Services
             FlyingTransportConfig cfg = _flyingTransportData.GetConfig(id);
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
-
+            if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))
+            {
+                effectPlayer.Init(cfg.EffectId);
+            }
             if (instance.TryGetComponent(out IObjectName objectName))
             {
                 objectName.SetName(cfg.TransportName);
