@@ -1,4 +1,6 @@
+using Assets.Scripts.Effects.Vehicles;
 using Assets.Scripts.Logic;
+using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,11 +15,13 @@ namespace Assets.Scripts.Bots
 
         private IRefreshPositions _refreshPositions;
         private NavMeshAgent _agent;
+        private IVehiclesDestroyEffectPlayer _effectPlayer;
 
         private void Awake()
         {
             _refreshPositions = GetComponent<IRefreshPositions>();
             _agent = GetComponent<NavMeshAgent>();
+            _effectPlayer = GetComponent<IVehiclesDestroyEffectPlayer>();
         }
 
         public void Hit(float damage)
@@ -29,8 +33,12 @@ namespace Assets.Scripts.Bots
             if (_agent != null)
                 _agent.enabled = false;
             _refreshPositions?.Hide();
+
             if (_disable)
                 gameObject.SetActive(false);
+
+            if (_effectPlayer != null)
+                _effectPlayer.Play().Forget();
             Happened?.Invoke();
         }
 

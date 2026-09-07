@@ -1,9 +1,11 @@
 using Assets.Scripts.Bots;
 using Assets.Scripts.Data.BotsData.CarData;
 using Assets.Scripts.Data.BotsData.FlyData;
+using Assets.Scripts.Data.DestroyVehiclesEffect;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
+using Assets.Scripts.Effects.Vehicles;
 using Assets.Scripts.ObjecstName;
 using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services.AssetProvider;
@@ -29,8 +31,9 @@ namespace Assets.Scripts.Services
         private readonly QuestsData _questsData;
         private readonly QuestObjectsData _questObjectsData;
         private readonly ProgressService _progressService;
+        private readonly VehiclesDestroyEffectData _destroyVehiclesEffectData;
 
-        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, FlyingTransportData flyingTransportData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService)
+        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, FlyingTransportData flyingTransportData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService, VehiclesDestroyEffectData destroyVehiclesEffectData)
         {
             _diContainer = diContainer;
             _assetProvider = assetProvider;
@@ -41,6 +44,19 @@ namespace Assets.Scripts.Services
             _questsData = questsData;
             _questObjectsData = questObjectsData;
             _progressService = progressService;
+            _destroyVehiclesEffectData = destroyVehiclesEffectData;
+        }
+
+        public async UniTask<IVehiclesDestroyEffect> CreateVehiclesDestroyEffect(DestroyEffectId id, CancellationToken ct)
+        {
+            VehiclesDestroyEffectConfig config = _destroyVehiclesEffectData.GetConfig(id);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(config.Reference, ct);
+            GameObject instance = InstantiateInject(prefab);
+            if (instance.TryGetComponent(out IVehiclesDestroyEffect effect) == false)
+                Debug.LogError("no component");
+
+            effect.Init(id);
+            return effect;
         }
 
         public async UniTask<GameObject> CreateQuestObject(AssetReferenceGameObject reference, Vector3 pos, Quaternion rotate, CancellationToken ct, string objectName)
@@ -107,6 +123,11 @@ namespace Assets.Scripts.Services
             CarConfig cfg = _carData.GetConfig(id);
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
+
+            if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))
+            {
+                effectPlayer.Init(cfg.DestroyEffectId);
+            }
 
             if (instance.TryGetComponent(out IObjectName objectName))
             {

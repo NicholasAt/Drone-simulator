@@ -10,23 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: QuestObjects
+  m_Name: Effects
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: QuestObjects
-  m_GUID: d896f1051b40cef41ad066ac3261bdac
+  m_GroupName: Effects
+  m_GUID: 307e02dda93583f45af5493e43403ffb
   m_SerializeEntries:
-  - m_GUID: 3e8815fb6e51f1543a53ed8a20d37eb3
-    m_Address: Helicopter
+  - m_GUID: 4f23181f4d33ec84490040bd0162fcaa
+    m_Address: Tank1Effect
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 66f900e7267754845a10dda8f0ff26ae
-    m_Address: QuestPointUnlit
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9aac9656eaa4be044b1290b522ed4355
-    m_Address: DeliveryItem1
+  - m_GUID: 65e3ddf0911dbf94197f6bdbac116a86
+    m_Address: Hummer1Effect
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -34,5 +29,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 8c0e0e2964242554b904de324fffa481, type: 2}
-    - {fileID: 11400000, guid: 5ad63125cd734d240ab7bda89425e03b, type: 2}
+    - {fileID: 11400000, guid: 4d78faeecb9259e4f96d1d1ea0d60158, type: 2}
+    - {fileID: 11400000, guid: 5c2b805218fc14f4bad5fe3c288dbcd1, type: 2}

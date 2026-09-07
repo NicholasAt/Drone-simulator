@@ -22,3 +22,4 @@ MonoBehaviour:
   <CameraData>k__BackingField: {fileID: 11400000, guid: 9f25f3f3185353d4d90be84a2b24fa7e, type: 2}
   <FlyingTransportData>k__BackingField: {fileID: 11400000, guid: 9e681a0429aed094cba2e156e39f48e8, type: 2}
   <OutScreenData>k__BackingField: {fileID: 11400000, guid: c74bac06cdec24147b0b75eefe6748f4, type: 2}
+  <DestroyVehiclesEffectData>k__BackingField: {fileID: 11400000, guid: 3729e2ff0c92dd846ba24a7eac035054, type: 2}

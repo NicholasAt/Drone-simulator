@@ -1,6 +1,7 @@
 using Assets.Scripts.Data.BotsData.CarData;
 using Assets.Scripts.Data.BotsData.FlyData;
 using Assets.Scripts.Data.CameraAnimationData;
+using Assets.Scripts.Data.DestroyVehiclesEffect;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
@@ -21,5 +22,6 @@ namespace Assets.Scripts.Data
         [field: SerializeField] public CameraData CameraData { get; private set; }
         [field: SerializeField] public FlyingTransportData FlyingTransportData { get; private set; }
         [field: SerializeField] public OutScreenData OutScreenData { get; private set; }
+        [field: SerializeField] public VehiclesDestroyEffectData DestroyVehiclesEffectData { get; private set; }
     }
 }

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -7809952772518429478}
   - component: {fileID: 4986075665567169101}
   - component: {fileID: -6828311659416884064}
+  - component: {fileID: 3134019682288465352}
   m_Layer: 6
   m_Name: Hummer1
   m_TagString: Untagged
@@ -161,6 +162,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f5a1cc9ef57d64a84fae04d867dc0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.ObjecstName.ObjectName
+--- !u!114 &3134019682288465352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7051118856343292220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505ed0f18630bee4dab0a17992d5eb0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Effects.Vehicles.DestroyVehiclesEffectPlayer
 --- !u!1 &9166670457730914192
 GameObject:
   m_ObjectHideFlags: 0

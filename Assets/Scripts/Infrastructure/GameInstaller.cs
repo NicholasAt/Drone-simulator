@@ -56,6 +56,7 @@ namespace Assets.Scripts.Infrastructure
             Container.BindInstance(data.CameraData).AsSingle();
             Container.BindInstance(data.FlyingTransportData).AsSingle();
             Container.BindInstance(data.OutScreenData).AsSingle();
+            Container.BindInstance(data.DestroyVehiclesEffectData).AsSingle();
         }
 
         private void BindStates()
