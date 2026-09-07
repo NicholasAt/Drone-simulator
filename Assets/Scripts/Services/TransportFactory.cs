@@ -54,6 +54,7 @@ namespace Assets.Scripts.Services
         {
             GameObject drone = await _gameFactory.CreateDrone(id, pos, rotate);
             Camera.main.transform.SetParent(drone.transform, false);
+            Camera.main.transform.localPosition = new Vector3(0, 0.5f, -0.1f);
             InitTransport(drone);
         }
         private void InitTransport(GameObject instance)

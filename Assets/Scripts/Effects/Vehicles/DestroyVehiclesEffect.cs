@@ -1,6 +1,7 @@
 using Assets.Scripts.Data.DestroyVehiclesEffect;
 using Cysharp.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -8,10 +9,11 @@ namespace Assets.Scripts.Effects.Vehicles
 {
     public class DestroyVehiclesEffect : MonoBehaviour, IVehiclesDestroyEffect
     {
+        [SerializeField] private ParticleSystem[] _particleSystem;
         private AudioSource _audioSource;
-        private Rigidbody[] _parts;
         private VehiclesDestroyEffectData _effectData;
         private VehiclesDestroyEffectConfig _config;
+        private readonly List<(Rigidbody body, Vector3 initPosition)> _parts = new();
 
         public Action OnHide { get; set; }
         private bool _isProcess;
@@ -25,19 +27,19 @@ namespace Assets.Scripts.Effects.Vehicles
 
         private void Awake()
         {
-            _parts = GetComponentsInChildren<Rigidbody>();
-            _audioSource = GetComponent<AudioSource>();
-            foreach (Rigidbody body in _parts)
+            foreach (Rigidbody body in GetComponentsInChildren<Rigidbody>())
             {
+                _parts.Add((body, body.position));
                 if (body.TryGetComponent(out Collider collider))
                 {
-                    foreach (Rigidbody bodyTarget in _parts)
+                    foreach ((Rigidbody, Vector3) bodyTarget in _parts)
                     {
-                        if (bodyTarget.TryGetComponent(out Collider colliderTarget))
+                        if (bodyTarget.Item1.TryGetComponent(out Collider colliderTarget))
                             Physics.IgnoreCollision(collider, colliderTarget);
                     }
                 }
             }
+            _audioSource = GetComponent<AudioSource>();
         }
         private void LateUpdate()
         {
@@ -50,16 +52,16 @@ namespace Assets.Scripts.Effects.Vehicles
 
         public void Show(Vector3 pos, Vector3 direction)
         {
-            if (_parts == null || _parts.Length == 0)
-                Debug.LogError("no parts");
-
             gameObject.SetActive(true);
             transform.position = pos;
             transform.up = direction.normalized;
             Vector3 upPos = transform.position + transform.up * _config.ConeHeight;
-            for (int i = 0; i < _parts.Length; i++)
+            for (int i = 0; i < _parts.Count; i++)
             {
-                Rigidbody rb = _parts[i];
+                (Rigidbody body, Vector3 initPosition) = _parts[i];
+                Rigidbody rb = body;
+                rb.position = initPosition;
+
                 Vector2 circlePos = UnityEngine.Random.insideUnitCircle * _config.CircleRadius;
                 Vector3 boomPos = upPos + new Vector3(circlePos.x, 0, circlePos.y);
                 Vector3 boomDirection = boomPos - transform.position;
@@ -67,11 +69,18 @@ namespace Assets.Scripts.Effects.Vehicles
                 rb.AddForce(boomDirection.normalized * _config.Force, ForceMode.Impulse);
                 rb.AddTorque(UnityEngine.Random.insideUnitSphere * _config.Torque, ForceMode.Impulse);
             }
-
+            PlayEffect();
             PlayAudio();
             Hide(_effectData.LifeSeconds).Forget();
         }
-
+        private void PlayEffect()
+        {
+            foreach (ParticleSystem effect in _particleSystem)
+            {
+                effect.Stop();
+                effect.Play();
+            }
+        }
         private async UniTaskVoid Hide(float lifeTime)
         {
             try
