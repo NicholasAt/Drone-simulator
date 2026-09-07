@@ -2,136 +2,62 @@ using Assets.Scripts.Data.CameraAnimationData;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using UnityEngine;
 
 namespace Assets.Scripts.Services.CameraService
 {
+    public interface ICameraEnterParam3<T1, T2, T3> : ICameraExit
+    {
+        UniTask Enter(T1 t1, T2 t2, T3 t3);
+    }
+
+    public interface ICameraEnter : ICameraExit
+    {
+        UniTask Enter();
+    }
+
+    public interface ICameraExit
+    {
+        UniTask Prepare();
+        UniTask Exit();
+    }
 
     public class CameraStateService
     {
-        private class CameraAnimation
+        private readonly Dictionary<Type, ICameraExit> _states;
+        private ICameraExit _activeState;
+        public CameraStateService(CameraData cameraData, GameObserver gameObserver, TransportFactory transportFactory)
         {
-            private const int AngleStep = 15;
-            private const float CastSize = 1;
-
-            private Transform _cameraTransform;
-            private float _height;
-            private float _width;
-            private float _duration;
-            private LayerMask _ignoreMask;
-            private readonly List<int> _angles = new();
-            private readonly Collider[] _colliders = new Collider[100];
-            private readonly GameObserver _gameObserver;
-
-            public CameraAnimation(GameObserver gameObserver)
+            _states = new Dictionary<Type, ICameraExit>()
             {
-                _gameObserver = gameObserver;
-            }
-            public void Prepare(Transform cameraTransform, float height, float width, float duration, LayerMask ignoreMask)
+                [typeof(CameraAnimationState)] = new CameraAnimationState(gameObserver, cameraData),
+                [typeof(CameraToCharacterState)] = new CameraToCharacterState(transportFactory)
+            };
+        }
+        public async UniTask Prepare()
+        {
+            foreach (ICameraExit state in _states.Values)
             {
-                _cameraTransform = cameraTransform;
-                _height = height;
-                _width = width;
-                _duration = duration;
-                _ignoreMask = ignoreMask;
-            }
-
-            public async UniTask Play(Vector3 from, Action onEnd, CancellationToken ct)
-            {
-                try
-                {
-                    Vector3 pos = Vector3.zero;
-                    _angles.Clear();
-                    for (int i = 0; i < 360; i += AngleStep)
-                    {
-                        _angles.Add(i);
-                    }
-
-                    int stack = _angles.Count;
-                    while (true)
-                    {
-                        stack--;
-                        if (stack < 0)
-                        {
-                            Debug.LogError("no pos");
-                            break;
-                        }
-                        if (_angles.Count <= 0)
-                            continue;
-
-                        int index = UnityEngine.Random.Range(0, _angles.Count);
-                        int angle = _angles[index];
-                        _angles.RemoveAt(index);
-
-                        float randomRad = angle * Mathf.Deg2Rad;
-                        Vector2 circle = new Vector2(Mathf.Cos(randomRad), Mathf.Sin(randomRad)) * _width;
-                        pos = from + new Vector3(circle.x, _height, circle.y);
-                        int collidersCount = Physics.OverlapSphereNonAlloc(pos, CastSize, _colliders, ~_ignoreMask, QueryTriggerInteraction.Ignore);
-
-                        if (collidersCount > 0)
-                        {
-                            continue;
-                        }
-
-                        if (Physics.SphereCast(pos, CastSize, (from - pos).normalized, out RaycastHit hit, Vector3.Distance(from, pos) - 1.5f, ~_ignoreMask, QueryTriggerInteraction.Ignore) == false)
-                            break;
-                    }
-
-                    _cameraTransform.parent = null;
-                    _cameraTransform.position = pos;
-                    _cameraTransform.LookAt(from);
-
-                    float current = 0;
-                    while (true)
-                    {
-                        await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: ct);
-                        if (_gameObserver.IsPause)
-                            continue;
-
-                        current += Time.deltaTime;
-                        if (current >= _duration)
-                            break;
-                    }
-
-                    onEnd?.Invoke();
-                }
-                catch (System.OperationCanceledException)
-                {
-                    //ignore
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogException(e);
-                }
+                await state.Prepare();
             }
         }
-
-        private Camera _mainCamera;
-        private readonly CameraAnimation _animation;
-        private readonly CameraData _cameraData;
-
-        public CameraStateService(CameraData cameraData, GameObserver gameObserver)
+        public async UniTask Enter<TState, T1, T2, T3>(T1 t1, T2 t2, T3 t3) where TState : class, ICameraEnterParam3<T1, T2, T3>
         {
-            _cameraData = cameraData;
-            _animation = new(gameObserver);
+            TState state = ChangeState<TState>();
+            await state.Enter(t1, t2, t3);
         }
 
-        public void Prepare()
+        public async UniTask Enter<TState>() where TState : class, ICameraEnter
         {
-            _mainCamera = Camera.main;
-            _animation.Prepare(_mainCamera.transform, _cameraData.Height, _cameraData.Width, _cameraData.Duration, _cameraData.IgnoreMask);
+            TState state = ChangeState<TState>();
+            await state.Enter();
         }
 
-        public async UniTask Show(Vector3 from, Action onEnd, CancellationToken ct)
+        private TState ChangeState<TState>() where TState : class, ICameraExit
         {
-            await _animation.Play(from, onEnd, ct);
-        }
-
-        public void SetParent(Transform parent)
-        {
-            _mainCamera.transform.SetParent(parent);
-            _mainCamera.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            _activeState?.Exit();
+            TState state = _states[typeof(TState)] as TState;
+            _activeState = state;
+            return state;
         }
     }
 }

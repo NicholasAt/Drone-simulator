@@ -36,7 +36,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private CleanupService _cleanupService;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService,CleanupService cleanupService)
+        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService, CleanupService cleanupService)
         {
             _gameFactory = gameFactory;
             _uIFactory = uIFactory;
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         protected override async UniTask OnStart()
         {
             _cleanupService.Cleanup();
-            _cameraService.Prepare();
+            await _cameraService.Prepare();
             await _uIFactory.CreateHUD(this.GetCancellationTokenOnDestroy());
             Quests.Scenarios.BaseQuest qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID);
             _uIFactory.CreateScreenTarget(this.GetCancellationTokenOnDestroy()).Forget(UnityEngine.Debug.LogException);

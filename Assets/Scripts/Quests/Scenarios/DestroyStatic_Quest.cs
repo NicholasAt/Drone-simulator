@@ -7,6 +7,7 @@ using Assets.Scripts.Services.GameStates;
 using Assets.Scripts.UI.Windows.Popup;
 using Cysharp.Threading.Tasks;
 using System;
+using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -142,13 +143,13 @@ namespace Assets.Scripts.Quests.Scenarios
         private void PlayAnimation()
         {
             _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
-            _cameraService.Show(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget(Debug.LogError);
+            _cameraService.Enter<CameraAnimationState, Vector3, Action, CancellationToken>(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget();
         }
 
         private void RestartPlayer()
         {
             _transportFactory.PlayerKeeper.CharacterRefresher.Show(_playerInitPoint.position, _playerInitPoint.rotation);
-            _cameraService.SetParent(_transportFactory.PlayerKeeper.Character.transform);
+            _cameraService.Enter<CameraToCharacterState>().Forget();
         }
         private void RefreshNames()
         {
