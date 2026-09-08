@@ -1,4 +1,7 @@
+using Assets.Scripts.Data.DronesData;
+using Assets.Scripts.Services;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.Drone
 {
@@ -8,8 +11,14 @@ namespace Assets.Scripts.Drone
         [SerializeField] private DroneInput _droneInput;
         [SerializeField] private Rigidbody _body;
         [SerializeField] private Transform _fLeft, _fRight, _bLeft, _bRight;
-        private DroneInput.DroneConfig _config;
+        private DroneConfig _config;
+        private GameObserver _gameObserver;
 
+        [Inject]
+        private void Construct(GameObserver gameObserver)
+        {
+            _gameObserver = gameObserver;
+        }
         private void Start()
         {
             _config = _droneInput.Config;
@@ -29,17 +38,20 @@ namespace Assets.Scripts.Drone
                 _body.AddForceAtPosition(_bRight.up * force, _bRight.position);
             }
 
-            //ShowSpeed();
-
             UpdatePitchAndRoll();
             UpdateYaw();
             UpdateLinearDrag();
             UpdateAngularDrag();
+            ShowSpeed();
+        }
+        private void OnDisable()
+        {
+            _gameObserver.SetCharacterSpeed(0);
         }
         private void ShowSpeed()
         {
             Vector3 localVelocity = transform.InverseTransformDirection(_body.linearVelocity);
-            Debug.LogError($"{new Vector2(localVelocity.x, localVelocity.z).magnitude}");
+            _gameObserver.SetCharacterSpeed(localVelocity.magnitude);
         }
         private void UpdateYaw()
         {

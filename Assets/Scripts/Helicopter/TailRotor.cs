@@ -1,3 +1,4 @@
+using Assets.Scripts.Data.HelicoptersData;
 using UnityEngine;
 
 namespace Assets.Scripts.Helicopter
@@ -10,22 +11,23 @@ namespace Assets.Scripts.Helicopter
         [SerializeField] private Vector3 _gizmos = new(0.3f, 1.5f, 0.3f);
 
         private Rigidbody _rb;
+        private HelicopterConfig _config;
         private float _targetYaw;
 
         private void Start()
         {
             _rb = _helicopterController.Rigidbody;
+            _config = _helicopterController.Config;
         }
         private void FixedUpdate()
         {
             if (_helicopterController.IsEngineEnable == false)
                 return;
 
-            HelicopterInput.HelicopterConfig config = _helicopterController.Config;
 
             float yaw = _helicopterController.YawRaw;
-            _targetYaw = Mathf.Lerp(_targetYaw, yaw, config.TailInputSpeed * Time.fixedDeltaTime);
-            _rb.AddForceAtPosition(_targetYaw * config.TailForce * -_rotorPoint.right, _rotorPoint.position, ForceMode.Acceleration);
+            _targetYaw = Mathf.Lerp(_targetYaw, yaw, _config.TailInputSpeed * Time.fixedDeltaTime);
+            _rb.AddForceAtPosition(_targetYaw * _config.TailForce * -_rotorPoint.right, _rotorPoint.position, ForceMode.Acceleration);
         }
         private void OnDrawGizmos()
         {

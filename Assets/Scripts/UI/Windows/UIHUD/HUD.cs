@@ -12,24 +12,31 @@ namespace Assets.Scripts.UI.Windows.UIHUD
     {
         [SerializeField] private Button _menuButton;
         [SerializeField] private TMP_Text _timerText;
+        [SerializeField] private TMP_Text _speedText;
 
         private UIFactory _uIFactory;
         private GameStateMachine _gameStateMachine;
         private TimerService _timerService;
+        private GameObserver _gameObserver;
         private bool _inProcess;
 
         [Inject]
-        private void Construct(UIFactory uIFactory, GameStateMachine gameStateMachine, TimerService timerService)
+        private void Construct(UIFactory uIFactory, GameStateMachine gameStateMachine, TimerService timerService, GameObserver gameObserver)
         {
             _uIFactory = uIFactory;
             _gameStateMachine = gameStateMachine;
             _timerService = timerService;
+            _gameObserver = gameObserver;
         }
 
         private void Start()
         {
             _menuButton.onClick.AddListener(() => HomePopup().Forget(Debug.LogError));
             _timerService.OnTick += RefreshTimer;
+        }
+        private void Update()
+        {
+            _speedText.text = Mathf.RoundToInt(_gameObserver.CharacterSpeed).ToString();
         }
         private void OnDestroy()
         {
@@ -39,7 +46,7 @@ namespace Assets.Scripts.UI.Windows.UIHUD
 
         private void RefreshTimer()
         {
-            string time = $"Min:{_timerService.Seconds / 60} Sec:{_timerService.Seconds % 60:D2}";
+            string time = $"Min: {_timerService.Seconds / 60} Sec: {_timerService.Seconds % 60:D2}";
             _timerText.text = time;
         }
 

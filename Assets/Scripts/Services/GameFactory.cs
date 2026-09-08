@@ -6,7 +6,9 @@ using Assets.Scripts.Data.DestroyVehiclesEffect;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
+using Assets.Scripts.Drone;
 using Assets.Scripts.Effects.Vehicles;
+using Assets.Scripts.Helicopter;
 using Assets.Scripts.ObjecstName;
 using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services.AssetProvider;
@@ -50,7 +52,7 @@ namespace Assets.Scripts.Services
             _cameraData = cameraData;
         }
 
-        public async UniTask CreateCinemaCamera(CancellationToken ct=default)
+        public async UniTask CreateCinemaCamera(CancellationToken ct = default)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_cameraData.CinemaCameraReference, ct);
             GameObject instance = InstantiateInject(prefab);
@@ -105,6 +107,7 @@ namespace Assets.Scripts.Services
             AssetReferenceGameObject reference = config.HelicopterReference;
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
+            instance.GetComponent<HelicopterInput>().Init(config);
 
             if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))
             {
@@ -119,6 +122,7 @@ namespace Assets.Scripts.Services
             AssetReferenceGameObject reference = config.DroneReference;
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
+            instance.GetComponent<DroneInput>().Init(config);
 
             if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))
             {

@@ -21,3 +21,61 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    <MoveAxisTime>k__BackingField: 1
+    <MoveAxisTimeLowing>k__BackingField: 0.3
+    <CollectiveTime>k__BackingField: 3
+    <CollectiveSpeed>k__BackingField: 500
+    <LiftForce>k__BackingField: 70
+    <ForwardLiftForce>k__BackingField: 70
+    <RightLiftForce>k__BackingField: 25
+    <Gravity>k__BackingField: -300
+    <TailForce>k__BackingField: 0.3
+    <TailInputSpeed>k__BackingField: 5
+    <LinearDrag>k__BackingField: {x: 2, y: 2, z: 2}
+    <AngularDrag>k__BackingField: {x: 2, y: 1, z: 2.5}
+    <BalanceForce>k__BackingField: 5
+    <IdleYDrag>k__BackingField: 8
+    <EffectSpeedRotate>k__BackingField: {x: 700, y: 1100}
+    <EffectCollectiveSmoothSpeed>k__BackingField: 1000
+    <AudioPitchCurve>k__BackingField:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1.5932163
+        outSlope: 1.5932163
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5024673
+        value: 0.8005391
+        inSlope: 1.2010756
+        outSlope: 1.2010756
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.7531729
+        value: 1.0033436
+        inSlope: 1.0090724
+        outSlope: 1.0090724
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.99921536
+        value: 1.3008606
+        inSlope: 1.20921
+        outSlope: 1.20921
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4

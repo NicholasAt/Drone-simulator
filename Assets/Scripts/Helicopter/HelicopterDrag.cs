@@ -1,3 +1,4 @@
+using Assets.Scripts.Data.HelicoptersData;
 using UnityEngine;
 
 namespace Assets.Scripts.Helicopter
@@ -7,7 +8,7 @@ namespace Assets.Scripts.Helicopter
         [SerializeField] private HelicopterInput _helicopterController;
 
         private Rigidbody _rb;
-        private HelicopterInput.HelicopterConfig _config;
+        private HelicopterConfig _config;
 
         private void Start()
         {

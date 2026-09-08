@@ -1,12 +1,13 @@
 using Assets.Scripts.Bots;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.Character
 {
     public class CharacterRefresher : MonoBehaviour, IRefreshPositions
     {
         [SerializeField] private Rigidbody _rb;
-
+        
         public void Show(Vector3 pos, Quaternion rotate)
         {
             transform.SetPositionAndRotation(pos, rotate);

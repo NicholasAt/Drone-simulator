@@ -1,3 +1,4 @@
+using Assets.Scripts.Data.HelicoptersData;
 using UnityEngine;
 
 namespace Assets.Scripts.Helicopter
@@ -9,7 +10,7 @@ namespace Assets.Scripts.Helicopter
         [SerializeField] private Transform _mainRotor, _tailRotor;
 
         private float _currentCollective;
-        private HelicopterInput.HelicopterConfig _config;
+        private HelicopterConfig _config;
 
         private void Start()
         {

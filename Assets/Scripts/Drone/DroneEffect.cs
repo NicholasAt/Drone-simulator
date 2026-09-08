@@ -1,3 +1,4 @@
+using Assets.Scripts.Data.DronesData;
 using UnityEngine;
 
 namespace Assets.Scripts.Drone
@@ -9,7 +10,7 @@ namespace Assets.Scripts.Drone
         [SerializeField] private DroneInput _droneInput;
         [SerializeField] private AudioSource _audioSource;
 
-        private DroneInput.DroneConfig _config;
+        private DroneConfig _config;
         private float _currentPitch;
 
         private void Start()
