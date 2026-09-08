@@ -3,6 +3,7 @@ using Assets.Scripts.Character;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
+using Assets.Scripts.Effects.Vehicles;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -63,7 +64,8 @@ namespace Assets.Scripts.Services
             {
                 instance.TryGetComponent(out CharacterHit hit);
                 instance.TryGetComponent(out IRefreshPositions refresher);
-                PlayerKeeper = new(instance, refresher, hit);
+                instance.TryGetComponent(out IVehiclesDestroyEffectPlayer destroyEffectPlayer);
+                PlayerKeeper = new(instance, refresher, hit, destroyEffectPlayer);
             }
         }
     }

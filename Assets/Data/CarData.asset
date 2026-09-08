@@ -15,7 +15,7 @@ MonoBehaviour:
   _carConfigs:
   - <Name>k__BackingField: Hummer
     <ID>k__BackingField: 1
-    <DestroyEffectId>k__BackingField: 1
+    <DestroyEffectId>k__BackingField: 10
     <PrefabReference>k__BackingField:
       m_AssetGUID: 6cc89ebd41da57840a7e85474657534f
       m_SubObjectName: 
@@ -25,7 +25,7 @@ MonoBehaviour:
     <Speed>k__BackingField: 8
   - <Name>k__BackingField: Tank
     <ID>k__BackingField: 2
-    <DestroyEffectId>k__BackingField: 2
+    <DestroyEffectId>k__BackingField: 100
     <PrefabReference>k__BackingField:
       m_AssetGUID: fc665c94bb506ec4797f48bf54899206
       m_SubObjectName: 

@@ -40,7 +40,7 @@ namespace Assets.Scripts.Quests.Scenarios
         private async UniTask Win()
         {
             int stars = _calculateStars.Calculate(Config.BadSeconds, Config.BestSeconds, _timerService.Seconds);
-            await ProtectedWin(stars);
+            await Win(stars);
         }
     }
 }

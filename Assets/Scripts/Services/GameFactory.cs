@@ -92,16 +92,30 @@ namespace Assets.Scripts.Services
 
         public async UniTask<GameObject> CreateHelicopter(HelicopterID id, Vector3 pos, Quaternion rotate)
         {
-            AssetReferenceGameObject reference = _helicopterData.GetConfig(id).HelicopterReference;
+            HelicopterConfig config = _helicopterData.GetConfig(id);
+            AssetReferenceGameObject reference = config.HelicopterReference;
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
-            return InstantiateInject(prefab, pos, rotate);
+            GameObject instance = InstantiateInject(prefab, pos, rotate);
+
+            if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))
+            {
+                effectPlayer.Init(config.DestroyEffect);
+            }
+            return instance;
         }
 
         public async UniTask<GameObject> CreateDrone(DroneID droneID, Vector3 pos, Quaternion rotate)
         {
-            AssetReferenceGameObject reference = _droneData.GetConfig(droneID).DroneReference;
+            DroneConfig config = _droneData.GetConfig(droneID);
+            AssetReferenceGameObject reference = config.DroneReference;
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference);
-            return InstantiateInject(prefab, pos, rotate);
+            GameObject instance = InstantiateInject(prefab, pos, rotate);
+
+            if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))
+            {
+                effectPlayer.Init(config.DestroyEffect);
+            }
+            return instance;
         }
         public async UniTask<BotMovementByArea> CreateFlying(FlyingTransportID id, Vector3 pos, Quaternion rotate, CancellationToken ct = default)
         {

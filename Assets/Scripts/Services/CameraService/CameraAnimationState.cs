@@ -55,7 +55,7 @@ namespace Assets.Scripts.Services.CameraService
                     stack--;
                     if (stack < 0)
                     {
-                        Debug.LogError("no pos");
+                        Debug.LogWarning("no pos");
                         break;
                     }
                     if (_angles.Count <= 0)

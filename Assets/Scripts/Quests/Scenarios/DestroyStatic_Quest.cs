@@ -71,7 +71,7 @@ namespace Assets.Scripts.Quests.Scenarios
             if (_currentLives <= 0)
             {
                 int stars = _calculateStars.Calculate(Config.BadSeconds, Config.BestSeconds, _timerService.Seconds);
-                ProtectedWin(stars).Forget(Debug.LogError);
+                Win(stars).Forget(Debug.LogError);
             }
         }
 

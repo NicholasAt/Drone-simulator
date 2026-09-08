@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.DroneData
   _droneConfigs:
   - <DroneID>k__BackingField: 1
+    <DestroyEffect>k__BackingField: 301
     <DroneReference>k__BackingField:
       m_AssetGUID: ee3a4ebcb56160f419f726b57f547430
       m_SubObjectName: 

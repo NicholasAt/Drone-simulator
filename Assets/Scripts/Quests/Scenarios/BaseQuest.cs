@@ -26,6 +26,7 @@ namespace Assets.Scripts.Quests.Scenarios
             public float PlayerDamageRadius = 5;
         }
         [SerializeField] protected TConfig Config;
+
         protected GameStateMachine GameStateMachine;
         protected UIFactory UIFactory;
         protected CameraStateService CameraState;
@@ -34,7 +35,6 @@ namespace Assets.Scripts.Quests.Scenarios
         protected TempLevelProgress LevelProgress;
 
         protected ShowKills ShowKills;
-
         protected PopupMessage PopupMessage;
 
         private bool _baseIsEnd;
@@ -80,11 +80,11 @@ namespace Assets.Scripts.Quests.Scenarios
             await UniTask.CompletedTask;
         }
 
-        protected async UniTask ProtectedLose(int stars, string message = "")
+        protected async UniTask Lose(int stars, string message = "")
         {
             await WinLose(false, stars, message);
         }
-        protected async UniTask ProtectedWin(int stars, string message = "")
+        protected async UniTask Win(int stars, string message = "")
         {
             await WinLose(true, stars, message);
         }
@@ -99,12 +99,12 @@ namespace Assets.Scripts.Quests.Scenarios
             if (HitHandler.TryDamage(CharacterPos()))
             {
                 ShowKills.Run(HitHandler.Targets);
-                PlayAnimation();
+                PlayAnimation(true);
             }
             else
             {
                 ShowPopupMessage(Config.TransportDestroyedMessage);
-                RestartPlayer();
+                PlayAnimation(false);
             }
         }
 
@@ -113,16 +113,19 @@ namespace Assets.Scripts.Quests.Scenarios
             if (HitHandler.TryDamage(CharacterPos()))
             {
                 ShowKills.Run(HitHandler.Targets);
-                PlayAnimation();
+                PlayAnimation(true);
             }
             else if (impulse > Config.DieImpulse)
             {
                 ShowPopupMessage(Config.TransportDestroyedMessage);
-                RestartPlayer();
+                PlayAnimation(false);
             }
         }
-        protected virtual void PlayAnimation()
+        protected virtual void PlayAnimation(bool isHit)
         {
+            if (isHit == false)
+                TransportFactory.PlayerKeeper.DestroyEffectPlayer.Play().Forget();
+
             (Vector3 pos, Quaternion rotate) = PositionAndRotate();
             TransportFactory.PlayerKeeper.CharacterRefresher.Hide();
             CameraState.Enter<CameraAnimationState, Vector3, Action, CancellationToken>(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget();

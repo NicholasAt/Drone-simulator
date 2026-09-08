@@ -56,7 +56,7 @@ namespace Assets.Scripts.Quests.Scenarios
         private async UniTask Win()
         {
             int stars = _calculateStars.Calculate(Config.BadSeconds, Config.BestSeconds, _timerService.Seconds);
-            await ProtectedWin(stars, Config.WinMessage);
+            await Win(stars, Config.WinMessage);
         }
         private async UniTask Triggered(Transform triggerPoint)
         {

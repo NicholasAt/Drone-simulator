@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.HelicoptersData.HelicopterData
   _configs:
   - <ID>k__BackingField: 1
+    <DestroyEffect>k__BackingField: 201
     <HelicopterReference>k__BackingField:
       m_AssetGUID: 46a9cf9d3ef39e04189a89bf78112827
       m_SubObjectName: 

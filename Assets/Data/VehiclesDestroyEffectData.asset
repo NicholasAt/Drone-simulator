@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: VehiclesDestroyEffectData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.DestroyVehiclesEffect.VehiclesDestroyEffectData
   _effectConfigs:
-  - <EffectId>k__BackingField: 1
-    <Force>k__BackingField: 25
-    <Torque>k__BackingField: 5
+  - <EffectId>k__BackingField: 10
+    <Force>k__BackingField: 50
+    <Torque>k__BackingField: 10
     <CircleRadius>k__BackingField: 10
     <ConeHeight>k__BackingField: 5
     <Reference>k__BackingField:
@@ -24,9 +24,9 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-  - <EffectId>k__BackingField: 2
-    <Force>k__BackingField: 25
-    <Torque>k__BackingField: 5
+  - <EffectId>k__BackingField: 100
+    <Force>k__BackingField: 50
+    <Torque>k__BackingField: 50
     <CircleRadius>k__BackingField: 10
     <ConeHeight>k__BackingField: 5
     <Reference>k__BackingField:
@@ -35,13 +35,35 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-  - <EffectId>k__BackingField: 3
-    <Force>k__BackingField: 50
-    <Torque>k__BackingField: 5
+  - <EffectId>k__BackingField: 200
+    <Force>k__BackingField: 80
+    <Torque>k__BackingField: 150
     <CircleRadius>k__BackingField: 10
     <ConeHeight>k__BackingField: 5
     <Reference>k__BackingField:
       m_AssetGUID: 3235902a3e1fe0f4cbc6eaf9124b650f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - <EffectId>k__BackingField: 201
+    <Force>k__BackingField: 80
+    <Torque>k__BackingField: 150
+    <CircleRadius>k__BackingField: 10
+    <ConeHeight>k__BackingField: 5
+    <Reference>k__BackingField:
+      m_AssetGUID: 8778d6aca03f0b9489957483ccff45b5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - <EffectId>k__BackingField: 301
+    <Force>k__BackingField: 35
+    <Torque>k__BackingField: 10
+    <CircleRadius>k__BackingField: 10
+    <ConeHeight>k__BackingField: 5
+    <Reference>k__BackingField:
+      m_AssetGUID: 248e064ba30cd3b4a9d9443f2ac5017d
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 

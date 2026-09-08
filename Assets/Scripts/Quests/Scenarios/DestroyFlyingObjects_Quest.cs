@@ -76,7 +76,7 @@ namespace Assets.Scripts.Quests.Scenarios
             {
                 _timerService.Stop();
                 int stars = _calculateStars.InvertCalculate(base.Config.BadKills, base.Config.BestKills, _currentKillCont);
-                ProtectedWin(stars, $"{Config.WinMessage}: {_currentKillCont}").Forget();
+                Win(stars, $"{Config.WinMessage}: {_currentKillCont}").Forget();
             }
         }
 

@@ -811,6 +811,7 @@ GameObject:
   - component: {fileID: 8953633216818199406}
   - component: {fileID: 485102092840756923}
   - component: {fileID: 6555237528813408294}
+  - component: {fileID: 8948393722484737535}
   - component: {fileID: 5954093913277989641}
   - component: {fileID: 3032707330016480869}
   m_Layer: 6
@@ -1035,6 +1036,18 @@ MonoBehaviour:
   - {fileID: 4234880750575373835}
   _audioSource: {fileID: 5954093913277989641}
   _rigidbody: {fileID: 3032707330016480869}
+--- !u!114 &8948393722484737535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8996656804349026396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505ed0f18630bee4dab0a17992d5eb0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Effects.Vehicles.VehiclesDestroyEffectPlayer
 --- !u!82 &5954093913277989641
 AudioSource:
   m_ObjectHideFlags: 0

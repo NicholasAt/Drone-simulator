@@ -87,7 +87,7 @@ namespace Assets.Scripts.Quests.Scenarios
             if (_currentCarrs <= 0)
             {
                 int stars = _calculateStars.Calculate(Config.BadSeconds, Config.BestSeconds, _timerService.Seconds);
-                ProtectedWin(stars, Config.WinMessage).Forget(Debug.LogError);
+                Win(stars, Config.WinMessage).Forget(Debug.LogError);
             }
         }
 
@@ -95,7 +95,7 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             CharacterMarker cahracter = obj.GetComponentInParent<CharacterMarker>();
             if (cahracter != null && cahracter.IsBot)
-                ProtectedLose(0, Config.LoseMessage).Forget(Debug.LogError);
+                Lose(0, Config.LoseMessage).Forget(Debug.LogError);
         }
 
         private void RefreshName()
