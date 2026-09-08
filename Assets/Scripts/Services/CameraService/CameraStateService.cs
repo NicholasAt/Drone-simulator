@@ -1,3 +1,4 @@
+using Assets.Scripts.Character;
 using Assets.Scripts.Data.CameraAnimationData;
 using Cysharp.Threading.Tasks;
 using System;
@@ -5,32 +6,16 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.Services.CameraService
 {
-    public interface ICameraEnterParam3<T1, T2, T3> : ICameraExit
-    {
-        UniTask Enter(T1 t1, T2 t2, T3 t3);
-    }
-
-    public interface ICameraEnter : ICameraExit
-    {
-        UniTask Enter();
-    }
-
-    public interface ICameraExit
-    {
-        UniTask Prepare();
-        UniTask Exit();
-    }
-
     public class CameraStateService
     {
         private readonly Dictionary<Type, ICameraExit> _states;
         private ICameraExit _activeState;
-        public CameraStateService(CameraData cameraData, GameObserver gameObserver, TransportFactory transportFactory)
+        public CameraStateService(CameraData cameraData, GameObserver gameObserver, CharacterComponentsKeeperService componentsKeeper, GameFactory gameFactory)
         {
             _states = new Dictionary<Type, ICameraExit>()
             {
-                [typeof(CameraAnimationState)] = new CameraAnimationState(gameObserver, cameraData),
-                [typeof(CameraToCharacterState)] = new CameraToCharacterState(transportFactory)
+                [typeof(CameraAnimationState)] = new CameraAnimationState(gameObserver, cameraData, gameFactory),
+                [typeof(CameraToCharacterState)] = new CameraToCharacterState(componentsKeeper, gameFactory)
             };
         }
         public async UniTask Prepare()

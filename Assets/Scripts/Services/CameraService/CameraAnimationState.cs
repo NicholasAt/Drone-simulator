@@ -13,6 +13,7 @@ namespace Assets.Scripts.Services.CameraService
         private const float CastSize = 1;
 
         private Transform _cameraTransform;
+        private GameObject _cinema;
         private float _height;
         private float _width;
         private float _duration;
@@ -21,16 +22,19 @@ namespace Assets.Scripts.Services.CameraService
         private readonly Collider[] _colliders = new Collider[100];
         private readonly GameObserver _gameObserver;
         private readonly CameraData _cameraData;
+        private readonly GameFactory _gameFactory;
 
-        public CameraAnimationState(GameObserver gameObserver, CameraData cameraData)
+        public CameraAnimationState(GameObserver gameObserver, CameraData cameraData, GameFactory gameFactory)
         {
             _gameObserver = gameObserver;
             _cameraData = cameraData;
+            _gameFactory = gameFactory;
         }
 
         public async UniTask Prepare()
         {
             _cameraTransform = Camera.main.transform;
+            _cinema = _gameFactory.CinemaCamera;
             _height = _cameraData.Height;
             _width = _cameraData.Width;
             _duration = _cameraData.Duration;
@@ -79,6 +83,7 @@ namespace Assets.Scripts.Services.CameraService
                         break;
                 }
 
+                _cinema.SetActive(false);
                 _cameraTransform.parent = null;
                 _cameraTransform.position = pos;
                 _cameraTransform.LookAt(from);

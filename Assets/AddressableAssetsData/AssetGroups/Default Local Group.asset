@@ -14,17 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Default Local Group
   m_GUID: c2738834a38706d4fb0d23414891892b
-  m_SerializeEntries:
-  - m_GUID: 248e064ba30cd3b4a9d9443f2ac5017d
-    m_Address: Assets/Prefabs/Effect/DestroyTransport/Drone1SmallEffect.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8778d6aca03f0b9489957483ccff45b5
-    m_Address: Assets/Prefabs/Effect/DestroyTransport/Helicopter1SmallEffect.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
   m_SchemaSet:

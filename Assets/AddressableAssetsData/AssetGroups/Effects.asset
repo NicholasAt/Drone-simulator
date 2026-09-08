@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Effects
   m_GUID: 307e02dda93583f45af5493e43403ffb
   m_SerializeEntries:
+  - m_GUID: 248e064ba30cd3b4a9d9443f2ac5017d
+    m_Address: Drone1SmallEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3235902a3e1fe0f4cbc6eaf9124b650f
     m_Address: Helicopter1Effect
     m_ReadOnly: 0
@@ -27,6 +32,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65e3ddf0911dbf94197f6bdbac116a86
     m_Address: Hummer1Effect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8778d6aca03f0b9489957483ccff45b5
+    m_Address: Helicopter1SmallEffect
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

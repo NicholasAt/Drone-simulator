@@ -1,3 +1,4 @@
+using Assets.Scripts.Character;
 using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.CameraService;
@@ -28,6 +29,9 @@ namespace Assets.Scripts.Quests.Scenarios
         [SerializeField] protected TConfig Config;
 
         protected GameStateMachine GameStateMachine;
+
+        protected CharacterComponentsKeeperService ComponentsKeeper;
+
         protected UIFactory UIFactory;
         protected CameraStateService CameraState;
         protected TransportFactory TransportFactory;
@@ -42,9 +46,10 @@ namespace Assets.Scripts.Quests.Scenarios
 
 
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler)
+        private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler)
         {
             GameStateMachine = gameStateMachine;
+            ComponentsKeeper = componentsKeeper;
             UIFactory = uIFactory;
             CameraState = cameraStateService;
             TransportFactory = transportFactory;
@@ -54,10 +59,10 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         private void OnDestroy()
         {
-            if (TransportFactory.PlayerKeeper.CharacterHit != null)
+            if (ComponentsKeeper.CharacterHit != null)
             {
-                TransportFactory.PlayerKeeper.CharacterHit.OnHit -= OnPlayerHit;
-                TransportFactory.PlayerKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
+                ComponentsKeeper.CharacterHit.OnHit -= OnPlayerHit;
+                ComponentsKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
             }
         }
         public async UniTask Run()
@@ -69,8 +74,8 @@ namespace Assets.Scripts.Quests.Scenarios
             (Vector3 pos, Quaternion rotate) = PositionAndRotate();
 
             await TransportFactory.CreateTransport(LevelProgress.QuestID, pos, rotate);
-            TransportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
-            TransportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
+            ComponentsKeeper.CharacterHit.OnHit += OnPlayerHit;
+            ComponentsKeeper.CharacterHit.OnTurned += OnPlayerTurned;
 
             await OnRun();
         }
@@ -124,10 +129,10 @@ namespace Assets.Scripts.Quests.Scenarios
         protected virtual void PlayAnimation(bool isHit)
         {
             if (isHit == false)
-                TransportFactory.PlayerKeeper.DestroyEffectPlayer.Play().Forget();
+                ComponentsKeeper.DestroyEffectPlayer.Play().Forget();
 
             (Vector3 pos, Quaternion rotate) = PositionAndRotate();
-            TransportFactory.PlayerKeeper.CharacterRefresher.Hide();
+            ComponentsKeeper.CharacterRefresher.Hide();
             CameraState.Enter<CameraAnimationState, Vector3, Action, CancellationToken>(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget();
         }
 
@@ -135,11 +140,11 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             (Vector3 pos, Quaternion rotate) = PositionAndRotate();
             CameraState.Enter<CameraToCharacterState>().Forget();
-            TransportFactory.PlayerKeeper.CharacterRefresher.Show(pos, rotate);
+            ComponentsKeeper.CharacterRefresher.Show(pos, rotate);
         }
         protected virtual Vector3 CharacterPos()
         {
-            return TransportFactory.PlayerKeeper.Pos();
+            return ComponentsKeeper.Pos();
         }
         private async UniTask WinLose(bool isWin, int stars, string title = "")
         {

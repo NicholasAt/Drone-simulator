@@ -45,8 +45,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e2dc6e9ff27f7784faf16902b3311f24
-    m_Address: FreeLook Camera
+  - m_GUID: 9d780545d4d96cf49b4e1d7ad78d3ad5
+    m_Address: CinemachineCamera
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

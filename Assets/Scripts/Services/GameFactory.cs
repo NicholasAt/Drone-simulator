@@ -1,6 +1,7 @@
 using Assets.Scripts.Bots;
 using Assets.Scripts.Data.BotsData.CarData;
 using Assets.Scripts.Data.BotsData.FlyData;
+using Assets.Scripts.Data.CameraAnimationData;
 using Assets.Scripts.Data.DestroyVehiclesEffect;
 using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
@@ -32,8 +33,9 @@ namespace Assets.Scripts.Services
         private readonly QuestObjectsData _questObjectsData;
         private readonly ProgressService _progressService;
         private readonly VehiclesDestroyEffectData _destroyVehiclesEffectData;
-
-        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, FlyingTransportData flyingTransportData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService, VehiclesDestroyEffectData destroyVehiclesEffectData)
+        private readonly CameraData _cameraData;
+        public GameObject CinemaCamera { get; private set; }
+        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, FlyingTransportData flyingTransportData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService, VehiclesDestroyEffectData destroyVehiclesEffectData, CameraData cameraData)
         {
             _diContainer = diContainer;
             _assetProvider = assetProvider;
@@ -45,8 +47,15 @@ namespace Assets.Scripts.Services
             _questObjectsData = questObjectsData;
             _progressService = progressService;
             _destroyVehiclesEffectData = destroyVehiclesEffectData;
+            _cameraData = cameraData;
         }
 
+        public async UniTask CreateCinemaCamera(CancellationToken ct=default)
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_cameraData.CinemaCameraReference, ct);
+            GameObject instance = InstantiateInject(prefab);
+            CinemaCamera = instance;
+        }
         public async UniTask<IVehiclesDestroyEffect> CreateVehiclesDestroyEffect(DestroyEffectId id, CancellationToken ct)
         {
             VehiclesDestroyEffectConfig config = _destroyVehiclesEffectData.GetConfig(id);

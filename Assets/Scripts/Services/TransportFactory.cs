@@ -4,6 +4,8 @@ using Assets.Scripts.Data.DronesData;
 using Assets.Scripts.Data.HelicoptersData;
 using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Effects.Vehicles;
+using Assets.Scripts.Services.CameraService;
+using Assets.Scripts.VehicleCamera;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -12,13 +14,16 @@ namespace Assets.Scripts.Services
     public class TransportFactory
     {
         private readonly GameFactory _gameFactory;
+        private readonly CharacterComponentsKeeperService _componentsKeeper;
         private readonly QuestsData _questsData;
-        public CharacterComponentsKeeper PlayerKeeper { get; private set; }
+        private readonly CameraStateService _cameraState;
 
-        public TransportFactory(GameFactory gameFactory, QuestsData questsData)
+        public TransportFactory(GameFactory gameFactory, CharacterComponentsKeeperService characterComponentsKeeperService, QuestsData questsData, CameraStateService cameraStateService)
         {
             _gameFactory = gameFactory;
+            _componentsKeeper = characterComponentsKeeperService;
             _questsData = questsData;
+            _cameraState = cameraStateService;
         }
 
         public async UniTask CreateTransport(QuestID questID, Vector3 pos, Quaternion rotate)
@@ -47,16 +52,14 @@ namespace Assets.Scripts.Services
         private async UniTask CreateHelicopter(HelicopterID id, Vector3 pos, Quaternion rotate)
         {
             GameObject helicopter = await _gameFactory.CreateHelicopter(id, pos, rotate);
-            Camera.main.transform.SetParent(helicopter.transform);
-            Camera.main.transform.localPosition = new Vector3(0, 2, -14);//temp position
             InitTransport(helicopter);
+            await _cameraState.Enter<CameraToCharacterState>();
         }
         private async UniTask CreateDrone(DroneID id, Vector3 pos, Quaternion rotate)
         {
             GameObject drone = await _gameFactory.CreateDrone(id, pos, rotate);
-            Camera.main.transform.SetParent(drone.transform, false);
-            Camera.main.transform.localPosition = new Vector3(0, 0.5f, -0.1f);
             InitTransport(drone);
+            await _cameraState.Enter<CameraToCharacterState>();
         }
         private void InitTransport(GameObject instance)
         {
@@ -65,7 +68,8 @@ namespace Assets.Scripts.Services
                 instance.TryGetComponent(out CharacterHit hit);
                 instance.TryGetComponent(out IRefreshPositions refresher);
                 instance.TryGetComponent(out IVehiclesDestroyEffectPlayer destroyEffectPlayer);
-                PlayerKeeper = new(instance, refresher, hit, destroyEffectPlayer);
+                instance.TryGetComponent(out IVehicleCamera vehicleCamera);
+                _componentsKeeper.Init(instance, refresher, hit, destroyEffectPlayer, vehicleCamera);
             }
         }
     }

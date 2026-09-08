@@ -3,6 +3,7 @@ using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.CameraService;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure.EntryPoints
@@ -48,10 +49,13 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         protected override async UniTask OnStart()
         {
             _cleanupService.Cleanup();
+            CancellationToken ct = this.GetCancellationTokenOnDestroy();
+            await _gameFactory.CreateCinemaCamera(ct);
             await _cameraService.Prepare();
-            await _uIFactory.CreateHUD(this.GetCancellationTokenOnDestroy());
-            var qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID);
-            _uIFactory.CreateScreenTarget(this.GetCancellationTokenOnDestroy()).Forget(UnityEngine.Debug.LogException);
+            await _uIFactory.CreateHUD(ct);
+
+            Quests.Scenarios.IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID);
+            _uIFactory.CreateScreenTarget(ct).Forget(UnityEngine.Debug.LogException);
             await qeustInstance.Run();
         }
     }

@@ -18,3 +18,9 @@ MonoBehaviour:
   <Duration>k__BackingField: 2
   <Width>k__BackingField: 55
   <Height>k__BackingField: 35
+  <CinemaCameraReference>k__BackingField:
+    m_AssetGUID: 9d780545d4d96cf49b4e1d7ad78d3ad5
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0

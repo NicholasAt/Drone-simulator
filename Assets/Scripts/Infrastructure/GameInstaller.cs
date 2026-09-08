@@ -1,3 +1,4 @@
+using Assets.Scripts.Character;
 using Assets.Scripts.Data;
 using Assets.Scripts.Infrastructure.EntryPoints;
 using Assets.Scripts.Logic;
@@ -23,6 +24,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<HitHandler>().AsTransient();
             Container.Bind<ShowKills>().AsTransient();
 
+            Container.Bind<CharacterComponentsKeeperService>().AsSingle();
             Container.Bind<CalculateStarsService>().AsSingle();
             Container.Bind<VehiclesDestroyPool>().AsSingle();
             Container.Bind<CameraStateService>().AsSingle();

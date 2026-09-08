@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: -3321345473456452882}
   - component: {fileID: -417017265537926227}
   - component: {fileID: 2471664090115251414}
+  - component: {fileID: 8831567209587200859}
   - component: {fileID: 7852913601703467388}
   - component: {fileID: 6063605677369093760}
   m_Layer: 6
@@ -270,6 +271,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 758044765097127848}
   - {fileID: 793792353509183695}
   - {fileID: 1749506945109278849}
   - {fileID: 1199492861531173190}
@@ -403,6 +405,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505ed0f18630bee4dab0a17992d5eb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Effects.Vehicles.VehiclesDestroyEffectPlayer
+--- !u!114 &8831567209587200859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2618895545765178413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e379b922ee0bca49bf8e3b9d49eea2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.VehicleCamera.VehicleCamera
+  <Root>k__BackingField: {fileID: 758044765097127848}
+  <IsFirstPerson>k__BackingField: 1
 --- !u!54 &7852913601703467388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -804,6 +820,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &9009017859896048498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 758044765097127848}
+  m_Layer: 6
+  m_Name: CameraPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &758044765097127848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009017859896048498}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5701948290885950440}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1229449369803708490
 PrefabInstance:
   m_ObjectHideFlags: 0
