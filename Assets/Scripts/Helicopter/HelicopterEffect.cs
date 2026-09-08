@@ -28,7 +28,7 @@ namespace Assets.Scripts.Helicopter
             float collective = _currentCollective * Time.deltaTime;
 
             _mainRotor.Rotate(0, collective, 0);
-            _tailRotor.Rotate(0, collective, 0);
+            _tailRotor.Rotate(collective, 0, 0);
         }
 
         private void UpdateAudio()

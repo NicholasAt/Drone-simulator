@@ -21,6 +21,7 @@ namespace Assets.Scripts.Drone
             [field: SerializeField] public Vector2 MinMaxAudio { get; private set; } = new(0.5f, 1.1f);
             [field: SerializeField] public float SpeedUpAudio { get; private set; } = 3;
             [field: SerializeField] public float SpeedDownAudio { get; private set; } = 1;
+            [field: SerializeField] public Vector2 EffectSpeedRotate { get; private set; } = new(700, 1100);
         }
         public DroneConfig Config;
         private IInputService _inputService;

@@ -303,6 +303,7 @@ MonoBehaviour:
     <MinMaxAudio>k__BackingField: {x: 0.5, y: 0.9}
     <SpeedUpAudio>k__BackingField: 3
     <SpeedDownAudio>k__BackingField: 1
+    <EffectSpeedRotate>k__BackingField: {x: 700, y: 2100}
 --- !u!114 &4658688062421757665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +334,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d48de96efd3f843b06edc0025076f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DroneEffect
+  _leftRotate:
+  - {fileID: 3018134232124134889}
+  _rightRotate:
+  - {fileID: 3739066261967394351}
   _droneInput: {fileID: 6977571990612850515}
   _audioSource: {fileID: 6063605677369093760}
 --- !u!114 &4804090579799086434
@@ -915,6 +920,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dron
       objectReference: {fileID: 0}
+    - target: {fileID: 4102058702365707683, guid: 09bdf97b21e889541a2ea0db4fe213e9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.04673161
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102058702365707683, guid: 09bdf97b21e889541a2ea0db4fe213e9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102058702365707683, guid: 09bdf97b21e889541a2ea0db4fe213e9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0000000015716068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102058702365707683, guid: 09bdf97b21e889541a2ea0db4fe213e9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.99890757
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102058702365707683, guid: 09bdf97b21e889541a2ea0db4fe213e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -185.357
+      objectReference: {fileID: 0}
     - target: {fileID: 5694466036694955905, guid: 09bdf97b21e889541a2ea0db4fe213e9, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -927,5 +952,15 @@ PrefabInstance:
 --- !u!4 &1677407711613282216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 452815022789214178, guid: 09bdf97b21e889541a2ea0db4fe213e9, type: 3}
+  m_PrefabInstance: {fileID: 1229449369803708490}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3018134232124134889 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4102058702365707683, guid: 09bdf97b21e889541a2ea0db4fe213e9, type: 3}
+  m_PrefabInstance: {fileID: 1229449369803708490}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3739066261967394351 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2516444859784269413, guid: 09bdf97b21e889541a2ea0db4fe213e9, type: 3}
   m_PrefabInstance: {fileID: 1229449369803708490}
   m_PrefabAsset: {fileID: 0}
