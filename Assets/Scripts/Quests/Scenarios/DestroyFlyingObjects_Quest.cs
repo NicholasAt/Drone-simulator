@@ -7,13 +7,12 @@ using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.Quests.Scenarios
 {
-    public class DestroyFlyingObjects_Quest : BaseQuest
+    public class DestroyFlyingObjects_Quest : BaseQuest<DestroyFlyingObjects_Quest.MainConfig>
     {
         [Serializable]
         private class SpawnMarker
@@ -24,83 +23,67 @@ namespace Assets.Scripts.Quests.Scenarios
         }
 
         [Serializable]
-        private class Config
+        public class MainConfig : BaseConfig
         {
             public int MaxTargets = 3;
             public int MinTargets = 1;
-            public float DieImpulse = 20;
-            public float PlayerDamageRadius = 5;
+
             public int Time = 15;
             public int BestKills = 5;
             public int BadKills = 15;
             [TextArea] public string WinMessage;
-            [TextArea] public string DestroyedMessage;
+
         }
-        [SerializeField] private Config _config;
+
         [SerializeField] private List<SpawnMarker> _spawnMarkers;
 
         [SerializeField] private WalkableArea _walkableArea;
         [SerializeField] private Transform _playerSpawnPoint;
 
-        private CameraStateService _cameraService;
-        private HitHandler _hitHandler;
-        private TempLevelProgress _levelProgress;
         private TimerService _timerService;
         private CalculateStarsService _calculateStars;
-        private ShowKills _showKills;
         private GameFactory _gameFactory;
-        private TransportFactory _transportFactory;
         private readonly List<(IApplyDamage, BotRefresher)> _targers = new();
         private int _currentKillCont;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, TransportFactory transportFactory, ProgressService progressService, CameraStateService cameraService, HitHandler hitHandler, TimerService timerService, CalculateStarsService calculateStarsService, ShowKills showKills)
+        private void Construct(GameFactory gameFactory, TimerService timerService, CalculateStarsService calculateStarsService, ShowKills showKills)
         {
             _gameFactory = gameFactory;
-            _transportFactory = transportFactory;
-            _cameraService = cameraService;
-            _hitHandler = hitHandler;
-            _levelProgress = progressService.TempLevelProgress;
             _timerService = timerService;
             _calculateStars = calculateStarsService;
-            _showKills = showKills;
         }
-        private void OnDestroy()
-        {
-            if (_transportFactory.PlayerKeeper != null)
-            {
-                _transportFactory.PlayerKeeper.CharacterHit.OnHit -= OnPlayerHit;
-                _transportFactory.PlayerKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
-            }
-            _timerService.OnTick -= OnTimerTick;
-        }
+       
         protected override async UniTask OnRun()
         {
-            _hitHandler.Init(_config.PlayerDamageRadius);
-            await _transportFactory.CreateTransport(_levelProgress.QuestID, _playerSpawnPoint.position, _playerSpawnPoint.rotation);
             await InitTransport();
-            _showKills.Init(PopupMessage);
 
-            _transportFactory.PlayerKeeper.CharacterHit.OnHit += OnPlayerHit;
-            _transportFactory.PlayerKeeper.CharacterHit.OnTurned += OnPlayerTurned;
             _timerService.OnTick += OnTimerTick;
-            _timerService.Start(_config.Time, false);
+            _timerService.Start(Config.Time, false);
         }
-
+        protected override (Vector3 pos, Quaternion rotate) PositionAndRotate()
+        {
+            return (_playerSpawnPoint.position, _playerSpawnPoint.rotation);
+        }
+        protected override void RestartPlayer()
+        {
+            base.RestartPlayer();
+            CheckTransports();
+        }
         private void OnTimerTick()
         {
             if (_timerService.Seconds <= 0)
             {
                 _timerService.Stop();
-                int stars = _calculateStars.InvertCalculate(_config.BadKills, _config.BestKills, _currentKillCont);
-                ProtectedWin(stars, $"{_config.WinMessage}: {_currentKillCont}").Forget();
+                int stars = _calculateStars.InvertCalculate(base.Config.BadKills, base.Config.BestKills, _currentKillCont);
+                ProtectedWin(stars, $"{Config.WinMessage}: {_currentKillCont}").Forget();
             }
         }
 
         private async UniTask InitTransport()
         {
             _walkableArea.GetArea(out Transform matrix, out Vector3 size);
-            for (int i = 0; i < _config.MaxTargets; i++)
+            for (int i = 0; i < base.Config.MaxTargets; i++)
             {
                 SpawnMarker marker = _spawnMarkers[UnityEngine.Random.Range(0, _spawnMarkers.Count - 1)];
                 Vector3 pos = RandomSpawnPos();
@@ -135,53 +118,7 @@ namespace Assets.Scripts.Quests.Scenarios
             return marker.Point.TransformPoint(new Vector3(randomPos.x, 0, randomPos.y));
         }
 
-        private void OnPlayerTurned()
-        {
-            if (_hitHandler.TryDamage(CharacterPos()))
-            {
-                _showKills.Run(_hitHandler.Targets);
-                PlayAnimation();
-            }
-            else
-            {
-                ShowPopupMessage(_config.DestroyedMessage);
-                RestartPlayer();
-            }
-        }
 
-        private void OnPlayerHit(float impulse)
-        {
-            if (_hitHandler.TryDamage(CharacterPos()))
-            {
-                _showKills.Run(_hitHandler.Targets);
-                PlayAnimation();
-            }
-            else if (impulse > _config.DieImpulse)
-            {
-                ShowPopupMessage(_config.DestroyedMessage);
-                RestartPlayer();
-            }
-        }
-
-        private Vector3 CharacterPos()
-        {
-            return _transportFactory.PlayerKeeper.Pos();
-        }
-
-        private void PlayAnimation()
-        {
-            _timerService.SetPause(true);
-            _transportFactory.PlayerKeeper.CharacterRefresher.Hide();
-            _cameraService.Enter<CameraAnimationState, Vector3, Action, CancellationToken>(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget();
-        }
-
-        private void RestartPlayer()
-        {
-            _cameraService.Enter<CameraToCharacterState>().Forget();
-            CheckTransports();
-            _timerService.SetPause(false);
-            _transportFactory.PlayerKeeper.CharacterRefresher.Show(_playerSpawnPoint.position, _playerSpawnPoint.rotation);
-        }
 
         private void CheckTransports()
         {
@@ -191,9 +128,9 @@ namespace Assets.Scripts.Quests.Scenarios
                 if (damage.Died == false)
                     lives++;
             }
-            if (lives <= _config.MinTargets)
+            if (lives <= base.Config.MinTargets)
             {
-                int difference = _config.MaxTargets - lives;
+                int difference = base.Config.MaxTargets - lives;
 
                 foreach ((IApplyDamage damage, BotRefresher refresher) in _targers)
                 {

@@ -50,7 +50,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             _cleanupService.Cleanup();
             await _cameraService.Prepare();
             await _uIFactory.CreateHUD(this.GetCancellationTokenOnDestroy());
-            Quests.Scenarios.BaseQuest qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID);
+            var qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID);
             _uIFactory.CreateScreenTarget(this.GetCancellationTokenOnDestroy()).Forget(UnityEngine.Debug.LogException);
             await qeustInstance.Run();
         }

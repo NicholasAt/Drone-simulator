@@ -276,18 +276,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b1d07d39373f047adc7795b41aca5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DestroyMovingCar_Quest
-  _config:
-    PlayerDamageRadius: 5
+  Config:
+    TransportDestroyedMessage: 
     DieImpulse: 20
-    WinMessage: 'Congratulations
-
-      All vehicles destroyed'
-    LoseMessage: 'Lose
-
-      Machines reached the point'
-    DestroyedMessage: You destroyed the drone
-    BestSeconds: 35
-    BadSeconds: 120
+    PlayerDamageRadius: 5
+    WinMessage: 
+    LoseMessage: 
+    BestSeconds: 5
+    BadSeconds: 15
   _pointsMarker:
   - Root: {fileID: 6242659826366959034}
     EndPoint: {fileID: 8691593016598817331}

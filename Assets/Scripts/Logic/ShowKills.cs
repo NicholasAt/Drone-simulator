@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts.Quests.Scenarios
+namespace Assets.Scripts.Logic
 {
     public class ShowKills
     {
