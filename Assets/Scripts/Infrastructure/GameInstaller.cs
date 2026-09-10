@@ -32,6 +32,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<ChunkLoaderService>().AsSingle();
             Container.Bind<CameraStateService>().AsSingle();
             Container.Bind<OffScreenContainer>().AsSingle();
+            Container.Bind<AudioMixerService>().AsSingle();
             Container.Bind<TransportFactory>().AsSingle();
             Container.Bind<ProgressService>().AsSingle();
             Container.Bind<CleanupService>().AsSingle();
@@ -64,6 +65,7 @@ namespace Assets.Scripts.Infrastructure
             Container.BindInstance(data.OutScreenData).AsSingle();
             Container.BindInstance(data.DestroyVehiclesEffectData).AsSingle();
             Container.BindInstance(data.ChunkData).AsSingle();
+            Container.BindInstance(data.GameData).AsSingle();
         }
 
         private void BindStates()

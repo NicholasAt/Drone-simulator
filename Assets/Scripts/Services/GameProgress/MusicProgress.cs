@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Services.GameProgress
@@ -6,6 +7,8 @@ namespace Assets.Scripts.Services.GameProgress
     {
         [field: SerializeField] public bool MusicEnable { get; private set; }
         [field: SerializeField] public bool SoundEnable { get; private set; }
+        public Action OnChange { get; set; }
+
         public MusicProgress()
         {
             BaseInit(this, Constants.Save.MusicKey);
@@ -29,12 +32,14 @@ namespace Assets.Scripts.Services.GameProgress
             MusicEnable = isEnable;
             if (isSave)
                 BaseSave();
+            OnChange?.Invoke();
         }
         public void ChangeSound(bool isEnable, bool isSave = true)
         {
             SoundEnable = isEnable;
             if (isSave)
                 BaseSave();
+            OnChange?.Invoke();
         }
     }
 }

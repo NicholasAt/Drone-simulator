@@ -293,7 +293,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98d319ece99034488d31f14d5cd3923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DroneInput
-  Config:
+  <Config>k__BackingField:
+    <DroneID>k__BackingField: 0
+    <DestroyEffect>k__BackingField: 0
+    <DroneReference>k__BackingField:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
     <PitchForce>k__BackingField: 4
     <YawForce>k__BackingField: 15
     <Force>k__BackingField: 140
@@ -460,7 +468,7 @@ AudioSource:
   m_GameObject: {fileID: 2618895545765178413}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 242148604310073926, guid: f6fb8f35ba28753419fb8736ff5b7966, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: fd17aaadb35c07a48a2976b9e0be77e7, type: 3}
   m_PlayOnAwake: 1

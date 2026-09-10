@@ -24,5 +24,6 @@ namespace Assets.Scripts.Data
         [field: SerializeField] public OutScreenData OutScreenData { get; private set; }
         [field: SerializeField] public VehiclesDestroyEffectData DestroyVehiclesEffectData { get; private set; }
         [field: SerializeField] public ChunkData ChunkData { get; private set; }
+        [field: SerializeField] public GameData GameData { get; private set; }
     }
 }

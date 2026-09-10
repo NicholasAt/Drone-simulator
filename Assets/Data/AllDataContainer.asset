@@ -24,3 +24,4 @@ MonoBehaviour:
   <OutScreenData>k__BackingField: {fileID: 11400000, guid: c74bac06cdec24147b0b75eefe6748f4, type: 2}
   <DestroyVehiclesEffectData>k__BackingField: {fileID: 11400000, guid: 3729e2ff0c92dd846ba24a7eac035054, type: 2}
   <ChunkData>k__BackingField: {fileID: 11400000, guid: 87b776596a4ed9b4eb5aa08f778c8228, type: 2}
+  <GameData>k__BackingField: {fileID: 11400000, guid: 7d8f126ef1a421b4e998f41cc4957ac2, type: 2}

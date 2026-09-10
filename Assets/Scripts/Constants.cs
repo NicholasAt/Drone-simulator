@@ -12,5 +12,10 @@ namespace Assets.Scripts
             public const string StarsKey = "Starskey";
             public const string MusicKey = "Musickey";
         }
+        public class MusicSettings
+        {
+            public const string SFXVolume = "SFXVolume";
+            public const string MusicVolume = "MusicVolume";
+        }
     }
 }
