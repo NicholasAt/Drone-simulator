@@ -98,7 +98,10 @@ namespace Assets.Scripts.Services
             QuestConfig cfg = _questsData.GetQuest(questID);
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.QuestReference, ct);
             GameObject instance = InstantiateInject(prefab);
-            return instance.GetComponent<IScenario>();
+            IScenario scenario = instance.GetComponent<IScenario>();
+
+            scenario.Init(questID);
+            return scenario;
         }
 
         public async UniTask<GameObject> CreateHelicopter(HelicopterID id, Vector3 pos, Quaternion rotate)

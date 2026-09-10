@@ -21,6 +21,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         private GameStateMachine _stateMachine;
         private UIFactory _uIFactory;
         private TempLevelProgress _levelProgress;
+        private StartsProgress _starsProgress;
         private QuestsData _questsData;
         private bool _triggered;
         private readonly List<UIMenuSlot> _transportSlots = new();
@@ -31,6 +32,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             _stateMachine = gameStateMachine;
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;
+            _starsProgress = progressService.StartsProgress;
             _questsData = questsData;
         }
 
@@ -39,7 +41,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             InitSlots();
             _playButton.onClick.AddListener(() => LoadGame().Forget(Debug.LogError));
         }
-
+       
         private void InitSlots()
         {
             foreach (QuestCategory categoryConfig in _questsData.CategoryConfigs)
@@ -81,7 +83,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 
                 slot.SetId(cfg.QuestID);
                 slot.Refresh(cfg.MissionName, cfg.Icon);
-                slot.RefreshStars(Random.Range(0, 6));
+                slot.RefreshStars(_starsProgress.GetStars(cfg.QuestID));
                 slot.OnClick += () => SetQuestId(cfg.QuestID);
             }
             RefreshMissionSelect();

@@ -7,5 +7,9 @@ namespace Assets.Scripts
             public const string MenuSceneKey = "MainMenu";
             public const string Location1SceneKey = "Location1";
         }
+        public class Save
+        {
+            public const string StarsKey = "Starskey";
+        }
     }
 }

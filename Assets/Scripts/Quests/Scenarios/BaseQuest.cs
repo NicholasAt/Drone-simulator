@@ -1,4 +1,5 @@
 using Assets.Scripts.Character;
+using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.CameraService;
@@ -16,6 +17,7 @@ namespace Assets.Scripts.Quests.Scenarios
 {
     public interface IScenario
     {
+        void Init(QuestID id);
         UniTask Run();
     }
     public abstract class BaseQuest<TConfig> : MonoBehaviour, IScenario where TConfig : BaseQuest<TConfig>.BaseConfig
@@ -38,13 +40,14 @@ namespace Assets.Scripts.Quests.Scenarios
         protected TransportFactory TransportFactory;
         protected HitHandler HitHandler;
         protected TempLevelProgress LevelProgress;
-
+        protected StartsProgress StarsProgress;
         protected ShowKills ShowKills;
         protected ChunkLoaderService ChunkLoader;
         protected PopupMessage PopupMessage;
 
         private bool _baseIsEnd;
         private bool _baseInProcess;
+        private QuestID _id;
 
         [Inject]
         private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler, ChunkLoaderService chunkLoaderService)
@@ -56,6 +59,7 @@ namespace Assets.Scripts.Quests.Scenarios
             TransportFactory = transportFactory;
             HitHandler = hitHandler;
             LevelProgress = progressService.TempLevelProgress;
+            StarsProgress = progressService.StartsProgress;
             ShowKills = showKills;
             ChunkLoader = chunkLoaderService;
         }
@@ -68,7 +72,10 @@ namespace Assets.Scripts.Quests.Scenarios
                 ComponentsKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
             }
         }
-
+        public void Init(QuestID id)
+        {
+            _id = id;
+        }
         public async UniTask Run()
         {
             PopupMessage = await UIFactory.CreatePopupMessage(this.GetCancellationTokenOnDestroy());
@@ -103,9 +110,9 @@ namespace Assets.Scripts.Quests.Scenarios
             PopupMessage.Show(message);
         }
         protected abstract Transform InitPoint();
-        protected virtual  (Vector3 pos, Quaternion rotate) InitPositionAndRotate()
+        protected virtual (Vector3 pos, Quaternion rotate) InitPositionAndRotate()
         {
-            var point = InitPoint();
+            Transform point = InitPoint();
             return (point.position, point.rotation);
         }
 
@@ -178,7 +185,10 @@ namespace Assets.Scripts.Quests.Scenarios
             popup.Refresh(title, "To Menu", "Restart");
 
             if (isWin)
+            {
+                StarsProgress.ProtectedSetAndSave(_id, stars);
                 popup.RefreshStars(stars);
+            }
             else
                 popup.RefreshStars(0);
         }
