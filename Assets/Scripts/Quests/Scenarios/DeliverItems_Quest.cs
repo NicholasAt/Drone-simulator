@@ -49,10 +49,11 @@ namespace Assets.Scripts.Quests.Scenarios
             await _movementByPoints.Run();
             _timerService.Start();
         }
-        protected override (Vector3 pos, Quaternion rotate) PositionAndRotate()
+        protected override Transform InitPoint()
         {
-            return (_initPoint.position, _initPoint.rotation);
+            return _initPoint;
         }
+        
         private async UniTask Win()
         {
             int stars = _calculateStars.Calculate(Config.BadSeconds, Config.BestSeconds, _timerService.Seconds);

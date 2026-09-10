@@ -16,31 +16,28 @@ namespace Assets.Scripts.Data
         {
             [field: SerializeField] public Vector2Int Key { get; private set; }
             [field: SerializeField] public AssetReferenceGameObject ChunkReference { get; private set; }
-            public List<TressConfig> TreesConfigs;
             public ChunkConfig(Vector2Int key, AssetReferenceGameObject chunkReference)
             {
                 Key = key;
                 ChunkReference = chunkReference;
             }
         }
-        [Serializable]
 
-        public class TressConfig
-        {
-            [field: SerializeField] public Vector3 Pos { get; private set; }
-            public TressConfig(Vector3 pos)
-            {
-                Pos = pos;
-            }
-        }
 #if UNITY_EDITOR
-        [SerializeField] private float _chunkSize = 500;
+        [Header("Editor settings")]
+        [SerializeField] private float _editorChunkSize = 500;
         [SerializeField] private List<GameObject> _chunksEditor;
 #endif
+        [Header("Main settings")]
         [SerializeField] private List<ChunkConfig> _chunkConfigs;
         public IList<ChunkConfig> ChunkConfigs => _chunkConfigs;
         private Dictionary<Vector2Int, ChunkConfig> _cachedConfigs;
         public IDictionary<Vector2Int, ChunkConfig> CachedConfigs => _cachedConfigs;
+
+        [field: SerializeField] public int ChunkCount { get; private set; } = 3;
+        [field: SerializeField] public int Size { get; private set; } = 500;
+        [field: SerializeField] public int LoadDistance { get; private set; } = 900;
+        [field: SerializeField] public int UnloadDistance { get; private set; } = 950;
 
 #if UNITY_EDITOR
         [ContextMenu("Cache/Run")]
@@ -75,23 +72,11 @@ namespace Assets.Scripts.Data
                 else
                 {
                     pos = new((int)prefab.transform.position.x, (int)prefab.transform.position.z);
-                    pos += new Vector2Int((int)_chunkSize / 2, (int)_chunkSize / 2);
+                    pos += new Vector2Int((int)_editorChunkSize / 2, (int)_editorChunkSize / 2);
                 }
 
                 ChunkConfig cfg = new ChunkConfig(pos, reference);
                 _chunkConfigs.Add(cfg);
-
-                if (prefab.transform.childCount > 0)
-                {
-                    cfg.TreesConfigs = new();
-                    Transform treeRoot = prefab.transform.GetChild(0);
-                    for (int i = 0; i < treeRoot.childCount; i++)
-                    {
-                        Transform tree = treeRoot.GetChild(i);
-                        cfg.TreesConfigs.Add(new TressConfig(tree.position));
-                    }
-                    DestroyImmediate(treeRoot.gameObject, true);
-                }
             }
 
             foreach (AsyncOperationHandle handle in handles)

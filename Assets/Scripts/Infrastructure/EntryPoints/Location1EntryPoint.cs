@@ -1,6 +1,8 @@
+using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.CameraService;
+using Assets.Scripts.Services.ChunkLoad;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using System.Threading;
@@ -24,8 +26,8 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             }
             public async UniTask Run()
             {
-                _assetProvider.ReleaseAll();
                 _cleanupService.Cleanup();
+                _assetProvider.ReleaseAll();
                 await _sceneLoader.LoadSingle(Constants.SceneConstants.Location1SceneKey);
             }
         }
@@ -35,6 +37,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private TempLevelProgress _levelProgress;
         private CameraStateService _cameraService;
         private CleanupService _cleanupService;
+        private ChunkLoaderService _chunkLoaderService;
 
         [Inject]
         private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService, CleanupService cleanupService)
@@ -54,8 +57,8 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             await _cameraService.Prepare();
             await _uIFactory.CreateHUD(ct);
 
-            Quests.Scenarios.IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID);
-            _uIFactory.CreateScreenTarget(ct).Forget(UnityEngine.Debug.LogException);
+            IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, ct);
+            _uIFactory.CreateScreenTarget(ct).Forget();
             await qeustInstance.Run();
         }
     }

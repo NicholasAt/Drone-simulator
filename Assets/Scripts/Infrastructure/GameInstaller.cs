@@ -6,6 +6,7 @@ using Assets.Scripts.Pool;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.CameraService;
+using Assets.Scripts.Services.ChunkLoad;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
 using Assets.Scripts.Services.InputService;
@@ -21,12 +22,14 @@ namespace Assets.Scripts.Infrastructure
             BindData();
             BindStates();
 
+            Container.Bind<StreamingChunk>().AsTransient();
             Container.Bind<HitHandler>().AsTransient();
             Container.Bind<ShowKills>().AsTransient();
 
             Container.Bind<CharacterComponentsKeeperService>().AsSingle();
             Container.Bind<CalculateStarsService>().AsSingle();
             Container.Bind<VehiclesDestroyPool>().AsSingle();
+            Container.Bind<ChunkLoaderService>().AsSingle();
             Container.Bind<CameraStateService>().AsSingle();
             Container.Bind<OffScreenContainer>().AsSingle();
             Container.Bind<TransportFactory>().AsSingle();
@@ -60,6 +63,7 @@ namespace Assets.Scripts.Infrastructure
             Container.BindInstance(data.FlyingTransportData).AsSingle();
             Container.BindInstance(data.OutScreenData).AsSingle();
             Container.BindInstance(data.DestroyVehiclesEffectData).AsSingle();
+            Container.BindInstance(data.ChunkData).AsSingle();
         }
 
         private void BindStates()

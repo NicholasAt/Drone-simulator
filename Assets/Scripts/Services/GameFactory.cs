@@ -93,10 +93,10 @@ namespace Assets.Scripts.Services
             return instance;
         }
 
-        public async UniTask<IScenario> CreateQuest(QuestID questID)
+        public async UniTask<IScenario> CreateQuest(QuestID questID, CancellationToken ct)
         {
             QuestConfig cfg = _questsData.GetQuest(questID);
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.QuestReference);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.QuestReference, ct);
             GameObject instance = InstantiateInject(prefab);
             return instance.GetComponent<IScenario>();
         }

@@ -23,8 +23,8 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             }
             public async UniTask Run()
             {
-                _assetProvider.ReleaseAll();
                 _cleanupService.Cleanup();
+                _assetProvider.ReleaseAll();
                 await _sceneLoader.LoadSingle(Constants.SceneConstants.MenuSceneKey);
             }
         }

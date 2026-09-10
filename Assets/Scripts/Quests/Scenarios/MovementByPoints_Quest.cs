@@ -26,9 +26,9 @@ namespace Assets.Scripts.Quests.Scenarios
             _timerService = timerService;
             _calculateStars = calculateStarsService;
         }
-        protected override (Vector3 pos, Quaternion rotate) PositionAndRotate()
+        protected override Transform InitPoint()
         {
-            return (_initPoint.position, _initPoint.rotation);
+            return _initPoint;
         }
         protected override async UniTask OnRun()
         {

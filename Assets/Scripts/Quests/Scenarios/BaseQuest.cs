@@ -2,6 +2,7 @@ using Assets.Scripts.Character;
 using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.CameraService;
+using Assets.Scripts.Services.ChunkLoad;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
 using Assets.Scripts.UI.Windows.Popup;
@@ -39,14 +40,14 @@ namespace Assets.Scripts.Quests.Scenarios
         protected TempLevelProgress LevelProgress;
 
         protected ShowKills ShowKills;
+        protected ChunkLoaderService ChunkLoader;
         protected PopupMessage PopupMessage;
 
         private bool _baseIsEnd;
         private bool _baseInProcess;
 
-
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler)
+        private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler, ChunkLoaderService chunkLoaderService)
         {
             GameStateMachine = gameStateMachine;
             ComponentsKeeper = componentsKeeper;
@@ -56,7 +57,9 @@ namespace Assets.Scripts.Quests.Scenarios
             HitHandler = hitHandler;
             LevelProgress = progressService.TempLevelProgress;
             ShowKills = showKills;
+            ChunkLoader = chunkLoaderService;
         }
+
         private void OnDestroy()
         {
             if (ComponentsKeeper.CharacterHit != null)
@@ -65,18 +68,20 @@ namespace Assets.Scripts.Quests.Scenarios
                 ComponentsKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
             }
         }
+
         public async UniTask Run()
         {
             PopupMessage = await UIFactory.CreatePopupMessage(this.GetCancellationTokenOnDestroy());
             ShowKills.Init(PopupMessage);
             HitHandler.Init(Config.PlayerDamageRadius);
 
-            (Vector3 pos, Quaternion rotate) = PositionAndRotate();
+            (Vector3 pos, Quaternion rotate) = InitPositionAndRotate();
 
             await TransportFactory.CreateTransport(LevelProgress.QuestID, pos, rotate);
             ComponentsKeeper.CharacterHit.OnHit += OnPlayerHit;
             ComponentsKeeper.CharacterHit.OnTurned += OnPlayerTurned;
-
+            ChunkLoader.SetTarget(MainCamera());
+            await ChunkLoader.Run();
             await OnRun();
         }
 
@@ -97,7 +102,12 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             PopupMessage.Show(message);
         }
-        protected abstract (Vector3 pos, Quaternion rotate) PositionAndRotate();
+        protected abstract Transform InitPoint();
+        protected virtual  (Vector3 pos, Quaternion rotate) InitPositionAndRotate()
+        {
+            var point = InitPoint();
+            return (point.position, point.rotation);
+        }
 
         protected virtual void OnPlayerTurned()
         {
@@ -131,16 +141,20 @@ namespace Assets.Scripts.Quests.Scenarios
             if (isHit == false)
                 ComponentsKeeper.DestroyEffectPlayer.Play().Forget();
 
-            (Vector3 pos, Quaternion rotate) = PositionAndRotate();
+            ChunkLoader.SetUnload(false);
+            ChunkLoader.SetTarget(InitPoint());
+            (Vector3 pos, Quaternion rotate) = InitPositionAndRotate();
             ComponentsKeeper.CharacterRefresher.Hide();
             CameraState.Enter<CameraAnimationState, Vector3, Action, CancellationToken>(CharacterPos(), RestartPlayer, this.GetCancellationTokenOnDestroy()).Forget();
         }
 
         protected virtual void RestartPlayer()
         {
-            (Vector3 pos, Quaternion rotate) = PositionAndRotate();
+            (Vector3 pos, Quaternion rotate) = InitPositionAndRotate();
             CameraState.Enter<CameraToCharacterState>().Forget();
             ComponentsKeeper.CharacterRefresher.Show(pos, rotate);
+            ChunkLoader.SetUnload(true);
+            ChunkLoader.SetTarget(MainCamera());
         }
         protected virtual Vector3 CharacterPos()
         {
@@ -185,6 +199,10 @@ namespace Assets.Scripts.Quests.Scenarios
 
             _baseInProcess = true;
             GameStateMachine.LoadMainMenu().Forget(Debug.LogError);
+        }
+        private Transform MainCamera()
+        {
+            return Camera.main.transform;
         }
     }
 }

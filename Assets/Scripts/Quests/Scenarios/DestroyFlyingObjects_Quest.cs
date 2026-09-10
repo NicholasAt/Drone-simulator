@@ -2,8 +2,6 @@ using Assets.Scripts.Bots;
 using Assets.Scripts.Data.BotsData.FlyData;
 using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
-using Assets.Scripts.Services.CameraService;
-using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -53,7 +51,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _timerService = timerService;
             _calculateStars = calculateStarsService;
         }
-       
+
         protected override async UniTask OnRun()
         {
             await InitTransport();
@@ -61,10 +59,11 @@ namespace Assets.Scripts.Quests.Scenarios
             _timerService.OnTick += OnTimerTick;
             _timerService.Start(Config.Time, false);
         }
-        protected override (Vector3 pos, Quaternion rotate) PositionAndRotate()
+        protected override Transform InitPoint()
         {
-            return (_playerSpawnPoint.position, _playerSpawnPoint.rotation);
+            return _playerSpawnPoint;
         }
+
         protected override void RestartPlayer()
         {
             base.RestartPlayer();

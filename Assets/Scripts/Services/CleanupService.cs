@@ -1,4 +1,5 @@
 using Assets.Scripts.Pool;
+using Assets.Scripts.Services.ChunkLoad;
 using UnityEngine;
 
 namespace Assets.Scripts.Services
@@ -9,13 +10,15 @@ namespace Assets.Scripts.Services
         private readonly GameObserver _gameObserver;
         private readonly TimerService _timerService;
         private readonly VehiclesDestroyPool _vehiclesDestroyPool;
+        private readonly ChunkLoaderService _chunkLoaderService;
 
-        public CleanupService(OffScreenContainer offScreenContainer,GameObserver gameObserver,TimerService timerService, VehiclesDestroyPool vehiclesDestroyPool)
+        public CleanupService(OffScreenContainer offScreenContainer,GameObserver gameObserver,TimerService timerService, VehiclesDestroyPool vehiclesDestroyPool, ChunkLoaderService chunkLoaderService)
         {
             _offScreenContainer = offScreenContainer;
             _gameObserver = gameObserver;
             _timerService = timerService;
             _vehiclesDestroyPool = vehiclesDestroyPool;
+            _chunkLoaderService = chunkLoaderService;
         }
 
         public void Cleanup()
@@ -24,6 +27,7 @@ namespace Assets.Scripts.Services
             _offScreenContainer.Cleanup();
             _vehiclesDestroyPool.Cleanup();
             _timerService.Stop();
+            _chunkLoaderService.Stop();
         }
     }
 }

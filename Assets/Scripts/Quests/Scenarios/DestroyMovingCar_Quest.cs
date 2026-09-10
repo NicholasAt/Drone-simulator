@@ -3,8 +3,6 @@ using Assets.Scripts.Character;
 using Assets.Scripts.Data.BotsData.CarData;
 using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
-using Assets.Scripts.Services.CameraService;
-using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -57,9 +55,9 @@ namespace Assets.Scripts.Quests.Scenarios
             _loseReporter.OnTrigger += OnLose;
             _timerService.Start();
         }
-        protected override (Vector3 pos, Quaternion rotate) PositionAndRotate()
+        protected override Transform InitPoint()
         {
-            return (_spawnPlayerPoint.position, _spawnPlayerPoint.rotation);
+            return _spawnPlayerPoint;
         }
 
         private async UniTask InitCars()

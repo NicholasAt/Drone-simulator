@@ -1,7 +1,6 @@
 using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
-using Assets.Scripts.UI.Windows.Popup;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
@@ -46,9 +45,9 @@ namespace Assets.Scripts.Quests.Scenarios
             await InitObjects();
             _timerService.Start();
         }
-        protected override (Vector3 pos, Quaternion rotate) PositionAndRotate()
+        protected override Transform InitPoint()
         {
-            return (_playerInitPoint.position, _playerInitPoint.rotation);
+            return _playerInitPoint;
         }
 
         private async UniTask InitObjects()
