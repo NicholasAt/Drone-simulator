@@ -268,6 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4842093312421733947}
   - component: {fileID: 6446065510902112775}
+  - component: {fileID: 2971906027828451161}
   - component: {fileID: 4368835723443046231}
   - component: {fileID: 6208377531946594936}
   - component: {fileID: 8854848583298837355}
@@ -316,6 +317,20 @@ MonoBehaviour:
   _menuButton: {fileID: 730071458512481928}
   _timerText: {fileID: 1848377414951416289}
   _speedText: {fileID: 5105845712632895121}
+--- !u!114 &2971906027828451161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214774504980396122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8338bd9a2a0da441b306d07f3c47bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Logic.ButtonClickPlayer
+  _buttons:
+  - {fileID: 730071458512481928}
 --- !u!223 &4368835723443046231
 Canvas:
   m_ObjectHideFlags: 0

@@ -11,14 +11,16 @@ namespace Assets.Scripts.Services
         private readonly TimerService _timerService;
         private readonly VehiclesDestroyPool _vehiclesDestroyPool;
         private readonly ChunkLoaderService _chunkLoaderService;
+        private readonly MusicService _musicService;
 
-        public CleanupService(OffScreenContainer offScreenContainer,GameObserver gameObserver,TimerService timerService, VehiclesDestroyPool vehiclesDestroyPool, ChunkLoaderService chunkLoaderService)
+        public CleanupService(OffScreenContainer offScreenContainer,GameObserver gameObserver,TimerService timerService, VehiclesDestroyPool vehiclesDestroyPool, ChunkLoaderService chunkLoaderService,MusicService musicService)
         {
             _offScreenContainer = offScreenContainer;
             _gameObserver = gameObserver;
             _timerService = timerService;
             _vehiclesDestroyPool = vehiclesDestroyPool;
             _chunkLoaderService = chunkLoaderService;
+            _musicService = musicService;
         }
 
         public void Cleanup()
@@ -28,6 +30,7 @@ namespace Assets.Scripts.Services
             _vehiclesDestroyPool.Cleanup();
             _timerService.Stop();
             _chunkLoaderService.Stop();
+            _musicService.Stop();
         }
     }
 }

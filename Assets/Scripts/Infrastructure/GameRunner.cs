@@ -15,10 +15,10 @@ namespace Assets.Scripts.Infrastructure
         private IInputService _inputService;
         private ChunkData _chunkData;
         private ProgressService _progressService;
-        private AudioMixerService _audioMixerService;
+        private MusicService _audioMixerService;
 
         [Inject]
-        private void Constuct(GameStateMachine stateMachine, IInputService inputService, ChunkData chunkData, ProgressService progressService,AudioMixerService audioMixerService)
+        private void Constuct(GameStateMachine stateMachine, IInputService inputService, ChunkData chunkData, ProgressService progressService, MusicService audioMixerService)
         {
             _stateMachine = stateMachine;
             _inputService = inputService;
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Infrastructure
                 DontDestroyOnLoad(obj);
             }
             _progressService.LoadOrNew();
-            _audioMixerService.Init();
+            await _audioMixerService.Init();
             await _stateMachine.LoadMainMenu();
         }
     }

@@ -1063,6 +1063,7 @@ GameObject:
   - component: {fileID: 7422513284539218289}
   - component: {fileID: 7906903350691730302}
   - component: {fileID: 2743160590457667094}
+  - component: {fileID: 4955438576793650844}
   - component: {fileID: 297804431808018953}
   - component: {fileID: 3513215241077317536}
   - component: {fileID: 5425871880747962024}
@@ -1132,6 +1133,21 @@ MonoBehaviour:
   - {fileID: 1444538517462774503}
   - {fileID: 7731121736125592747}
   - {fileID: 4661856059676523939}
+--- !u!114 &4955438576793650844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6725053192230965218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8338bd9a2a0da441b306d07f3c47bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Logic.ButtonClickPlayer
+  _buttons:
+  - {fileID: 3544115989296312787}
+  - {fileID: 7206871922951091224}
 --- !u!223 &297804431808018953
 Canvas:
   m_ObjectHideFlags: 0

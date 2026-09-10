@@ -521,6 +521,7 @@ GameObject:
   - component: {fileID: 1484261489565132298}
   - component: {fileID: 4450709150413092684}
   - component: {fileID: 577226388806958812}
+  - component: {fileID: 4756634914707102340}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -644,6 +645,21 @@ MonoBehaviour:
   _soundImage: {fileID: 7038041443900341340}
   _musicButton: {fileID: 8316385387806456553}
   _soundButton: {fileID: 8718828483096125456}
+--- !u!114 &4756634914707102340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802051092871612516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8338bd9a2a0da441b306d07f3c47bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Logic.ButtonClickPlayer
+  _buttons:
+  - {fileID: 8316385387806456553}
+  - {fileID: 8718828483096125456}
 --- !u!1 &2856182499393626654
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,9 +969,9 @@ RectTransform:
   - {fileID: 7616564272921673059}
   m_Father: {fileID: 1160754706191139482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110, y: 3}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -428.3, y: 3}
   m_SizeDelta: {x: 220, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8174690684132759136
@@ -1349,9 +1365,9 @@ RectTransform:
   - {fileID: 7361753359222825612}
   m_Father: {fileID: 1160754706191139482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 110, y: 3}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -200.2998, y: 3}
   m_SizeDelta: {x: 220, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4395776970775189592

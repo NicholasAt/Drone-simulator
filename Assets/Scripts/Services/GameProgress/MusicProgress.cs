@@ -6,7 +6,7 @@ namespace Assets.Scripts.Services.GameProgress
     public class MusicProgress : SaveProgress<MusicProgress>
     {
         [field: SerializeField] public bool MusicEnable { get; private set; }
-        [field: SerializeField] public bool SoundEnable { get; private set; }
+        [field: SerializeField] public bool SFXEnable { get; private set; }
         public Action OnChange { get; set; }
 
         public MusicProgress()
@@ -19,12 +19,12 @@ namespace Assets.Scripts.Services.GameProgress
             if (BaseTryLoad(out MusicProgress progress))
             {
                 MusicEnable = progress.MusicEnable;
-                SoundEnable = progress.SoundEnable;
+                SFXEnable = progress.SFXEnable;
             }
             else
             {
                 MusicEnable = true;
-                SoundEnable = true;
+                SFXEnable = true;
             }
         }
         public void ChangeMusic(bool isEnable, bool isSave = true)
@@ -34,9 +34,9 @@ namespace Assets.Scripts.Services.GameProgress
                 BaseSave();
             OnChange?.Invoke();
         }
-        public void ChangeSound(bool isEnable, bool isSave = true)
+        public void ChangeSFX(bool isEnable, bool isSave = true)
         {
-            SoundEnable = isEnable;
+            SFXEnable = isEnable;
             if (isSave)
                 BaseSave();
             OnChange?.Invoke();

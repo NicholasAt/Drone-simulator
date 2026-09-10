@@ -69,12 +69,13 @@ namespace Assets.Scripts.Quests.Scenarios
             base.RestartPlayer();
             CheckTransports();
         }
+
         private void OnTimerTick()
         {
             if (_timerService.Seconds <= 0)
             {
                 _timerService.Stop();
-                int stars = _calculateStars.InvertCalculate(base.Config.BadKills, base.Config.BestKills, _currentKillCont);
+                int stars = _calculateStars.InvertCalculate(Config.BadKills, Config.BestKills, _currentKillCont);
                 Win(stars, $"{Config.WinMessage}: {_currentKillCont}").Forget();
             }
         }
@@ -117,8 +118,6 @@ namespace Assets.Scripts.Quests.Scenarios
             return marker.Point.TransformPoint(new Vector3(randomPos.x, 0, randomPos.y));
         }
 
-
-
         private void CheckTransports()
         {
             int lives = 0;
@@ -127,9 +126,9 @@ namespace Assets.Scripts.Quests.Scenarios
                 if (damage.Died == false)
                     lives++;
             }
-            if (lives <= base.Config.MinTargets)
+            if (lives <= Config.MinTargets)
             {
-                int difference = base.Config.MaxTargets - lives;
+                int difference = Config.MaxTargets - lives;
 
                 foreach ((IApplyDamage damage, BotRefresher refresher) in _targers)
                 {

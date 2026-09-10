@@ -31,18 +31,21 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 
         private UIFactory _uIFactory;
         private TempLevelProgress _levelProgress;
+        private MusicService _musicService;
 
         [Inject]
-        private void Construct(UIFactory uIFactory, ProgressService progressService)
+        private void Construct(UIFactory uIFactory, ProgressService progressService, MusicService musicService)
         {
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;
+            _musicService = musicService;
         }
 
         protected override async UniTask OnStart()
         {
             _levelProgress.SetQuestId(QuestID.Drone_DestroyMovingCar);//first quest
-            await _uIFactory.CreateMenu(this.GetCancellationTokenOnDestroy());
+            await _musicService.PlayBackground();
+            await _uIFactory.CreateMenu();
         }
     }
 }

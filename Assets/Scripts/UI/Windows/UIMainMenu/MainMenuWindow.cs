@@ -26,12 +26,14 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         private MusicProgress _musicProgress;
         private QuestsData _questsData;
         private UIData _uIData;
+        private MusicService _musicService;
+
         private bool _triggered;
         private readonly List<UIMenuSlot> _transportSlots = new();
         private readonly List<UIMenuSlot> _missionSlots = new();
 
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, UIFactory uIFactory, QuestsData questsData, ProgressService progressService,UIData uIData)
+        private void Construct(GameStateMachine gameStateMachine, UIFactory uIFactory, QuestsData questsData, ProgressService progressService, UIData uIData, MusicService musicService)
         {
             _stateMachine = gameStateMachine;
             _uIFactory = uIFactory;
@@ -40,6 +42,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             _musicProgress = progressService.MusicProgress;
             _questsData = questsData;
             _uIData = uIData;
+            _musicService = musicService;
         }
 
         private void Start()
@@ -47,7 +50,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             InitSlots();
             _playButton.onClick.AddListener(() => LoadGame().Forget(Debug.LogError));
         }
-       
+
         private void InitSlots()
         {
             foreach (QuestCategory categoryConfig in _questsData.CategoryConfigs)
@@ -55,7 +58,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
                 UIMenuSlot slot = Instantiate(_transportFieldTemplate, _transportFieldTemplate.transform.parent);
                 _transportSlots.Add(slot);
                 slot.gameObject.SetActive(true);
-                
+
                 slot.SetColors(_uIData.SelectColor, _uIData.DefaultColor);
                 slot.SetId(categoryConfig.TransportName);
                 slot.Refresh(categoryConfig.TransportName, categoryConfig.Icon);
@@ -119,6 +122,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             _levelProgress.SetQuestId(category.QuestConfigs[0].QuestID);
             RefreshTransports();
             RefreshMission();
+            _musicService.Beep();
         }
 
         private void SetQuestId(QuestID id)
@@ -126,6 +130,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             _levelProgress.SetQuestId(id);
             RefreshMissionSelect();
             RefreshMissionDescription();
+            _musicService.Beep();
         }
 
         private async UniTask LoadGame()
@@ -134,6 +139,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
                 return;
             _triggered = true;
 
+            _musicService.Beep();
             await _stateMachine.LoadLocation1();
         }
     }

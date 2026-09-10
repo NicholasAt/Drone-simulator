@@ -179,7 +179,6 @@ namespace Assets.Scripts.Services
             return null;
         }
 
-
         private GameObject InstantiateInject(GameObject prefab, Vector3 pos, Quaternion rotate, Transform parent = null)
         {
             GameObject instance = InstantiateInject(prefab, parent);
