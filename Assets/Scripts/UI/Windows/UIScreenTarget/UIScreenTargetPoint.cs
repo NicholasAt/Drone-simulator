@@ -26,7 +26,6 @@ namespace Assets.Scripts.UI.Windows.UIScreenTarget
             _outScreenObject.SetActive(false);
             _inScreenObject.SetActive(true);
             _distanceText.gameObject.SetActive(true);
-
             _rectTransform.position = pos;
         }
         public void UpdateDistance(float distance)

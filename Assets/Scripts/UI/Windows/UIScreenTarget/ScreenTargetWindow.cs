@@ -119,7 +119,7 @@ namespace Assets.Scripts.UI.Windows.UIScreenTarget
                     {
                         screenPos.x = Mathf.Clamp(screenPos.x, _outScreenData.EdgeOffset, Screen.width - _outScreenData.EdgeOffset);
                         screenPos.y = Mathf.Clamp(screenPos.y, _outScreenData.EdgeOffset, Screen.height - _outScreenData.EdgeOffset);
-
+                        screenPos.z = 0;
                         indicator.Show(screenPos);
                         indicator.UpdateDistance(distance);
                     }
