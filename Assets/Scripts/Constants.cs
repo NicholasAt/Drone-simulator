@@ -10,6 +10,7 @@ namespace Assets.Scripts
         public class Save
         {
             public const string StarsKey = "Starskey";
+            public const string MusicKey = "Musickey";
         }
     }
 }

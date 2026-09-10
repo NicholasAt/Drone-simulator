@@ -1,3 +1,4 @@
+using Assets.Scripts.Data;
 using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameProgress;
@@ -22,18 +23,23 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         private UIFactory _uIFactory;
         private TempLevelProgress _levelProgress;
         private StartsProgress _starsProgress;
+        private MusicProgress _musicProgress;
         private QuestsData _questsData;
+        private UIData _uIData;
         private bool _triggered;
         private readonly List<UIMenuSlot> _transportSlots = new();
         private readonly List<UIMenuSlot> _missionSlots = new();
+
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, UIFactory uIFactory, QuestsData questsData, ProgressService progressService)
+        private void Construct(GameStateMachine gameStateMachine, UIFactory uIFactory, QuestsData questsData, ProgressService progressService,UIData uIData)
         {
             _stateMachine = gameStateMachine;
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;
             _starsProgress = progressService.StartsProgress;
+            _musicProgress = progressService.MusicProgress;
             _questsData = questsData;
+            _uIData = uIData;
         }
 
         private void Start()
@@ -49,7 +55,8 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
                 UIMenuSlot slot = Instantiate(_transportFieldTemplate, _transportFieldTemplate.transform.parent);
                 _transportSlots.Add(slot);
                 slot.gameObject.SetActive(true);
-
+                
+                slot.SetColors(_uIData.SelectColor, _uIData.DefaultColor);
                 slot.SetId(categoryConfig.TransportName);
                 slot.Refresh(categoryConfig.TransportName, categoryConfig.Icon);
                 slot.ShowHideStars(false);
@@ -81,6 +88,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
                 slot.gameObject.SetActive(true);
                 _missionSlots.Add(slot);
 
+                slot.SetColors(_uIData.SelectColor, _uIData.DefaultColor);
                 slot.SetId(cfg.QuestID);
                 slot.Refresh(cfg.MissionName, cfg.Icon);
                 slot.RefreshStars(_starsProgress.GetStars(cfg.QuestID));

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01e78f62d6bdc6498973a8fe7afbb2d, type: 3}
   m_Name: UIData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.UIData
+  <SelectColor>k__BackingField: {r: 0.09803922, g: 0.43529412, b: 0.6313726, a: 1}
+  <DefaultColor>k__BackingField: {r: 0.11372549, g: 0.16078432, b: 0.21176471, a: 1}
   <MainMenuWindowReference>k__BackingField:
     m_AssetGUID: c8ba444092285e941ad78c2363c0289b
     m_SubObjectName: 

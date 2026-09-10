@@ -12,13 +12,18 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         [SerializeField] private TMP_Text _titleText;
         [SerializeField] private Image _iconImage;
         [SerializeField] private Image _selectImage;
-        [SerializeField] private Color _selectColor, _defaultColor;
+        private Color _selectColor, _defaultColor;
         public object Id { get; private set; }
         public Action OnClick { get; set; }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
             OnClick?.Invoke();
+        }
+        public void SetColors(Color selectColor, Color defaultColor)
+        {
+            _selectColor = selectColor;
+            _defaultColor = defaultColor;
         }
         public void SetId(object id)
         {
