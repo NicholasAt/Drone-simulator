@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Drones
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Drones
-  m_GUID: 3693551310f965e4187607790e6373b3
+  m_GUID: 4cf2c40ce9e7c8a40b838b7b161dcd39
   m_SerializeEntries:
+  - m_GUID: 248e064ba30cd3b4a9d9443f2ac5017d
+    m_Address: Drone1SmallEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee3a4ebcb56160f419f726b57f547430
     m_Address: Drone1
     m_ReadOnly: 0
@@ -24,5 +29,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 6b080177e51dd7a44b959e4286837ac6, type: 2}
-    - {fileID: 11400000, guid: bd797f779b9d093498a4a625f7514fe9, type: 2}
+    - {fileID: 11400000, guid: 108874f5bae7bf64c9ffbebe8fb58547, type: 2}
+    - {fileID: 11400000, guid: 0f3d7abd048c73641b2afa7732c44ac6, type: 2}

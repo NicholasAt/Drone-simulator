@@ -10,6 +10,7 @@ using Assets.Scripts.Drone;
 using Assets.Scripts.Effects.Vehicles;
 using Assets.Scripts.Helicopter;
 using Assets.Scripts.ObjecstName;
+using Assets.Scripts.Quests;
 using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
@@ -85,9 +86,10 @@ namespace Assets.Scripts.Services
             return instance;
         }
 
-        public async UniTask<GameObject> CreateQuestPoint(Vector3 pos, Quaternion rotate)
+        public async UniTask<GameObject> CreateQuestPoint(QuestPointId questPointId, Vector3 pos, Quaternion rotate, CancellationToken ct=default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_questObjectsData.QuestPointReference);
+            AssetReferenceGameObject reference = questPointId == QuestPointId.Cube ? _questObjectsData.QuestPointCubeReference : _questObjectsData.QuestPointCircleReference;
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference,ct);
             GameObject instance = InstantiateInject(prefab);
             instance.transform.SetPositionAndRotation(pos, rotate);
             return instance;

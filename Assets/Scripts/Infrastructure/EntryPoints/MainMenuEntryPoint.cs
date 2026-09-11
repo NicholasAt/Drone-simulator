@@ -43,7 +43,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 
         protected override async UniTask OnStart()
         {
-            _levelProgress.SetQuestId(QuestID.Drone_DestroyMovingCar);//first quest
+            _levelProgress.SetQuestId(QuestID.Drone_DestroyStatic);//first quest
             await _musicService.PlayBackground();
             await _uIFactory.CreateMenu();
         }

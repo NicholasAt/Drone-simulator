@@ -29,7 +29,7 @@ namespace Assets.Scripts.Effects.Vehicles
         {
             foreach (Rigidbody body in GetComponentsInChildren<Rigidbody>())
             {
-                _parts.Add((body, body.position));
+                _parts.Add((body, body.transform.localPosition));
                 if (body.TryGetComponent(out Collider collider))
                 {
                     foreach ((Rigidbody, Vector3) bodyTarget in _parts)
@@ -60,7 +60,9 @@ namespace Assets.Scripts.Effects.Vehicles
             {
                 (Rigidbody body, Vector3 initPosition) = _parts[i];
                 Rigidbody rb = body;
-                rb.position = initPosition;
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.transform.localPosition = initPosition;
 
                 Vector2 circlePos = UnityEngine.Random.insideUnitCircle * _config.CircleRadius;
                 Vector3 boomPos = upPos + new Vector3(circlePos.x, 0, circlePos.y);

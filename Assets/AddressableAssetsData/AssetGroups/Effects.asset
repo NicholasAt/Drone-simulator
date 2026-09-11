@@ -13,30 +13,20 @@ MonoBehaviour:
   m_Name: Effects
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Effects
-  m_GUID: 307e02dda93583f45af5493e43403ffb
+  m_GUID: fd148923feecea84791f7dcb676ebae6
   m_SerializeEntries:
-  - m_GUID: 248e064ba30cd3b4a9d9443f2ac5017d
-    m_Address: Drone1SmallEffect
+  - m_GUID: 6a3cb4ac8fa12944ba1233cbec0e9c69
+    m_Address: WFX_SmokeGrenade Black
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3235902a3e1fe0f4cbc6eaf9124b650f
-    m_Address: Helicopter1Effect
+  - m_GUID: 6ecf76dc4f268d340b2666896a954bcc
+    m_Address: WFX_Nuke
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4f23181f4d33ec84490040bd0162fcaa
-    m_Address: Tank1Effect
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 65e3ddf0911dbf94197f6bdbac116a86
-    m_Address: Hummer1Effect
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8778d6aca03f0b9489957483ccff45b5
-    m_Address: Helicopter1SmallEffect
+  - m_GUID: a49596ebf788acd4ab1281bffea444b1
+    m_Address: WFX_Explosion StarSmoke
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -44,5 +34,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 4d78faeecb9259e4f96d1d1ea0d60158, type: 2}
-    - {fileID: 11400000, guid: 5c2b805218fc14f4bad5fe3c288dbcd1, type: 2}
+    - {fileID: 11400000, guid: ab979c202e3aa0a4f88eeeff9ddaa35f, type: 2}
+    - {fileID: 11400000, guid: 06bcac67616be604db32fb5399ca1201, type: 2}

@@ -5,31 +5,36 @@ using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 
 namespace Assets.Scripts.Quests
 {
     public class MovementByPoints : MonoBehaviour
     {
+        [SerializeField] private Transform _movePointsRoot;
+        [SerializeField] private QuestPointId _pointId;
+        private readonly List<Transform> _movePoints = new();
+
         public Action<Transform> OnTriggered { get; set; }
         public Action OnFinish { get; set; }
-
-        [SerializeField] private Transform _initPoint;
-        [SerializeField] private Transform _movePointsRoot;
-        private readonly List<Transform> _movePoints = new();
 
         private GameFactory _gameFactory;
         private TempLevelProgress _levelProgress;
         private int _currentPointIndex = -1;
         private bool _isEnd;
+        private CancellationToken _ct;
 
         [Inject]
         private void Construct(GameFactory gameFactory, ProgressService progressService)
         {
             _gameFactory = gameFactory;
             _levelProgress = progressService.TempLevelProgress;
+        }
+        private void Awake()
+        {
+            _ct = this.GetCancellationTokenOnDestroy();
         }
         private void OnValidate()
         {
@@ -41,10 +46,9 @@ namespace Assets.Scripts.Quests
             InitPoints();
             await NextPoint();
         }
-        public bool IsLastPoint()
+       public Transform LastPoint()
         {
-            return _movePoints.Count <= _currentPointIndex + 1;
-
+            return _movePoints[_movePoints.Count ^ 1];
         }
         private async UniTask NextPoint()
         {
@@ -56,7 +60,7 @@ namespace Assets.Scripts.Quests
             else
             {
                 Transform movePoint = CurrentPoint();
-                GameObject questPoint = await _gameFactory.CreateQuestPoint(movePoint.position, movePoint.rotation);
+                GameObject questPoint = await _gameFactory.CreateQuestPoint(_pointId, movePoint.position, movePoint.rotation, _ct);
 
                 if (questPoint.TryGetComponent(out TriggerReporter triggerReporter) == false)
                     Debug.LogError("no reporter");
@@ -109,12 +113,6 @@ namespace Assets.Scripts.Quests
 
         private void OnDrawGizmos()
         {
-            if (_initPoint != null)
-            {
-                Gizmos.color = Color.green;
-                Gizmos.DrawSphere(_initPoint.position, 15);
-            }
-
             if (_movePointsRoot != null)
             {
                 const int frequency = 25;

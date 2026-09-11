@@ -42,5 +42,14 @@ namespace Assets.Scripts.Quests.Scenarios
             int stars = _calculateStars.Calculate(Config.BadSeconds, Config.BestSeconds, _timerService.Seconds);
             await Win(stars);
         }
+
+        private void OnDrawGizmos()
+        {
+            if (_initPoint != null)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(_initPoint.position, 2);
+            }
+        }
     }
 }

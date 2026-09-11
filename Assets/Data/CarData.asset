@@ -22,7 +22,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    <Speed>k__BackingField: 8
+    <Speed>k__BackingField: 10
   - <Name>k__BackingField: Tank
     <ID>k__BackingField: 2
     <DestroyEffectId>k__BackingField: 100
@@ -32,4 +32,4 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    <Speed>k__BackingField: 5
+    <Speed>k__BackingField: 7

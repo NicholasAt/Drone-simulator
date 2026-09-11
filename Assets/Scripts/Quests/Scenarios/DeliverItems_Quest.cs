@@ -3,6 +3,7 @@ using Assets.Scripts.Services;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
+using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -26,7 +27,7 @@ namespace Assets.Scripts.Quests.Scenarios
         private QuestObjectsData _questObjectsData;
         private TimerService _timerService;
         private CalculateStarsService _calculateStars;
-
+        private CancellationToken _ct;
         [Inject]
         private void Construct(GameFactory gameFactory, QuestObjectsData questObjectsData, TimerService timerService, CalculateStarsService calculateStarsService)
         {
@@ -40,7 +41,10 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             RefreshNames();
         }
-        
+        private void Awake()
+        {
+            _ct = this.GetCancellationTokenOnDestroy();
+        }
         protected override async UniTask OnRun()
         {
             _movementByPoints.OnTriggered += (point) => Triggered(point).Forget();
@@ -53,26 +57,24 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             return _initPoint;
         }
-        
+
         private async UniTask Win()
         {
+            await Triggered(_movementByPoints.LastPoint());
             int stars = _calculateStars.Calculate(Config.BadSeconds, Config.BestSeconds, _timerService.Seconds);
             await Win(stars, Config.WinMessage);
         }
         private async UniTask Triggered(Transform triggerPoint)
         {
-            if (_movementByPoints.IsLastPoint() == false)
+            if (triggerPoint.childCount == 0)
             {
-                if (triggerPoint.childCount == 0)
-                {
-                    Debug.LogError("no point");
-                    return;
-                }
-                Transform point = triggerPoint.GetChild(0);
-                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, CharacterPos(), Quaternion.identity, this.GetCancellationTokenOnDestroy(), "");
-                instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
-                instance.transform.DORotate(point.eulerAngles, 1);
+                Debug.LogError("no point");
+                return;
             }
+            Transform point = triggerPoint.GetChild(0);
+            GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, CharacterPos(), Quaternion.identity, _ct, "");
+            instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
+            instance.transform.DORotate(point.eulerAngles, 1);
         }
         private void RefreshNames()
         {
@@ -90,6 +92,11 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         private void OnDrawGizmos()
         {
+            if (_initPoint != null)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(_initPoint.position, 5);
+            }
             if (_pointsRoot != null)
             {
                 Gizmos.color = Color.green;
@@ -100,7 +107,7 @@ namespace Assets.Scripts.Quests.Scenarios
                         Transform point = _pointsRoot.GetChild(i).GetChild(0);
                         Gizmos.DrawLine(point.position, _pointsRoot.GetChild(i).position);
                         Gizmos.matrix = point.localToWorldMatrix;
-                        Gizmos.DrawCube(Vector3.zero, new Vector3(4, 2, 2));
+                        Gizmos.DrawCube(Vector3.zero, new Vector3(3, 1, 1));
                     }
                 }
                 RefreshNames();

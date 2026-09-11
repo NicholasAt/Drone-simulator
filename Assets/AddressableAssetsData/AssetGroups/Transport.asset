@@ -10,13 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: BotTransport
+  m_Name: Transport
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: BotTransport
+  m_GroupName: Transport
   m_GUID: bd9b899d3881b094db37e0cc3df7bcb6
   m_SerializeEntries:
+  - m_GUID: 3235902a3e1fe0f4cbc6eaf9124b650f
+    m_Address: Helicopter1Effect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e8815fb6e51f1543a53ed8a20d37eb3
+    m_Address: HelicopterQuestObject
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46a9cf9d3ef39e04189a89bf78112827
+    m_Address: Helicopter1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f23181f4d33ec84490040bd0162fcaa
+    m_Address: Tank1Effect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65e3ddf0911dbf94197f6bdbac116a86
+    m_Address: Hummer1Effect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6cc89ebd41da57840a7e85474657534f
     m_Address: Hummer1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8778d6aca03f0b9489957483ccff45b5
+    m_Address: Helicopter1SmallEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9aac9656eaa4be044b1290b522ed4355
+    m_Address: DeliveryItem1QuestObject
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

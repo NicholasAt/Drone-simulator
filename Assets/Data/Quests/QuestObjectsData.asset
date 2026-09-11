@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885b54b156887bc4b8ae324b425f7708, type: 3}
   m_Name: QuestObjectsData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.Quests.QuestObjectsData
-  <QuestPointReference>k__BackingField:
+  <QuestPointCubeReference>k__BackingField:
     m_AssetGUID: 14662b3178599e64799c0923317b3ca4
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  <QuestPointCircleReference>k__BackingField:
+    m_AssetGUID: 1b3e98bc6a41e9e48a90cf960d7ab8c6
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

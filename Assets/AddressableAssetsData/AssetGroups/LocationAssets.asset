@@ -15,11 +15,6 @@ MonoBehaviour:
   m_GroupName: LocationAssets
   m_GUID: 01909cb7a24c6d246bc035852e38d720
   m_SerializeEntries:
-  - m_GUID: 14662b3178599e64799c0923317b3ca4
-    m_Address: QuestPoint
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2825f9c438c9a544a8a66b470ebe0e72
     m_Address: PopupTwoButtonsCanvas
     m_ReadOnly: 0
@@ -32,11 +27,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ba4c03a42824b648866861c58bc8619
     m_Address: HUD
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 95d317e6291672c49a8231c4d718f303
-    m_Address: DestroyUnlit
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

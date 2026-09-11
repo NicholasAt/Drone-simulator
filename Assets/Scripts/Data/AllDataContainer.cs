@@ -15,7 +15,6 @@ namespace Assets.Scripts.Data
         [field: SerializeField] public DroneData DroneData { get; private set; }
         [field: SerializeField] public HelicopterData HelicopterData { get; private set; }
         [field: SerializeField] public UIData UIData { get; private set; }
-        [field: SerializeField] public LocationData LocationData { get; private set; }
         [field: SerializeField] public QuestsData QuestsData { get; private set; }
         [field: SerializeField] public QuestObjectsData QuestObjectsData { get; private set; }
         [field: SerializeField] public CarData CarData { get; private set; }
