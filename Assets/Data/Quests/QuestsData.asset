@@ -17,7 +17,8 @@ MonoBehaviour:
     <Icon>k__BackingField: {fileID: 0}
     _questConfig:
     - <MissionName>k__BackingField: Point-to-Point Flight Training
-      <MissionDescription>k__BackingField: 
+      <MissionDescription>k__BackingField: Move from point to point to master the
+        art of flight
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 1
       <QuestReference>k__BackingField:
@@ -26,8 +27,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_SubObjectGUID: 
         m_EditorAssetChanged: 0
-    - <MissionName>k__BackingField: Static objects
-      <MissionDescription>k__BackingField: 
+    - <MissionName>k__BackingField: Destruction of stationary targets
+      <MissionDescription>k__BackingField: Eliminate the enemy transport before they
+        can launch an assault
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 6
       <QuestReference>k__BackingField:
@@ -36,18 +38,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_SubObjectGUID: 
         m_EditorAssetChanged: 0
-    - <MissionName>k__BackingField: Moving cars
-      <MissionDescription>k__BackingField: 
-      <Icon>k__BackingField: {fileID: 0}
-      <QuestID>k__BackingField: 4
-      <QuestReference>k__BackingField:
-        m_AssetGUID: 25b490259944d2148a4593cd55dbe88e
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-    - <MissionName>k__BackingField: Fly
-      <MissionDescription>k__BackingField: 
+    - <MissionName>k__BackingField: Aerial targets
+      <MissionDescription>k__BackingField: Destroy as many enemy aerial targets as
+        possible.
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 5
       <QuestReference>k__BackingField:
@@ -56,11 +49,23 @@ MonoBehaviour:
         m_SubObjectType: 
         m_SubObjectGUID: 
         m_EditorAssetChanged: 0
+    - <MissionName>k__BackingField: Moving targets
+      <MissionDescription>k__BackingField: "Don\u2019t let the enemy reach the camp
+        \u2014 destroy everything that moves"
+      <Icon>k__BackingField: {fileID: 0}
+      <QuestID>k__BackingField: 4
+      <QuestReference>k__BackingField:
+        m_AssetGUID: 25b490259944d2148a4593cd55dbe88e
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
   - <TransportName>k__BackingField: Helicopter
     <Icon>k__BackingField: {fileID: 0}
     _questConfig:
     - <MissionName>k__BackingField: Point-to-Point Flight Training
-      <MissionDescription>k__BackingField: q
+      <MissionDescription>k__BackingField: Follow the waypoints and learn how to
+        fly
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 2
       <QuestReference>k__BackingField:
@@ -70,7 +75,7 @@ MonoBehaviour:
         m_SubObjectGUID: 
         m_EditorAssetChanged: 0
     - <MissionName>k__BackingField: Delivery
-      <MissionDescription>k__BackingField: 
+      <MissionDescription>k__BackingField: Deliver ammo to various bases
       <Icon>k__BackingField: {fileID: 0}
       <QuestID>k__BackingField: 3
       <QuestReference>k__BackingField:
