@@ -36,8 +36,8 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - <EffectId>k__BackingField: 200
-    <Force>k__BackingField: 80
-    <Torque>k__BackingField: 150
+    <Force>k__BackingField: 90
+    <Torque>k__BackingField: 160
     <CircleRadius>k__BackingField: 10
     <ConeHeight>k__BackingField: 5
     <Reference>k__BackingField:
@@ -47,8 +47,8 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - <EffectId>k__BackingField: 201
-    <Force>k__BackingField: 80
-    <Torque>k__BackingField: 150
+    <Force>k__BackingField: 90
+    <Torque>k__BackingField: 160
     <CircleRadius>k__BackingField: 10
     <ConeHeight>k__BackingField: 5
     <Reference>k__BackingField:

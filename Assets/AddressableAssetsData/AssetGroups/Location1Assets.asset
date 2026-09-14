@@ -15,16 +15,6 @@ MonoBehaviour:
   m_GroupName: Location1Assets
   m_GUID: ff7577a2cab521547b24276193553654
   m_SerializeEntries:
-  - m_GUID: 114fb5463c0bac84494bd3657856ae16
-    m_Address: TerrainMaterial_0
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2986e54104457b948995cf661a484439
-    m_Address: TerrainSplat_0
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 96ffd6a2e2dc3724682998b33953342a
     m_Address: CliffBright
     m_ReadOnly: 0
