@@ -15,11 +15,6 @@ MonoBehaviour:
   m_GroupName: Audio
   m_GUID: 17e894b8467ae1b4190b17dfed7aaac0
   m_SerializeEntries:
-  - m_GUID: 52d95c041e6cbbe49b72f833b85f9913
-    m_Address: menu music
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8280b5d73be76a5488f8123b5b583bdf
     m_Address: MusicSourceKeeper
     m_ReadOnly: 0
