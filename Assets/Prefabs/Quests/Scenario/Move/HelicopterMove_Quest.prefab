@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.MovementByPoints_Quest
   Config:
-    TransportDestroyedMessage: 
+    TransportDestroyedMessage: Helicopter was destroyed
     DieImpulse: 320
     PlayerDamageRadius: 5
     BestSeconds: 75

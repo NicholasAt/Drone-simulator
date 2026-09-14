@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DestroyFlyingObjects_Quest
   Config:
-    TransportDestroyedMessage: 
+    TransportDestroyedMessage: The drone was destroyed
     DieImpulse: 20
     PlayerDamageRadius: 8
     MaxTargets: 3
@@ -59,7 +59,9 @@ MonoBehaviour:
     Time: 121
     BestKills: 10
     BadKills: 1
-    WinMessage: 
+    WinMessage: 'Congratulations!
+
+      You have destroyed'
   _spawnMarkers:
   - Point: {fileID: 3652758078039693086}
     Radius: 150

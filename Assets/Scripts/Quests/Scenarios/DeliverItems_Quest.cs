@@ -60,7 +60,6 @@ namespace Assets.Scripts.Quests.Scenarios
 
         private async UniTask Win()
         {
-            await Triggered(_movementByPoints.LastPoint());
             int stars = _calculateStars.Calculate(Config.BadSeconds, Config.BestSeconds, _timerService.Seconds);
             await Win(stars, Config.WinMessage);
         }
@@ -72,6 +71,7 @@ namespace Assets.Scripts.Quests.Scenarios
                 return;
             }
             Transform point = triggerPoint.GetChild(0);
+          
             GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, CharacterPos(), Quaternion.identity, _ct, "");
             instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
             instance.transform.DORotate(point.eulerAngles, 1);

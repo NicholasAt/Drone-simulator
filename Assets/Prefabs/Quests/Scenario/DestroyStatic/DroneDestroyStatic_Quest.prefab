@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728371859079237063}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.01745245, y: 0, z: 0, w: 0.99984777}
-  m_LocalPosition: {x: 2197.1023, y: 175.61, z: 3005.1333}
+  m_LocalRotation: {x: -0.02617549, y: 0.0002741188, z: 0.010468184, w: 0.99960256}
+  m_LocalPosition: {x: 2197.15, y: 176, z: 3005.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7867328676289207682}
-  m_LocalEulerAnglesHint: {x: -2, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3, y: 0, z: 1.2}
 --- !u!1 &2768051020019286453
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DestroyStatic_Quest
   Config:
-    TransportDestroyedMessage: 
+    TransportDestroyedMessage: The drone was destroyed
     DieImpulse: 20
     PlayerDamageRadius: 4.5
     BestSeconds: 50
@@ -109,13 +109,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3265287397962244683}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9995599, z: 0.029666152, w: 0}
-  m_LocalPosition: {x: 2501.9885, y: 179.7, z: 2377.53}
+  m_LocalRotation: {x: 0.012200214, y: 0.998555, z: 0.05233199, w: -0.0006393854}
+  m_LocalPosition: {x: 2501.9, y: 179.4, z: 2377.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7867328676289207682}
-  m_LocalEulerAnglesHint: {x: -3.4, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -6, y: 180, z: 1.4}
 --- !u!1 &5060999062506907600
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,10 +205,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9103627776376376834}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.014684875, y: 0.99125266, z: -0.0112681, w: 0.13067375}
-  m_LocalPosition: {x: 2344.7, y: 112.98, z: 3852.1}
+  m_LocalRotation: {x: -0.019526951, y: 0.9910017, z: -0.025448022, w: 0.12994875}
+  m_LocalPosition: {x: 2344.8, y: 112.98, z: 3852.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7867328676289207682}
-  m_LocalEulerAnglesHint: {x: 1.5, y: 165, z: 1.5}
+  m_LocalEulerAnglesHint: {x: 2.6, y: 165, z: -2.6}

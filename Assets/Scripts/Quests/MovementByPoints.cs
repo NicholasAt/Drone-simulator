@@ -46,10 +46,7 @@ namespace Assets.Scripts.Quests
             InitPoints();
             await NextPoint();
         }
-       public Transform LastPoint()
-        {
-            return _movePoints[_movePoints.Count ^ 1];
-        }
+       
         private async UniTask NextPoint()
         {
             _currentPointIndex++;

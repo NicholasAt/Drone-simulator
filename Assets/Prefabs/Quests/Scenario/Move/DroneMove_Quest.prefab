@@ -241,13 +241,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696496442103454848}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.99229956, z: -0, w: 0.12386127}
+  m_LocalRotation: {x: -0, y: -0.95934546, z: -0, w: 0.28223455}
   m_LocalPosition: {x: 2405.4, y: 160.6, z: 3634.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5165853187699326843}
-  m_LocalEulerAnglesHint: {x: 0, y: -165.77, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -147.213, z: 0}
 --- !u!1 &1768133260541215080
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,11 +482,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.MovementByPoints_Quest
   Config:
-    TransportDestroyedMessage: 
+    TransportDestroyedMessage: The drone was destroyed
     DieImpulse: 20
     PlayerDamageRadius: 5
-    BestSeconds: 110
-    BadSeconds: 150
+    BestSeconds: 125
+    BadSeconds: 170
   _movementByPoints: {fileID: 866411700548603729}
   _initPoint: {fileID: 7350850229377884433}
 --- !u!114 &866411700548603729
@@ -620,13 +620,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5450425344065349457}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.77498573, z: -0, w: 0.63197875}
-  m_LocalPosition: {x: 2342.2, y: 186.6, z: 3512.1}
+  m_LocalRotation: {x: -0, y: -0.40946883, z: -0, w: 0.9123241}
+  m_LocalPosition: {x: 2313.9, y: 194.25, z: 3529.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5165853187699326843}
-  m_LocalEulerAnglesHint: {x: 0, y: -101.607, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -48.343, z: 0}
 --- !u!1 &5540235625867663418
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +865,7 @@ Transform:
   m_GameObject: {fileID: 7610413538079202055}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.096500926, z: -0, w: 0.99533296}
-  m_LocalPosition: {x: 2142.4, y: 204.4, z: 3528.62}
+  m_LocalPosition: {x: 2227, y: 204.4, z: 3632.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

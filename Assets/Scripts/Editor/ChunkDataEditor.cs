@@ -19,7 +19,7 @@ namespace Assets.Scripts.Editor
         public override void OnInspectorGUI()
         {
             ChunkData data = (ChunkData)target;
-            _path = EditorGUILayout.TextField("path", _path);
+            _path = EditorGUILayout.TextField("Path", _path);
             _terrainMaterial = (Material)EditorGUILayout.ObjectField("Terrain Material", _terrainMaterial, typeof(Material), false);
 
             EditorGUILayout.Separator(); // Add space

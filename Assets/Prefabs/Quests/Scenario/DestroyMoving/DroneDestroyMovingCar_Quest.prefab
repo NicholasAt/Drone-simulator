@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7503102269664064667}
   m_Layer: 0
-  m_Name: 'Spawn point [7]'
+  m_Name: 'Spawn point [5]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7879751472775282235}
   m_Layer: 0
-  m_Name: 'Spawn point [6]'
+  m_Name: 'Spawn point [4]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6409872536002126361}
   m_Layer: 0
-  m_Name: 'Spawn point [3]'
+  m_Name: 'Spawn point [2]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3000890262622638668}
   m_Layer: 0
-  m_Name: 'Spawn point [4]'
+  m_Name: 'Spawn point [3]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,41 +187,9 @@ Transform:
   - {fileID: 6155956795692647581}
   - {fileID: 4685615758437512773}
   - {fileID: 106080600217419786}
-  - {fileID: 34144110704695478}
   - {fileID: 325246747439191615}
   m_Father: {fileID: 4973557339299841949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4158392334542992035
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7344541657798996015}
-  m_Layer: 0
-  m_Name: 'Spawn point [5]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7344541657798996015
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4158392334542992035}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.18106681, z: -0, w: 0.9834708}
-  m_LocalPosition: {x: -195.63115, y: 4.1305695, z: -309.6865}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6787070794217522787}
-  m_LocalEulerAnglesHint: {x: 0, y: 20.864, z: 0}
 --- !u!1 &4688546103082769140
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,13 +239,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DestroyMovingCar_Quest
   Config:
-    TransportDestroyedMessage: 
+    TransportDestroyedMessage: The drone was destroyed
     DieImpulse: 20
     PlayerDamageRadius: 5
-    WinMessage: 
-    LoseMessage: 
-    BestSeconds: 80
-    BadSeconds: 120
+    WinMessage: 'Congratulations!
+
+      The vehicles didn''t make it'
+    LoseMessage: 'Lose
+
+      The vehicles reached the camp'
+    BestSeconds: 70
+    BadSeconds: 110
   _pointsMarker:
   - Root: {fileID: 6242659826366959034}
     EndPoint: {fileID: 8691593016598817331}
@@ -313,37 +285,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 1.5875487, y: -6.4642487, z: 26.812206}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6242659826366959034}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1 &5560767032044810117
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 34144110704695478}
-  m_Layer: 0
-  m_Name: 'Spawn point [4]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &34144110704695478
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560767032044810117}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -2.0104008, y: -7.168457, z: -83.40791}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -453,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 325246747439191615}
   m_Layer: 0
-  m_Name: 'Spawn point [5]'
+  m_Name: 'Spawn point [4]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -505,37 +446,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6242659826366959034}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1 &6751164113358802367
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8473320559724969860}
-  m_Layer: 0
-  m_Name: 'Spawn point [2]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8473320559724969860
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6751164113358802367}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.18106681, z: -0, w: 0.9834708}
-  m_LocalPosition: {x: -251.8482, y: -13.241058, z: -418.3043}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6787070794217522787}
-  m_LocalEulerAnglesHint: {x: 0, y: 20.864, z: 0}
 --- !u!1 &6854792653085662340
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,10 +538,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 130414668000341431}
-  - {fileID: 8473320559724969860}
   - {fileID: 6409872536002126361}
   - {fileID: 3000890262622638668}
-  - {fileID: 7344541657798996015}
   - {fileID: 7879751472775282235}
   - {fileID: 7503102269664064667}
   m_Father: {fileID: 4973557339299841949}
