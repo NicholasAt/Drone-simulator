@@ -12,7 +12,7 @@ namespace Assets.Scripts.Character
         public CharacterHit CharacterHit { get; private set; }
         public IVehiclesDestroyEffectPlayer DestroyEffectPlayer { get; private set; }
         public IVehicleCamera VehicleCamera { get; private set; }
-
+        public Collider[] Colliders { get; private set; }
         public void Init(GameObject character, IRefreshPositions refresher, CharacterHit characterHit, IVehiclesDestroyEffectPlayer destroyEffectPlayer, IVehicleCamera vehicleCamera)
         {
             Character = character;
@@ -20,6 +20,7 @@ namespace Assets.Scripts.Character
             CharacterHit = characterHit;
             DestroyEffectPlayer = destroyEffectPlayer;
             VehicleCamera = vehicleCamera;
+            Colliders=character.GetComponentsInChildren<Collider>();
         }
         public Vector3 Pos()
         {

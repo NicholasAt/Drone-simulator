@@ -81,8 +81,8 @@ MonoBehaviour:
     TransportDestroyedMessage: The drone was destroyed
     DieImpulse: 20
     PlayerDamageRadius: 4.5
-    BestSeconds: 50
-    BadSeconds: 75
+    BestSeconds: 65
+    BadSeconds: 85
   _targetsRoot: {fileID: 7867328676289207682}
   _playerInitPoint: {fileID: 2015069983624001833}
 --- !u!1 &3265287397962244683
@@ -175,7 +175,7 @@ Transform:
   m_GameObject: {fileID: 6204689118737661006}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.45459905, z: -0, w: -0.8906963}
-  m_LocalPosition: {x: 2716.7522, y: 182.83, z: 1862.6295}
+  m_LocalPosition: {x: 2716, y: 183.7, z: 1861.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

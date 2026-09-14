@@ -149,7 +149,7 @@ namespace Assets.Scripts.Quests.Scenarios
             }
         }
         protected virtual void PlayAnimation(bool isHit)
-        {
+        {         
             if (isHit == false)
                 ComponentsKeeper.DestroyEffectPlayer.Play().Forget();
 

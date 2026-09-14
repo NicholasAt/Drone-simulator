@@ -119,7 +119,7 @@ namespace Assets.Scripts.Quests.Scenarios
             if (_spawnPlayerPoint != null)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawSphere(_spawnPlayerPoint.position, 2);
+                Gizmos.DrawSphere(_spawnPlayerPoint.position, 0.5f);
             }
             foreach (PointsMarker marker in _pointsMarker)
             {

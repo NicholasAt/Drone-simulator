@@ -22,9 +22,9 @@ namespace Assets.Scripts.Data
         }
 
         [SerializeField] private List<ChunkConfig> _chunkConfigs;
-        public IList<ChunkConfig> ChunkConfigs => _chunkConfigs;
+        [SerializeField] private List<AssetReferenceGameObject> _bases;
+        public IList<AssetReferenceGameObject> Bases => _bases;
         private Dictionary<Vector2Int, ChunkConfig> _cachedConfigs;
-        public IDictionary<Vector2Int, ChunkConfig> CachedConfigs => _cachedConfigs;
 
         [field: SerializeField] public int ChunkCount { get; private set; } = 3;
         [field: SerializeField] public int Size { get; private set; } = 626;

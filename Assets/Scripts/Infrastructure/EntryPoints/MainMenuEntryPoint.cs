@@ -45,7 +45,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         {
             _levelProgress.SetQuestId(QuestID.Drone_Move);//first quest
             await _musicService.PlayBackground();
-            await _uIFactory.CreateMenu();
+            await _uIFactory.CreateMenu(CancelToken);
         }
     }
 }

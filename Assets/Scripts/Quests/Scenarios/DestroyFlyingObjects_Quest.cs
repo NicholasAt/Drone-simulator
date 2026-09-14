@@ -149,7 +149,7 @@ namespace Assets.Scripts.Quests.Scenarios
             if (_playerSpawnPoint != null)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawSphere(_playerSpawnPoint.position, 2);
+                Gizmos.DrawSphere(_playerSpawnPoint.position, 0.5f);
             }
 
             Gizmos.color = Color.red;

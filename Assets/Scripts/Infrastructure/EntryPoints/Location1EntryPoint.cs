@@ -2,10 +2,8 @@ using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.CameraService;
-using Assets.Scripts.Services.ChunkLoad;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
-using System.Threading;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure.EntryPoints
@@ -37,7 +35,6 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private TempLevelProgress _levelProgress;
         private CameraStateService _cameraService;
         private CleanupService _cleanupService;
-        private ChunkLoaderService _chunkLoaderService;
 
         [Inject]
         private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService, CleanupService cleanupService)
@@ -52,13 +49,13 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         protected override async UniTask OnStart()
         {
             _cleanupService.Cleanup();
-            CancellationToken ct = this.GetCancellationTokenOnDestroy();
-            await _gameFactory.CreateCinemaCamera(ct);
+            await _gameFactory.CreateCinemaCamera(CancelToken);
             await _cameraService.Prepare();
-            await _uIFactory.CreateHUD(ct);
+            await _uIFactory.CreateHUD(CancelToken);
+            await _gameFactory.CreateBases(CancelToken);
 
-            IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, ct);
-            _uIFactory.CreateScreenTarget(ct).Forget();
+            IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, CancelToken);
+            _uIFactory.CreateScreenTarget(CancelToken).Forget();
             await qeustInstance.Run();
         }
     }

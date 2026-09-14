@@ -1,4 +1,6 @@
 using Assets.Scripts.Bots;
+using Assets.Scripts.Character;
+using Assets.Scripts.Data;
 using Assets.Scripts.Data.BotsData.CarData;
 using Assets.Scripts.Data.BotsData.FlyData;
 using Assets.Scripts.Data.CameraAnimationData;
@@ -37,8 +39,11 @@ namespace Assets.Scripts.Services
         private readonly ProgressService _progressService;
         private readonly VehiclesDestroyEffectData _destroyVehiclesEffectData;
         private readonly CameraData _cameraData;
+        private readonly ChunkData _chunkData;
+        private readonly CharacterComponentsKeeperService _characterComponentsKeeper;
+
         public GameObject CinemaCamera { get; private set; }
-        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, FlyingTransportData flyingTransportData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService, VehiclesDestroyEffectData destroyVehiclesEffectData, CameraData cameraData)
+        public GameFactory(DiContainer diContainer, IAssetProviderService assetProvider, DroneData droneData, CarData carData, FlyingTransportData flyingTransportData, HelicopterData helicopterData, QuestsData questsData, QuestObjectsData questObjectsData, ProgressService progressService, VehiclesDestroyEffectData destroyVehiclesEffectData, CameraData cameraData, ChunkData chunkData, CharacterComponentsKeeperService characterComponentsKeeper)
         {
             _diContainer = diContainer;
             _assetProvider = assetProvider;
@@ -51,8 +56,19 @@ namespace Assets.Scripts.Services
             _progressService = progressService;
             _destroyVehiclesEffectData = destroyVehiclesEffectData;
             _cameraData = cameraData;
+            _chunkData = chunkData;
+            _characterComponentsKeeper = characterComponentsKeeper;
         }
 
+        public async UniTask CreateBases(CancellationToken ct = default)
+        {
+            Transform root = new GameObject("Bases").transform;
+            foreach (AssetReferenceGameObject baseReference in _chunkData.Bases)
+            {
+                GameObject prefab = await _assetProvider.LoadAsync<GameObject>(baseReference, ct);
+                Object.Instantiate(prefab, root);
+            }
+        }
         public async UniTask CreateCinemaCamera(CancellationToken ct = default)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_cameraData.CinemaCameraReference, ct);
@@ -66,6 +82,18 @@ namespace Assets.Scripts.Services
             GameObject instance = InstantiateInject(prefab);
             if (instance.TryGetComponent(out IVehiclesDestroyEffect effect) == false)
                 Debug.LogError("no component");
+
+            if (_characterComponentsKeeper.Colliders != null)
+            {
+                Collider[] instanceColliders = instance.GetComponentsInChildren<Collider>();
+                foreach (Collider characterCollider in _characterComponentsKeeper.Colliders)
+                {
+                    foreach (Collider myCollider in instanceColliders)
+                    {
+                        Physics.IgnoreCollision(myCollider, characterCollider);
+                    }
+                }
+            }
 
             effect.Init(id);
             return effect;
@@ -86,10 +114,10 @@ namespace Assets.Scripts.Services
             return instance;
         }
 
-        public async UniTask<GameObject> CreateQuestPoint(QuestPointId questPointId, Vector3 pos, Quaternion rotate, CancellationToken ct=default)
+        public async UniTask<GameObject> CreateQuestPoint(QuestPointId questPointId, Vector3 pos, Quaternion rotate, CancellationToken ct = default)
         {
             AssetReferenceGameObject reference = questPointId == QuestPointId.Cube ? _questObjectsData.QuestPointCubeReference : _questObjectsData.QuestPointCircleReference;
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference,ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, ct);
             GameObject instance = InstantiateInject(prefab);
             instance.transform.SetPositionAndRotation(pos, rotate);
             return instance;

@@ -48,7 +48,7 @@ namespace Assets.Scripts.Quests.Scenarios
             if (_initPoint != null)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawSphere(_initPoint.position, 2);
+                Gizmos.DrawSphere(_initPoint.position, 0.5f);
             }
         }
     }

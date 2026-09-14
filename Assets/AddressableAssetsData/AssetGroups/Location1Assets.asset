@@ -15,8 +15,38 @@ MonoBehaviour:
   m_GroupName: Location1Assets
   m_GUID: ff7577a2cab521547b24276193553654
   m_SerializeEntries:
+  - m_GUID: 26b7ba0a9219d1f48a5ecd3b418868d1
+    m_Address: Base3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4dac00a120246114d879bf9fe9eb2481
+    m_Address: Base1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f784e1a325e7194e92301221e8e74f4
+    m_Address: Base2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84edd317860ede14582c3b4e6f21b938
+    m_Address: Base6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 904fcb76183f589489f312e781b80ff8
+    m_Address: Base4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 96ffd6a2e2dc3724682998b33953342a
     m_Address: CliffBright
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97a6ab29e8a79064f905cf03ecdc49f0
+    m_Address: Base5
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
