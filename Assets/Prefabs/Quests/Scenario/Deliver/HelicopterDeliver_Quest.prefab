@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DeliverItems_Quest
   Config:
     TransportDestroyedMessage: Helicopter was destroyed
+    OutsideMapMessage: Left the map
     DieImpulse: 320
     PlayerDamageRadius: 5
     WinMessage: 'Congratulations!

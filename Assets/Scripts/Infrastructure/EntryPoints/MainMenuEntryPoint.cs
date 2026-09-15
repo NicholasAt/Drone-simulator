@@ -35,7 +35,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Construct(UIFactory uIFactory, ProgressService progressService, MusicService musicService,SceneLoader sceneLoader)
+        private void Construct(UIFactory uIFactory, ProgressService progressService, MusicService musicService, SceneLoader sceneLoader)
         {
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;

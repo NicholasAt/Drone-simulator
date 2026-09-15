@@ -38,13 +38,12 @@ namespace Assets.Scripts.Services.CameraService
             {
                 if (_cinema.activeInHierarchy)
                     _cinema.SetActive(false);
+                _mainCamera.SetPositionAndRotation(_componentsKeeper.Pos(), Quaternion.identity);
                 await UniTask.DelayFrame(1);
 
                 _cinema.GetComponent<CinemachineCamera>().Follow = characterCamera.Root;
                 _cinema.SetActive(true);
             }
-
-            await UniTask.CompletedTask;
         }
 
         public async UniTask Exit()

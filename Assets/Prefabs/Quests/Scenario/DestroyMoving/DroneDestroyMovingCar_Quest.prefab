@@ -240,6 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.DestroyMovingCar_Quest
   Config:
     TransportDestroyedMessage: The drone was destroyed
+    OutsideMapMessage: Left the map
     DieImpulse: 20
     PlayerDamageRadius: 5
     WinMessage: 'Congratulations!
@@ -336,6 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f783ec4034c3fc04580d71b417bf9f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Interactive.TriggerReporter
+  _reportTrigger: 1
 --- !u!54 &6797582498510945189
 Rigidbody:
   m_ObjectHideFlags: 0

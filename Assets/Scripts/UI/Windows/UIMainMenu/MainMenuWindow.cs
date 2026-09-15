@@ -1,10 +1,12 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Services;
+using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,13 +29,14 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         private QuestsData _questsData;
         private UIData _uIData;
         private MusicService _musicService;
-
+        private IAssetProviderService _assetProvider;
         private bool _triggered;
+        private CancellationToken _ct;
         private readonly List<UIMenuSlot> _transportSlots = new();
         private readonly List<UIMenuSlot> _missionSlots = new();
 
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, UIFactory uIFactory, QuestsData questsData, ProgressService progressService, UIData uIData, MusicService musicService)
+        private void Construct(GameStateMachine gameStateMachine, UIFactory uIFactory, QuestsData questsData, ProgressService progressService, UIData uIData, MusicService musicService, IAssetProviderService assetProviderService)
         {
             _stateMachine = gameStateMachine;
             _uIFactory = uIFactory;
@@ -43,15 +46,30 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             _questsData = questsData;
             _uIData = uIData;
             _musicService = musicService;
+            _assetProvider = assetProviderService;
+        }
+        private void Awake()
+        {
+            _ct = this.GetCancellationTokenOnDestroy();
         }
 
-        private void Start()
+        private async UniTaskVoid Start()
         {
-            InitSlots();
+            await InitSlots();
             _playButton.onClick.AddListener(() => LoadGame().Forget(Debug.LogError));
         }
-
-        private void InitSlots()
+        public async UniTask Warmup()
+        {
+            foreach (QuestCategory category in _questsData.CategoryConfigs)
+            {
+                await _assetProvider.LoadAsync<Sprite>(category.IconReference, _ct);
+                foreach (QuestConfig cfg in category.QuestConfigs)
+                {
+                    await _assetProvider.LoadAsync<Sprite>(cfg.IconReference);
+                }
+            }
+        }
+        private async UniTask InitSlots()
         {
             foreach (QuestCategory categoryConfig in _questsData.CategoryConfigs)
             {
@@ -61,13 +79,13 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 
                 slot.SetColors(_uIData.SelectBgColor, _uIData.DefaultBgColor, _uIData.SelectPointColor, _uIData.DefaultPointColor);
                 slot.SetId(categoryConfig.TransportName);
-                slot.Refresh(categoryConfig.TransportName, categoryConfig.Icon);
+                slot.Refresh(categoryConfig.TransportName, await _assetProvider.LoadAsync<Sprite>(categoryConfig.IconReference, _ct));
                 slot.ShowHideStars(false);
-                slot.OnClick += () => SetQuestCategory(categoryConfig);
+                slot.OnClick += () => SetQuestCategory(categoryConfig).Forget();
             }
 
             RefreshTransports();
-            RefreshMission();
+            await RefreshMission();
         }
 
         private void RefreshTransports()
@@ -79,7 +97,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
                 slot.SetSelect(isSelect);
             }
         }
-        private void RefreshMission()
+        private async UniTask RefreshMission()
         {
             _missionSlots.ForEach(slot => slot.Close());
             _missionSlots.Clear();
@@ -93,7 +111,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 
                 slot.SetColors(_uIData.SelectBgColor, _uIData.DefaultBgColor, _uIData.SelectPointColor, _uIData.DefaultPointColor);
                 slot.SetId(cfg.QuestID);
-                slot.Refresh(cfg.MissionName, cfg.Icon);
+                slot.Refresh(cfg.MissionName, await _assetProvider.LoadAsync<Sprite>(cfg.IconReference, _ct));
                 slot.RefreshStars(_starsProgress.GetStars(cfg.QuestID));
                 slot.OnClick += () => SetQuestId(cfg.QuestID);
             }
@@ -117,11 +135,11 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             _descriptionText.text = cfg.MissionDescription;
         }
 
-        private void SetQuestCategory(QuestCategory category)
+        private async UniTask SetQuestCategory(QuestCategory category)
         {
             _levelProgress.SetQuestId(category.QuestConfigs[0].QuestID);
             RefreshTransports();
-            RefreshMission();
+            await RefreshMission();
             _musicService.Beep();
         }
 

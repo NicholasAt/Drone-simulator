@@ -54,11 +54,12 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             await _gameFactory.CreateCinemaCamera(CancelToken);
             await _cameraService.Prepare();
             await _gameFactory.CreateBases(CancelToken);
-            _gameFactory.CreateOutsideMap(CancelToken).Forget();
 
+            _gameFactory.CreateOutsideMap(CancelToken).Forget();
             _uIFactory.CreateHUD(CancelToken).Forget();
             _uIFactory.CreateScreenTarget(CancelToken).Forget();
             _gameFactory.CreateClouds(CancelToken).Forget();
+
             IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, CancelToken);
             await qeustInstance.Run();
             _sceneLoader.HideCurtain().Forget();

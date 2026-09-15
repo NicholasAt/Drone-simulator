@@ -14,12 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.Quests.QuestsData
   _categoryConfigs:
   - <TransportName>k__BackingField: Drone
-    <Icon>k__BackingField: {fileID: 0}
+    <IconReference>k__BackingField:
+      m_AssetGUID: 49c1bd04e3ae146418073596e3595e93
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
     _questConfig:
     - <MissionName>k__BackingField: Point-to-Point Flight Training
       <MissionDescription>k__BackingField: Move from point to point to master the
         art of flight
-      <Icon>k__BackingField: {fileID: 0}
+      <IconReference>k__BackingField:
+        m_AssetGUID: bf3694f9808f23845b5ab88a6c434e1c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
       <QuestID>k__BackingField: 1
       <QuestReference>k__BackingField:
         m_AssetGUID: dcfdbc21f5548514fb801013e3d2347a
@@ -30,7 +40,12 @@ MonoBehaviour:
     - <MissionName>k__BackingField: Destruction of stationary targets
       <MissionDescription>k__BackingField: Eliminate the enemy transport before they
         can launch an assault
-      <Icon>k__BackingField: {fileID: 0}
+      <IconReference>k__BackingField:
+        m_AssetGUID: 12bcd518df4a94a4cbf147c5316c3d8a
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 1
       <QuestID>k__BackingField: 6
       <QuestReference>k__BackingField:
         m_AssetGUID: d05bd52f126654a4a983fa47df3ebafb
@@ -41,7 +56,12 @@ MonoBehaviour:
     - <MissionName>k__BackingField: Aerial targets
       <MissionDescription>k__BackingField: Destroy as many enemy aerial targets as
         possible.
-      <Icon>k__BackingField: {fileID: 0}
+      <IconReference>k__BackingField:
+        m_AssetGUID: d0e9b5cfafc96614386ab8eb66c88f1c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 1
       <QuestID>k__BackingField: 5
       <QuestReference>k__BackingField:
         m_AssetGUID: 404cb2bbf7730c74cbf4d84529a3333b
@@ -52,7 +72,12 @@ MonoBehaviour:
     - <MissionName>k__BackingField: Moving targets
       <MissionDescription>k__BackingField: "Don\u2019t let the enemy reach the camp
         \u2014 destroy everything that moves"
-      <Icon>k__BackingField: {fileID: 0}
+      <IconReference>k__BackingField:
+        m_AssetGUID: c5b0029225999b34785ec7bd2f36bfac
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
       <QuestID>k__BackingField: 4
       <QuestReference>k__BackingField:
         m_AssetGUID: 25b490259944d2148a4593cd55dbe88e
@@ -61,12 +86,22 @@ MonoBehaviour:
         m_SubObjectGUID: 
         m_EditorAssetChanged: 0
   - <TransportName>k__BackingField: Helicopter
-    <Icon>k__BackingField: {fileID: 0}
+    <IconReference>k__BackingField:
+      m_AssetGUID: a2f0d8488addf4f41bbcb5a4ce80b657
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 1
     _questConfig:
     - <MissionName>k__BackingField: Point-to-Point Flight Training
       <MissionDescription>k__BackingField: Follow the waypoints and learn how to
         fly
-      <Icon>k__BackingField: {fileID: 0}
+      <IconReference>k__BackingField:
+        m_AssetGUID: d833830d092a30a438925d6c99efe55d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 1
       <QuestID>k__BackingField: 2
       <QuestReference>k__BackingField:
         m_AssetGUID: 90b08088c52b2094d866af53dff6614d
@@ -76,7 +111,12 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - <MissionName>k__BackingField: Delivery
       <MissionDescription>k__BackingField: Deliver ammo to various bases
-      <Icon>k__BackingField: {fileID: 0}
+      <IconReference>k__BackingField:
+        m_AssetGUID: 10ba62900f246d446922e51b18e465df
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 1
       <QuestID>k__BackingField: 3
       <QuestReference>k__BackingField:
         m_AssetGUID: bd12a1faca0bb844eafdc77aeb22423d

@@ -483,6 +483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Quests.Scenarios.MovementByPoints_Quest
   Config:
     TransportDestroyedMessage: The drone was destroyed
+    OutsideMapMessage: Left the map
     DieImpulse: 20
     PlayerDamageRadius: 5
     BestSeconds: 125

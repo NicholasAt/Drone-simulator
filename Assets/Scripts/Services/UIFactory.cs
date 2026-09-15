@@ -1,6 +1,7 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.UI.Windows.Popup;
+using Assets.Scripts.UI.Windows.UIMainMenu;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
@@ -57,7 +58,9 @@ namespace Assets.Scripts.Services
         public async UniTask CreateMenu(CancellationToken ct = default)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MainMenuWindowReference, ct);
-            InstantiateInject(prefab);
+            var instance = InstantiateInject(prefab);
+            if (instance.TryGetComponent(out MainMenuWindow mainMenu))
+                await mainMenu.Warmup();
         }
         private GameObject InstantiateInject(GameObject prefab, Transform parent = null)
         {
