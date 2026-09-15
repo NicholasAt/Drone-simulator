@@ -20,13 +20,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4dac00a120246114d879bf9fe9eb2481
-    m_Address: Base1
+  - m_GUID: 38d78a2b428025b4f99ef795e3fc3188
+    m_Address: Base2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6f784e1a325e7194e92301221e8e74f4
-    m_Address: Base2
+  - m_GUID: 4dac00a120246114d879bf9fe9eb2481
+    m_Address: Base1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

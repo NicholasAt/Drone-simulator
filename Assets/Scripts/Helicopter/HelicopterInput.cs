@@ -38,6 +38,10 @@ namespace Assets.Scripts.Helicopter
             _rb = GetComponent<Rigidbody>();
             CurrentCollective = Config.CollectiveSpeed;
         }
+        private void OnEnable()
+        {
+            _currentAxis = Vector2.zero;
+        }
         private void Update()
         {
             float collectiveSpeed = Config.CollectiveSpeed / Config.CollectiveTime;
