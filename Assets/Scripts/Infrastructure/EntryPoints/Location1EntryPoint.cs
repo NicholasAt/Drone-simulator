@@ -35,15 +35,17 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private TempLevelProgress _levelProgress;
         private CameraStateService _cameraService;
         private CleanupService _cleanupService;
+        private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService, CleanupService cleanupService)
+        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService, CleanupService cleanupService, SceneLoader sceneLoader)
         {
             _gameFactory = gameFactory;
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;
             _cameraService = cameraService;
             _cleanupService = cleanupService;
+            _sceneLoader = sceneLoader;
         }
 
         protected override async UniTask OnStart()
@@ -51,14 +53,15 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             _cleanupService.Cleanup();
             await _gameFactory.CreateCinemaCamera(CancelToken);
             await _cameraService.Prepare();
-            await _uIFactory.CreateHUD(CancelToken);
             await _gameFactory.CreateBases(CancelToken);
             _gameFactory.CreateOutsideMap(CancelToken).Forget();
 
+            _uIFactory.CreateHUD(CancelToken).Forget();
             _uIFactory.CreateScreenTarget(CancelToken).Forget();
             _gameFactory.CreateClouds(CancelToken).Forget();
             IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, CancelToken);
             await qeustInstance.Run();
+            _sceneLoader.HideCurtain().Forget();
         }
     }
 }

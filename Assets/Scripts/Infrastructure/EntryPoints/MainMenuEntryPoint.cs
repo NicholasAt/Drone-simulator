@@ -32,13 +32,15 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private UIFactory _uIFactory;
         private TempLevelProgress _levelProgress;
         private MusicService _musicService;
+        private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Construct(UIFactory uIFactory, ProgressService progressService, MusicService musicService)
+        private void Construct(UIFactory uIFactory, ProgressService progressService, MusicService musicService,SceneLoader sceneLoader)
         {
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;
             _musicService = musicService;
+            _sceneLoader = sceneLoader;
         }
 
         protected override async UniTask OnStart()
@@ -46,6 +48,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             _levelProgress.SetQuestId(QuestID.Drone_Move);//first quest
             await _musicService.PlayBackground();
             await _uIFactory.CreateMenu(CancelToken);
+            _sceneLoader.HideCurtain().Forget();
         }
     }
 }

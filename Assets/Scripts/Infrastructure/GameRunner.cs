@@ -17,15 +17,17 @@ namespace Assets.Scripts.Infrastructure
         private ChunkData _chunkData;
         private ProgressService _progressService;
         private MusicService _audioMixerService;
+        private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Constuct(GameStateMachine stateMachine, IInputService inputService, ChunkData chunkData, ProgressService progressService, MusicService audioMixerService)
+        private void Constuct(GameStateMachine stateMachine, IInputService inputService, ChunkData chunkData, ProgressService progressService, MusicService audioMixerService, SceneLoader sceneLoader)
         {
             _stateMachine = stateMachine;
             _inputService = inputService;
             _chunkData = chunkData;
             _progressService = progressService;
             _audioMixerService = audioMixerService;
+            _sceneLoader = sceneLoader;
         }
 
         public async UniTask Run()
@@ -39,6 +41,7 @@ namespace Assets.Scripts.Infrastructure
             }
             _progressService.LoadOrNew();
             await _audioMixerService.Init();
+            await _sceneLoader.Init();
             await _stateMachine.LoadMainMenu();
         }
     }
