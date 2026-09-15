@@ -60,6 +60,11 @@ namespace Assets.Scripts.Services
             _characterComponentsKeeper = characterComponentsKeeper;
         }
 
+        public async UniTask CreateOutsideMap(CancellationToken ct = default)
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_chunkData.OutsideMapReference, ct);
+            InstantiateInject(prefab);
+        }
         public async UniTask CreateBases(CancellationToken ct = default)
         {
             Transform root = new GameObject("Bases").transform;

@@ -53,6 +53,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             await _cameraService.Prepare();
             await _uIFactory.CreateHUD(CancelToken);
             await _gameFactory.CreateBases(CancelToken);
+            _gameFactory.CreateOutsideMap(CancelToken).Forget();
 
             IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, CancelToken);
             _uIFactory.CreateScreenTarget(CancelToken).Forget();

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Services
 {
     public class MusicService
     {

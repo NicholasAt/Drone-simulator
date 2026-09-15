@@ -25,7 +25,7 @@ namespace Assets.Scripts.Data
         [SerializeField] private List<AssetReferenceGameObject> _bases;
         public IList<AssetReferenceGameObject> Bases => _bases;
         private Dictionary<Vector2Int, ChunkConfig> _cachedConfigs;
-
+        [field: SerializeField] public AssetReferenceGameObject OutsideMapReference { get; private set; }
         [field: SerializeField] public int ChunkCount { get; private set; } = 3;
         [field: SerializeField] public int Size { get; private set; } = 626;
         [field: SerializeField] public int LoadDistance { get; private set; } = 900;

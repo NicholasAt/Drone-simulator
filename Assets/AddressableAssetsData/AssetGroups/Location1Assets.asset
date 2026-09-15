@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74aa8d499a210ed4882d6a5c92a46430
+    m_Address: OutsideMap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 84edd317860ede14582c3b4e6f21b938
     m_Address: Base6
     m_ReadOnly: 0

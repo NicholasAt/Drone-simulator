@@ -26,6 +26,7 @@ namespace Assets.Scripts.Quests.Scenarios
         public class BaseConfig
         {
             [TextArea] public string TransportDestroyedMessage;
+            [TextArea] public string OutsideMapMessage = "Left the map";
             public float DieImpulse = 20;
             public float PlayerDamageRadius = 5;
         }
@@ -43,6 +44,7 @@ namespace Assets.Scripts.Quests.Scenarios
         protected StartsProgress StarsProgress;
         protected ShowKills ShowKills;
         protected ChunkLoaderService ChunkLoader;
+        protected GameObserver GameObserver;
         protected PopupMessage PopupMessage;
 
         private bool _baseIsEnd;
@@ -51,7 +53,7 @@ namespace Assets.Scripts.Quests.Scenarios
         private CancellationToken _ct;
 
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler, ChunkLoaderService chunkLoaderService)
+        private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler, ChunkLoaderService chunkLoaderService, GameObserver gameObserver)
         {
             GameStateMachine = gameStateMachine;
             ComponentsKeeper = componentsKeeper;
@@ -63,6 +65,7 @@ namespace Assets.Scripts.Quests.Scenarios
             StarsProgress = progressService.StartsProgress;
             ShowKills = showKills;
             ChunkLoader = chunkLoaderService;
+            GameObserver = gameObserver;
         }
         private void Awake()
         {
@@ -75,7 +78,9 @@ namespace Assets.Scripts.Quests.Scenarios
                 ComponentsKeeper.CharacterHit.OnHit -= OnPlayerHit;
                 ComponentsKeeper.CharacterHit.OnTurned -= OnPlayerTurned;
             }
+            GameObserver.OnOutsideMap -= OnOutsideMap;
         }
+
         public void Init(QuestID id)
         {
             _id = id;
@@ -92,6 +97,7 @@ namespace Assets.Scripts.Quests.Scenarios
             await TransportFactory.CreateTransport(LevelProgress.QuestID, pos, rotate);
             ComponentsKeeper.CharacterHit.OnHit += OnPlayerHit;
             ComponentsKeeper.CharacterHit.OnTurned += OnPlayerTurned;
+            GameObserver.OnOutsideMap += OnOutsideMap;
             ChunkLoader.SetTarget(MainCamera());
             await ChunkLoader.Run();
             await OnRun();
@@ -148,8 +154,13 @@ namespace Assets.Scripts.Quests.Scenarios
                 PlayAnimation(false);
             }
         }
+        protected void OnOutsideMap()
+        {
+            ShowPopupMessage(Config.OutsideMapMessage);
+            PlayAnimation(false);
+        }
         protected virtual void PlayAnimation(bool isHit)
-        {         
+        {
             if (isHit == false)
                 ComponentsKeeper.DestroyEffectPlayer.Play().Forget();
 
@@ -172,6 +183,7 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             return ComponentsKeeper.Pos();
         }
+
         private async UniTask WinLose(bool isWin, int stars, string title = "")
         {
             if (_baseIsEnd)
