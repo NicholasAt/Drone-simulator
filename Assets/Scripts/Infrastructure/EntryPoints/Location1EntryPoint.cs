@@ -55,8 +55,9 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             await _gameFactory.CreateBases(CancelToken);
             _gameFactory.CreateOutsideMap(CancelToken).Forget();
 
-            IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, CancelToken);
             _uIFactory.CreateScreenTarget(CancelToken).Forget();
+            _gameFactory.CreateClouds(CancelToken).Forget();
+            IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, CancelToken);
             await qeustInstance.Run();
         }
     }

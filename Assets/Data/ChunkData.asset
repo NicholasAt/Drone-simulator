@@ -492,6 +492,27 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  _clouds:
+  - m_AssetGUID: 1422ba45e448ae84e80bf5bd164dfcc7
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: d90e0f7631a0714459f667116953b1cc
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: d80962e2741825f4ea6323d9c0d3c1c5
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: e8b8f88af6838354fb050ae9240d1dbc
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
   <OutsideMapReference>k__BackingField:
     m_AssetGUID: 74aa8d499a210ed4882d6a5c92a46430
     m_SubObjectName: 

@@ -23,7 +23,9 @@ namespace Assets.Scripts.Data
 
         [SerializeField] private List<ChunkConfig> _chunkConfigs;
         [SerializeField] private List<AssetReferenceGameObject> _bases;
+        [SerializeField] private List<AssetReferenceGameObject> _clouds;
         public IList<AssetReferenceGameObject> Bases => _bases;
+        public IList<AssetReferenceGameObject> Clouds => _clouds;
         private Dictionary<Vector2Int, ChunkConfig> _cachedConfigs;
         [field: SerializeField] public AssetReferenceGameObject OutsideMapReference { get; private set; }
         [field: SerializeField] public int ChunkCount { get; private set; } = 3;

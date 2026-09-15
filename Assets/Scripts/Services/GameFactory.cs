@@ -60,6 +60,15 @@ namespace Assets.Scripts.Services
             _characterComponentsKeeper = characterComponentsKeeper;
         }
 
+        public async UniTask CreateClouds(CancellationToken ct = default)
+        {
+            foreach (AssetReferenceGameObject cloudReference in _chunkData.Clouds)
+            {
+                GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cloudReference, ct);
+                await UniTask.NextFrame();
+                Object.Instantiate(prefab);
+            }
+        }
         public async UniTask CreateOutsideMap(CancellationToken ct = default)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_chunkData.OutsideMapReference, ct);

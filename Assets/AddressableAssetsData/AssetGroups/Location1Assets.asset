@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Location1Assets
   m_GUID: ff7577a2cab521547b24276193553654
   m_SerializeEntries:
+  - m_GUID: 1422ba45e448ae84e80bf5bd164dfcc7
+    m_Address: SM_Generic_CloudRing_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 26b7ba0a9219d1f48a5ecd3b418868d1
     m_Address: Base3
     m_ReadOnly: 0
@@ -62,6 +67,21 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c0daf7ec05f3b0c45b16a54fc82f5070
     m_Address: FastUnlitTerrainShader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d80962e2741825f4ea6323d9c0d3c1c5
+    m_Address: SM_Generic_CloudRing_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d90e0f7631a0714459f667116953b1cc
+    m_Address: SM_Generic_CloudRing_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8b8f88af6838354fb050ae9240d1dbc
+    m_Address: SM_Generic_CloudRing_04
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
