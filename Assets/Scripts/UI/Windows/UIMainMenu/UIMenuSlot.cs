@@ -12,6 +12,8 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         [SerializeField] private TMP_Text _titleText;
         [SerializeField] private Image _iconImage;
         [SerializeField] private Image _selectImage;
+        [SerializeField] private Image _selectBackgroundImage;
+        private Color _selectBackgroundColor, _defaultBackgroundColor;
         private Color _selectColor, _defaultColor;
         public object Id { get; private set; }
         public Action OnClick { get; set; }
@@ -20,10 +22,12 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         {
             OnClick?.Invoke();
         }
-        public void SetColors(Color selectColor, Color defaultColor)
+        public void SetColors(Color selectBackgroundColor, Color defaultBackgroundColor, Color selectPointColor, Color defaultPointColor)
         {
-            _selectColor = selectColor;
-            _defaultColor = defaultColor;
+            _selectBackgroundColor = selectBackgroundColor;
+            _defaultBackgroundColor = defaultBackgroundColor;
+            _selectColor = selectPointColor;
+            _defaultColor = defaultPointColor;
         }
         public void SetId(object id)
         {
@@ -37,6 +41,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         public void SetSelect(bool isSelect)
         {
             _selectImage.color = isSelect ? _selectColor : _defaultColor;
+            _selectBackgroundImage.color = isSelect ? _selectBackgroundColor : _defaultBackgroundColor;
         }
         public void RefreshStars(int enableCount)
         {

@@ -59,7 +59,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
                 _transportSlots.Add(slot);
                 slot.gameObject.SetActive(true);
 
-                slot.SetColors(_uIData.SelectColor, _uIData.DefaultColor);
+                slot.SetColors(_uIData.SelectBgColor, _uIData.DefaultBgColor, _uIData.SelectPointColor, _uIData.DefaultPointColor);
                 slot.SetId(categoryConfig.TransportName);
                 slot.Refresh(categoryConfig.TransportName, categoryConfig.Icon);
                 slot.ShowHideStars(false);
@@ -91,7 +91,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
                 slot.gameObject.SetActive(true);
                 _missionSlots.Add(slot);
 
-                slot.SetColors(_uIData.SelectColor, _uIData.DefaultColor);
+                slot.SetColors(_uIData.SelectBgColor, _uIData.DefaultBgColor, _uIData.SelectPointColor, _uIData.DefaultPointColor);
                 slot.SetId(cfg.QuestID);
                 slot.Refresh(cfg.MissionName, cfg.Icon);
                 slot.RefreshStars(_starsProgress.GetStars(cfg.QuestID));

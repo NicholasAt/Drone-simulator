@@ -434,8 +434,7 @@ MonoBehaviour:
   _titleText: {fileID: 5030323697592862556}
   _iconImage: {fileID: 473189610069663902}
   _selectImage: {fileID: 7589820367663005662}
-  _selectColor: {r: 0.098039225, g: 0.43529415, b: 0.6313726, a: 1}
-  _defaultColor: {r: 0.1137255, g: 0.16078432, b: 0.21176472, a: 1}
+  _selectBackgroundImage: {fileID: 751462355551171791}
 --- !u!114 &6519598317498715542
 MonoBehaviour:
   m_ObjectHideFlags: 0

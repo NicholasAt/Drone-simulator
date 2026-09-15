@@ -44,8 +44,8 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 
         private void Refresh()
         {
-            _musicImage.color = _musicProgress.MusicEnable ? _uIData.SelectColor : _uIData.DefaultColor;
-            _soundImage.color = _musicProgress.SFXEnable ? _uIData.SelectColor : _uIData.DefaultColor;
+            _musicImage.color = _musicProgress.MusicEnable ? _uIData.SelectPointColor : _uIData.DefaultPointColor;
+            _soundImage.color = _musicProgress.SFXEnable ? _uIData.SelectPointColor : _uIData.DefaultPointColor;
         }
     }
 }
