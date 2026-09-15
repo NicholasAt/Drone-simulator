@@ -1067,6 +1067,8 @@ GameObject:
   - component: {fileID: 297804431808018953}
   - component: {fileID: 3513215241077317536}
   - component: {fileID: 5425871880747962024}
+  - component: {fileID: 435887429069513235}
+  - component: {fileID: 5022576732960351331}
   m_Layer: 5
   m_Name: PopupTwoButtonsCanvas
   m_TagString: Untagged
@@ -1107,6 +1109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fe40a139d2fce41badf712fb7f106c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.Windows.Popup.PopupTwoButtons
+  _windowAnimation: {fileID: 435887429069513235}
   _uIStars: {fileID: 2743160590457667094}
   _titleText: {fileID: 8615102742988830182}
   _leftButtonText: {fileID: 4335833550915169704}
@@ -1211,6 +1214,33 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &435887429069513235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6725053192230965218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6331d2b13743742ad014836760a9ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.WindowAnimation
+  _animationSpeed: 6
+  _deactivateOnHide: 0
+  _canvasGroup: {fileID: 5022576732960351331}
+--- !u!225 &5022576732960351331
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6725053192230965218}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6742882387402514750
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Assets.Scripts.UI.Windows.Popup
 {
     public class PopupTwoButtons : BasePopup
     {
+        [SerializeField] private WindowAnimation _windowAnimation;
         [SerializeField] private UIStars _uIStars;
         [SerializeField] private TMP_Text _titleText;
         [SerializeField] private TMP_Text _leftButtonText, _rightButtonText;
@@ -15,12 +17,12 @@ namespace Assets.Scripts.UI.Windows.Popup
         public Action OnLeftButtonClick { get; set; }
         public Action OnRightButtonClick { get; set; }
 
-        private void Awake()
+        private void Start()
         {
+            _windowAnimation.Show().Forget();
             _leftButton.onClick.AddListener(() => OnLeftButtonClick?.Invoke());
             _rightButton.onClick.AddListener(() => OnRightButtonClick?.Invoke());
         }
-
         public void Refresh(string title, string leftText, string rightText)
         {
             _titleText.text = title;
@@ -39,7 +41,7 @@ namespace Assets.Scripts.UI.Windows.Popup
         {
             _leftButton.onClick.RemoveAllListeners();
             _rightButton.onClick.RemoveAllListeners();
-            Destroy(gameObject);
+            _windowAnimation.Hide().ContinueWith(() => Destroy(gameObject));
         }
     }
 }

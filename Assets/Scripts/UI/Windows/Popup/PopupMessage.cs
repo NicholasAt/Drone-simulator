@@ -9,33 +9,29 @@ namespace Assets.Scripts.UI.Windows.Popup
     public class PopupMessage : BasePopup
     {
         [SerializeField] private TMP_Text _title;
-        private float _currentTime;
+        [SerializeField] private WindowAnimation _windowAnimation;
+        private CancellationTokenSource _cts;
 
+        private void OnDestroy()
+        {
+            Stop();
+        }
         public void Show(string message, float lifeTime = 3)
         {
-            if (gameObject.activeInHierarchy == false)
-            {
-                gameObject.SetActive(true);
-                Run(this.GetCancellationTokenOnDestroy()).Forget();
-            }
-            _currentTime = lifeTime;
+            Stop();
+            _cts = new CancellationTokenSource();
+            _windowAnimation.Show().Forget();
+            Run(lifeTime, _cts.Token).Forget();
+
             _title.text = message;
         }
 
-        private async UniTaskVoid Run(CancellationToken ct)
+        private async UniTaskVoid Run(float lifeTime, CancellationToken ct)
         {
             try
             {
-                while (ct.IsCancellationRequested == false)
-                {
-                    await UniTask.Yield(PlayerLoopTiming.Update, ct);
-                    _currentTime -= Time.deltaTime;
-                    if (_currentTime < 0)
-                    {
-                        gameObject.SetActive(false);
-                        break;
-                    }
-                }
+                await UniTask.Delay(TimeSpan.FromSeconds(lifeTime), cancellationToken: ct);
+                _windowAnimation.Hide().Forget();
             }
             catch (OperationCanceledException)
             {
@@ -44,6 +40,16 @@ namespace Assets.Scripts.UI.Windows.Popup
             catch (Exception e)
             {
                 Debug.LogException(e);
+            }
+        }
+
+        private void Stop()
+        {
+            if (_cts != null)
+            {
+                _cts.Cancel();
+                _cts.Dispose();
+                _cts = null;
             }
         }
     }
