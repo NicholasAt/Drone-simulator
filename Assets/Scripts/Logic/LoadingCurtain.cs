@@ -22,7 +22,7 @@ namespace Assets.Scripts.Logic
 
         internal void UpdateProgress(float progress)
         {
-            _progressText.text = $"Loading {progress:P1}";
+            _progressText.text = $"Loading {progress:P0}";
         }
     }
 }

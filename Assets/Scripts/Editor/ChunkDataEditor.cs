@@ -84,13 +84,13 @@ namespace Assets.Scripts.Editor
                     Vector2Int pos;
                     if (prefab.TryGetComponent(out Terrain terrain))
                     {
+                        terrain.drawInstanced = false;
                         Vector3 terrainPos = prefab.transform.position + terrain.terrainData.size / 2;
                         pos = new((int)terrainPos.x, (int)terrainPos.z);
                         if (_terrainMaterial != null)
-                        {
                             terrain.materialTemplate = _terrainMaterial;
-                            EditorUtility.SetDirty(terrain);
-                        }
+
+                        EditorUtility.SetDirty(terrain);
                     }
                     else
                     {

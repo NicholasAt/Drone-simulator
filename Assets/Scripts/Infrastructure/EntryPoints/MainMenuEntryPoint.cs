@@ -24,6 +24,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             public async UniTask Run()
             {
                 _cleanupService.Cleanup();
+                await _sceneLoader.ShowCurtain();
                 _assetProvider.ReleaseAll();
                 await _sceneLoader.LoadSingle(Constants.SceneConstants.MenuSceneKey);
             }
@@ -47,9 +48,9 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         {
             _levelProgress.SetQuestId(QuestID.Drone_Move);//first quest
             _sceneLoader.UpdateProgress(0.4f);
-            await _musicService.PlayBackground();
-            _sceneLoader.UpdateProgress(0.65f);
             await _uIFactory.CreateMenu(CancelToken);
+            _sceneLoader.UpdateProgress(0.7f);
+            await _musicService.PlayBackground();
             _sceneLoader.UpdateProgress(1f);
             _sceneLoader.HideCurtain().Forget();
         }

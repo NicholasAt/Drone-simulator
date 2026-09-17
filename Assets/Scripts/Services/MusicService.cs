@@ -35,7 +35,7 @@ namespace Assets.Scripts.Services
         public async UniTask Init()
         {
             await InitPlayer();
-            _buttonClip = await _assetProviderService.LoadAsync<AudioClip>(_musicData.ButtonClipReference);
+            _buttonClip = await Addressables.LoadAssetAsync<AudioClip>(_musicData.ButtonClipReference);//ignore release
 
             _musicProgress = _progressService.MusicProgress;
             _musicProgress.OnChange += Refresh;

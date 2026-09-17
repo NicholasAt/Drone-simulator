@@ -26,8 +26,6 @@ namespace Assets.Scripts.Services
 
         public async UniTask LoadSingle(string key)
         {
-            _curtain.UpdateProgress(0);
-            await _curtain.Show();
             AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(key, LoadSceneMode.Single);
             await handle.ToUniTask();
            
@@ -37,6 +35,11 @@ namespace Assets.Scripts.Services
                 if (handle.IsValid())
                     Addressables.Release(handle);
             }
+        }
+        public async UniTask ShowCurtain()
+        {
+            _curtain.UpdateProgress(0);
+            await _curtain.Show();
         }
         public async UniTask HideCurtain()
         {
