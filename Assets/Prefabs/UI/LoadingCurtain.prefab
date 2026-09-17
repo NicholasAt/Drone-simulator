@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Logic.LoadingCurtain
   _windowAnimation: {fileID: 4573830995242471601}
+  _progressText: {fileID: 6767746691651884241}
 --- !u!114 &4573830995242471601
 MonoBehaviour:
   m_ObjectHideFlags: 0

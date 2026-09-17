@@ -51,9 +51,13 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         protected override async UniTask OnStart()
         {
             _cleanupService.Cleanup();
+            _sceneLoader.UpdateProgress(0.1f);
             await _gameFactory.CreateCinemaCamera(CancelToken);
+            _sceneLoader.UpdateProgress(0.2f);
             await _cameraService.Prepare();
+            _sceneLoader.UpdateProgress(0.3f);
             await _gameFactory.CreateBases(CancelToken);
+            _sceneLoader.UpdateProgress(0.5f);
 
             _gameFactory.CreateOutsideMap(CancelToken).Forget();
             _uIFactory.CreateHUD(CancelToken).Forget();
@@ -62,6 +66,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
 
             IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, CancelToken);
             await qeustInstance.Run();
+            _sceneLoader.UpdateProgress(1f);
             _sceneLoader.HideCurtain().Forget();
         }
     }

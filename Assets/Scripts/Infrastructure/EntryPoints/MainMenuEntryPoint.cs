@@ -46,8 +46,11 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         protected override async UniTask OnStart()
         {
             _levelProgress.SetQuestId(QuestID.Drone_Move);//first quest
+            _sceneLoader.UpdateProgress(0.4f);
             await _musicService.PlayBackground();
+            _sceneLoader.UpdateProgress(0.65f);
             await _uIFactory.CreateMenu(CancelToken);
+            _sceneLoader.UpdateProgress(1f);
             _sceneLoader.HideCurtain().Forget();
         }
     }

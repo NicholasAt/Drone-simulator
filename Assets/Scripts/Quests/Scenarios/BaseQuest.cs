@@ -45,6 +45,7 @@ namespace Assets.Scripts.Quests.Scenarios
         protected ShowKills ShowKills;
         protected ChunkLoaderService ChunkLoader;
         protected GameObserver GameObserver;
+        private SceneLoader SceneLoader;
         protected PopupMessage PopupMessage;
 
         private bool _baseIsEnd;
@@ -53,7 +54,7 @@ namespace Assets.Scripts.Quests.Scenarios
         private CancellationToken _ct;
 
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler, ChunkLoaderService chunkLoaderService, GameObserver gameObserver)
+        private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler, ChunkLoaderService chunkLoaderService, GameObserver gameObserver, SceneLoader sceneLoader)
         {
             GameStateMachine = gameStateMachine;
             ComponentsKeeper = componentsKeeper;
@@ -66,6 +67,7 @@ namespace Assets.Scripts.Quests.Scenarios
             ShowKills = showKills;
             ChunkLoader = chunkLoaderService;
             GameObserver = gameObserver;
+            SceneLoader = sceneLoader;
         }
         private void Awake()
         {
@@ -89,17 +91,20 @@ namespace Assets.Scripts.Quests.Scenarios
         public async UniTask Run()
         {
             PopupMessage = await UIFactory.CreatePopupMessage(_ct);
+            SceneLoader.UpdateProgress(0.7f);
             ShowKills.Init(PopupMessage);
             HitHandler.Init(Config.PlayerDamageRadius);
 
             (Vector3 pos, Quaternion rotate) = InitPositionAndRotate();
 
             await TransportFactory.CreateTransport(LevelProgress.QuestID, pos, rotate);
+            SceneLoader.UpdateProgress(0.8f);
             ComponentsKeeper.CharacterHit.OnHit += OnPlayerHit;
             ComponentsKeeper.CharacterHit.OnTurned += OnPlayerTurned;
             GameObserver.OnOutsideMap += OnOutsideMap;
             ChunkLoader.SetTarget(MainCamera());
             await ChunkLoader.Run();
+            SceneLoader.UpdateProgress(0.9f);
             await OnRun();
         }
 

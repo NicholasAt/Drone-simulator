@@ -26,10 +26,11 @@ namespace Assets.Scripts.Services
 
         public async UniTask LoadSingle(string key)
         {
+            _curtain.UpdateProgress(0);
             await _curtain.Show();
             AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(key, LoadSceneMode.Single);
             await handle.ToUniTask();
-
+           
             if (handle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"cant load");
@@ -40,6 +41,10 @@ namespace Assets.Scripts.Services
         public async UniTask HideCurtain()
         {
             await _curtain.Hide();
+        }
+        public void UpdateProgress(float progress)
+        {
+            _curtain.UpdateProgress(progress);
         }
         private async UniTask CreateCurtain()
         {
