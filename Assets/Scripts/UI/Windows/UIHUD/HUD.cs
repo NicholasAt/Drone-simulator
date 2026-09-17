@@ -1,3 +1,4 @@
+using Assets.Scripts.Data;
 using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameProgress;
@@ -22,16 +23,18 @@ namespace Assets.Scripts.UI.Windows.UIHUD
         private TimerService _timerService;
         private GameObserver _gameObserver;
         private TempLevelProgress _levelProgress;
+        private GameData _gameData;
         private bool _inProcess;
 
         [Inject]
-        private void Construct(UIFactory uIFactory, GameStateMachine gameStateMachine, TimerService timerService, GameObserver gameObserver, ProgressService progressService)
+        private void Construct(UIFactory uIFactory, GameStateMachine gameStateMachine, TimerService timerService, GameObserver gameObserver, ProgressService progressService, GameData gameData)
         {
             _uIFactory = uIFactory;
             _gameStateMachine = gameStateMachine;
             _timerService = timerService;
             _gameObserver = gameObserver;
             _levelProgress = progressService.TempLevelProgress;
+            _gameData = gameData;
         }
 
         private void Start()
@@ -103,24 +106,32 @@ namespace Assets.Scripts.UI.Windows.UIHUD
         }
         private void RefreshTrasnportGuide()
         {
-            switch (_levelProgress.QuestID)
+            if (_gameData.IsMobile())
             {
-                case QuestID.Helicopter_Move:
-                case QuestID.Helicopter_Delivery:
-                    _guideText.text = "WASD  Q/E  Shift/Space";
-                    break;
+                _guideText.transform.parent.gameObject.SetActive(false);
+            }
+            else
+            {
+                _guideText.transform.parent.gameObject.SetActive(true);
+                switch (_levelProgress.QuestID)
+                {
+                    case QuestID.Helicopter_Move:
+                    case QuestID.Helicopter_Delivery:
+                        _guideText.text = "WASD  Q/E  Shift/Space";
+                        break;
 
-                case QuestID.Drone_Move:
-                case QuestID.Drone_DestroyMovingCar:
-                case QuestID.Drone_DestroyFlyingObjects:
-                case QuestID.Drone_DestroyStatic:
-                    _guideText.text = "WASD  Q/E  Space";
-                    break;
+                    case QuestID.Drone_Move:
+                    case QuestID.Drone_DestroyMovingCar:
+                    case QuestID.Drone_DestroyFlyingObjects:
+                    case QuestID.Drone_DestroyStatic:
+                        _guideText.text = "WASD  Q/E  Space";
+                        break;
 
-                case QuestID.None:
-                default:
-                    Debug.LogError("no id");
-                    break;
+                    case QuestID.None:
+                    default:
+                        Debug.LogError("no id");
+                        break;
+                }
             }
         }
     }

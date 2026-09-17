@@ -23,6 +23,11 @@ namespace Assets.Scripts.Services
             _assetProvider = assetProviderService;
         }
 
+        public async UniTask CreateMobileInput(CancellationToken ct = default)
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MobileInputReference, ct);
+            InstantiateInject(prefab);
+        }
         public async UniTask<PopupMessage> CreatePopupMessage(CancellationToken ct = default)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpMessageReference, ct);
@@ -58,7 +63,7 @@ namespace Assets.Scripts.Services
         public async UniTask CreateMenu(CancellationToken ct = default)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MainMenuWindowReference, ct);
-            var instance = InstantiateInject(prefab);
+            GameObject instance = InstantiateInject(prefab);
             if (instance.TryGetComponent(out MainMenuWindow mainMenu))
                 await mainMenu.Warmup();
         }

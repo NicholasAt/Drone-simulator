@@ -1,9 +1,11 @@
+using Assets.Scripts.Data;
 using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.CameraService;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure.EntryPoints
@@ -37,9 +39,10 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private CameraStateService _cameraService;
         private CleanupService _cleanupService;
         private SceneLoader _sceneLoader;
+        private GameData _gameData;
 
         [Inject]
-        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService, CleanupService cleanupService, SceneLoader sceneLoader)
+        private void Construct(GameFactory gameFactory, UIFactory uIFactory, ProgressService progressService, CameraStateService cameraService, CleanupService cleanupService, SceneLoader sceneLoader, GameData gameData)
         {
             _gameFactory = gameFactory;
             _uIFactory = uIFactory;
@@ -47,6 +50,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             _cameraService = cameraService;
             _cleanupService = cleanupService;
             _sceneLoader = sceneLoader;
+            _gameData = gameData;
         }
 
         protected override async UniTask OnStart()
@@ -68,6 +72,10 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, CancelToken);
             await qeustInstance.Run();
             _sceneLoader.UpdateProgress(1f);
+
+            if (_gameData.IsMobile())
+                await _uIFactory.CreateMobileInput(CancelToken);
+
             _sceneLoader.HideCurtain().Forget();
         }
     }

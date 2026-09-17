@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8081f4aa69bba4546b5ae462150b3e55
+    m_Address: MobileInputWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9651a7b18b1b901408e7e065bc55c221
     m_Address: ScreenTargetWindow
     m_ReadOnly: 0

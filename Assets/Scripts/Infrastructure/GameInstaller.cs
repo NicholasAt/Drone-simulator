@@ -65,6 +65,7 @@ namespace Assets.Scripts.Infrastructure
             Container.BindInstance(data.DestroyVehiclesEffectData).AsSingle();
             Container.BindInstance(data.ChunkData).AsSingle();
             Container.BindInstance(data.MusicData).AsSingle();
+            Container.BindInstance(data.GameData).AsSingle();
         }
 
         private void BindStates()
