@@ -1,0 +1,308 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: LocationAssets
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: LocationAssets
+  m_GUID: cb85eadc91c44524eb02aeafb9c84a99
+  m_SerializeEntries:
+  - m_GUID: 1422ba45e448ae84e80bf5bd164dfcc7
+    m_Address: SM_Generic_CloudRing_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14662b3178599e64799c0923317b3ca4
+    m_Address: QuestPoint
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b3e98bc6a41e9e48a90cf960d7ab8c6
+    m_Address: CircleQuestPoint
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d5c55a78a1dd7f48ace5034fd0c42ba
+    m_Address: CliffBright Terrain Layer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 248e064ba30cd3b4a9d9443f2ac5017d
+    m_Address: Drone1SmallEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26b7ba0a9219d1f48a5ecd3b418868d1
+    m_Address: Base3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 28a51d508c86a8948b59df81d5188b17
+    m_Address: NaturePackLite_Texture_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29868e73b638e48ca99a19ea58c48d90
+    m_Address: WavingGrassBillboard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
+    m_Address: Lit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3235902a3e1fe0f4cbc6eaf9124b650f
+    m_Address: Helicopter1Effect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38d78a2b428025b4f99ef795e3fc3188
+    m_Address: Base2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e8815fb6e51f1543a53ed8a20d37eb3
+    m_Address: HelicopterQuestObject
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4471b1f7f824e4d44887e1364c6fc61a
+    m_Address: Tree_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46a9cf9d3ef39e04189a89bf78112827
+    m_Address: Helicopter1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4dac00a120246114d879bf9fe9eb2481
+    m_Address: Base1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f23181f4d33ec84490040bd0162fcaa
+    m_Address: Tank1Effect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 603970f97e50c56488ec3c5a6febd940
+    m_Address: Tree_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60f79905accf3b24fa0114b941f1aac0
+    m_Address: Tree_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65e3ddf0911dbf94197f6bdbac116a86
+    m_Address: Hummer1Effect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66f900e7267754845a10dda8f0ff26ae
+    m_Address: QuestPointUnlit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69c1f799e772cb6438f56c23efccb782
+    m_Address: TerrainLit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69f0af3a0a6c73b4ab4b89eb82cdc488
+    m_Address: Tree_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a3cb4ac8fa12944ba1233cbec0e9c69
+    m_Address: WFX_SmokeGrenade Black
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6cc89ebd41da57840a7e85474657534f
+    m_Address: Hummer1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ecf76dc4f268d340b2666896a954bcc
+    m_Address: WFX_Nuke
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74aa8d499a210ed4882d6a5c92a46430
+    m_Address: OutsideMap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8280b5d73be76a5488f8123b5b583bdf
+    m_Address: MusicSourceKeeper
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83e8d2542718a2e49a73d71c3a5fc685
+    m_Address: Tree_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84edd317860ede14582c3b4e6f21b938
+    m_Address: Base6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8778d6aca03f0b9489957483ccff45b5
+    m_Address: Helicopter1SmallEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d2bb70cbf9db8d4da26e15b26e74248
+    m_Address: SimpleLit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fbe92a9edfe6074e841d6dd1509bc59
+    m_Address: TerrainLitBasemapGen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 904fcb76183f589489f312e781b80ff8
+    m_Address: Base4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
+    m_Address: Lit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93caadf4359ae8143aad35b3145d31af
+    m_Address: SimpleNaturePack_Texture_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95d317e6291672c49a8231c4d718f303
+    m_Address: DestroyUnlit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96ffd6a2e2dc3724682998b33953342a
+    m_Address: CliffBright
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97a6ab29e8a79064f905cf03ecdc49f0
+    m_Address: Base5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9aac9656eaa4be044b1290b522ed4355
+    m_Address: DeliveryItem1QuestObject
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d780545d4d96cf49b4e1d7ad78d3ad5
+    m_Address: CinemachineCamera
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a49596ebf788acd4ab1281bffea444b1
+    m_Address: WFX_Explosion StarSmoke
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c60edd51c065ceb46b345849a03bc106
+    m_Address: Tree_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4402c86944f0544fb45f27c415ae3e4
+    m_Address: AntiMaterialRifle_3p_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d80962e2741825f4ea6323d9c0d3c1c5
+    m_Address: SM_Generic_CloudRing_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d90e0f7631a0714459f667116953b1cc
+    m_Address: SM_Generic_CloudRing_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc5f6185412fea94aae799f5ac666a5e
+    m_Address: TerrainMaterial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e046d818a40e5a440b70e33258aea8b9
+    m_Address: Grass Terrain Layer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e289bf5debb17f6459818c207d781953
+    m_Address: Tree_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e507fdfead5ca47e8b9a768b51c291a1
+    m_Address: WavingGrass
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5fbf7ab644fddb40950fdc8d9054d64
+    m_Address: BotHelicopter1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
+    m_Address: FallbackError
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8b8f88af6838354fb050ae9240d1dbc
+    m_Address: SM_Generic_CloudRing_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ea9b9bb1d55263045ad70aec90e015d6
+    m_Address: ground_grass
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee3a4ebcb56160f419f726b57f547430
+    m_Address: Drone1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0c16f0ea935ea64297ca1d4d55d9746
+    m_Address: Tree_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6783ab646d374f94b199774402a5144
+    m_Address: TerrainDetailLit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc665c94bb506ec4797f48bf54899206
+    m_Address: Tank1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f183264d53518024ea10beddc7f83ec8, type: 2}
+    - {fileID: 11400000, guid: 2e3562e93dbe51a4386dba39c272d544, type: 2}

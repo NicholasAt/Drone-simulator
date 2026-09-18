@@ -10,14 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: MenuAssets
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Default Local Group
-  m_GUID: c2738834a38706d4fb0d23414891892b
-  m_SerializeEntries: []
+  m_GroupName: MenuAssets
+  m_GUID: e80c74b7e8381404abe4fa470a2e10c1
+  m_SerializeEntries:
+  - m_GUID: 347160cb5f3c9c649b8b0ce72391121b
+    m_Address: menu music
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 7387075d9e382ee43b57ce57ea47d7b2, type: 2}
-    - {fileID: 11400000, guid: a56d2da6a0fa10a49b90c145df07909a, type: 2}
+    - {fileID: 11400000, guid: 9bceb09fd340b67488e6dd5182fa4f34, type: 2}
+    - {fileID: 11400000, guid: cbb899c01051fa34baf6546c614b26e1, type: 2}
