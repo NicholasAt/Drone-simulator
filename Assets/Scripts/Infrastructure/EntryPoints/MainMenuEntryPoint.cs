@@ -52,6 +52,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             _sceneLoader.UpdateProgress(0.7f);
             await _musicService.PlayBackground();
             _sceneLoader.UpdateProgress(1f);
+            await UniTask.NextFrame();
             _sceneLoader.HideCurtain().Forget();
         }
     }

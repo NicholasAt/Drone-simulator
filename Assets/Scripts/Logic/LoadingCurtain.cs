@@ -20,7 +20,7 @@ namespace Assets.Scripts.Logic
             await _windowAnimation.Hide();
         }
 
-        internal void UpdateProgress(float progress)
+        public void UpdateProgress(float progress)
         {
             _progressText.text = $"Loading {progress:P0}";
         }

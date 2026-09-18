@@ -1,17 +1,24 @@
+using Assets.Scripts.Data;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
     public class WindowAnimation : MonoBehaviour
     {
-        [SerializeField] private float _animationSpeed = 6;
         [SerializeField] private bool _deactivateOnHide;
         [SerializeField] private CanvasGroup _canvasGroup;
         private CancellationTokenSource _cts;
+        private UIData _uIData;
 
+        [Inject]
+        private void Construct(UIData uIData)
+        {
+            _uIData = uIData;
+        }
         private void Awake()
         {
             _canvasGroup.alpha = 0;
@@ -44,22 +51,19 @@ namespace Assets.Scripts.UI
                 float endValue = isShow ? 1 : 0;
                 while (ct.IsCancellationRequested == false)
                 {
-                    float alpha = _canvasGroup.alpha;
-                    alpha = Mathf.MoveTowards(alpha, endValue, _animationSpeed * Time.deltaTime);
+                    float deltaTime = Mathf.Min(Time.deltaTime, 0.05f);
+                    _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, endValue, _uIData.AnimationSpeed * deltaTime);
 
-                    if (Mathf.Approximately(endValue, alpha))
+                    if (endValue == _canvasGroup.alpha)
                     {
-                        _canvasGroup.alpha = endValue;
                         if (isShow == false)
                         {
                             if (_deactivateOnHide)
                                 gameObject.SetActive(false);
                         }
-
                         break;
                     }
-                    else
-                        _canvasGroup.alpha = alpha;
+
                     await UniTask.Yield(PlayerLoopTiming.Update, ct);
                 }
             }

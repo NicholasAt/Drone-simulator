@@ -1,10 +1,12 @@
 using Assets.Scripts.Data;
+using Assets.Scripts.Logic;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.UI.Windows.Popup;
 using Assets.Scripts.UI.Windows.UIMainMenu;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -28,6 +30,17 @@ namespace Assets.Scripts.Services
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MobileInputReference, ct);
             InstantiateInject(prefab);
         }
+
+        public async UniTask<LoadingCurtain> CreateLoadingCurtain()
+        {
+            GameObject prefab = await Addressables.LoadAssetAsync<GameObject>(_uIData.LoadingCurtainReference).ToUniTask();//ignore release
+            GameObject instance = InstantiateInject(prefab);
+            if (instance.TryGetComponent(out LoadingCurtain loadingCurtain) == false)
+                Debug.LogError("no component");
+
+            return loadingCurtain;
+        }
+
         public async UniTask<PopupMessage> CreatePopupMessage(CancellationToken ct = default)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpMessageReference, ct);

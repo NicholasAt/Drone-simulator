@@ -1,4 +1,3 @@
-using Assets.Scripts.Data;
 using Assets.Scripts.Logic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -11,13 +10,12 @@ namespace Assets.Scripts.Services
 {
     public class SceneLoader
     {
-        private readonly UIData _uIData;
-        private AsyncOperationHandle<GameObject> _curtainHandle;
+        private readonly UIFactory _uIFactory;
         private LoadingCurtain _curtain;
 
-        public SceneLoader(UIData uIData)
+        public SceneLoader(UIFactory uIFactory)
         {
-            _uIData = uIData;
+            _uIFactory = uIFactory;
         }
         public async UniTask Init()
         {
@@ -28,7 +26,7 @@ namespace Assets.Scripts.Services
         {
             AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(key, LoadSceneMode.Single);
             await handle.ToUniTask();
-           
+
             if (handle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"cant load");
@@ -51,14 +49,8 @@ namespace Assets.Scripts.Services
         }
         private async UniTask CreateCurtain()
         {
-            _curtainHandle = Addressables.LoadAssetAsync<GameObject>(_uIData.LoadingCurtainReference);
-            GameObject prefab = await _curtainHandle.ToUniTask();
-            GameObject instance = Object.Instantiate(prefab);
-            Object.DontDestroyOnLoad(instance);
-            if (instance.TryGetComponent(out LoadingCurtain curtain) == false)
-                Debug.LogError("no component");
-
-            _curtain = curtain;
+            _curtain = await _uIFactory.CreateLoadingCurtain();
+            Object.DontDestroyOnLoad(_curtain);
         }
     }
 }

@@ -152,6 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 891816399305561790}
   - component: {fileID: 7042032562496644334}
+  - component: {fileID: 6679284709712620902}
   - component: {fileID: 5800636861531678569}
   - component: {fileID: 2757396634311836657}
   - component: {fileID: 2166448286339329476}
@@ -201,7 +202,21 @@ MonoBehaviour:
   _cloudContentLabel: cloud
   _statusText: {fileID: 2194167721579870188}
   _sceneContext: {fileID: 3741795520751646526}
+  _remoteConfigLoader: {fileID: 6679284709712620902}
   _gameRunner: {fileID: 5800636861531678569}
+--- !u!114 &6679284709712620902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3923271572745975895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00f19c096c8c2544831ae3683ddbdd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RemoteConfigLoader
+  _uiAnimationSpeedKey: UIAnimationSpeedKey
 --- !u!114 &5800636861531678569
 MonoBehaviour:
   m_ObjectHideFlags: 0

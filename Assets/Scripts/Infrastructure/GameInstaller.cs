@@ -53,9 +53,13 @@ namespace Assets.Scripts.Infrastructure
         private void BindData()
         {
             AllDataContainer data = CheckingForUpdates.DataContainer;
+
+            UIData uiData = data.UIData;
+            uiData.SetAnimationSpeed(RemoteConfigLoader.UIAnimationSpeed);
+            Container.BindInstance(uiData).AsSingle();
+
             Container.BindInstance(data.DroneData).AsSingle();
             Container.BindInstance(data.HelicopterData).AsSingle();
-            Container.BindInstance(data.UIData).AsSingle();
             Container.BindInstance(data.QuestsData).AsSingle();
             Container.BindInstance(data.QuestObjectsData).AsSingle();
             Container.BindInstance(data.CarData).AsSingle();

@@ -344,7 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6331d2b13743742ad014836760a9ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.WindowAnimation
-  _animationSpeed: 6
   _deactivateOnHide: 1
   _canvasGroup: {fileID: 2980208108267137568}
 --- !u!225 &2980208108267137568

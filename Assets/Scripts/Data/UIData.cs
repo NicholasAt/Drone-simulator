@@ -17,5 +17,10 @@ namespace Assets.Scripts.Data
         [field: SerializeField] public AssetReferenceGameObject ScreenTargetWindowReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject LoadingCurtainReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject MobileInputReference { get; private set; }
+        public float AnimationSpeed {  get; private set; }  
+        public void SetAnimationSpeed(float speed)
+        {
+            AnimationSpeed = speed;
+        }
     }
 }

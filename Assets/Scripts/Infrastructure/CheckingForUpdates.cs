@@ -15,6 +15,7 @@ namespace Assets.Scripts.Infrastructure
         [SerializeField] private TMP_Text _statusText;
 
         [SerializeField] private SceneContext _sceneContext;
+        [SerializeField] private RemoteConfigLoader _remoteConfigLoader;
         [SerializeField] private GameRunner _gameRunner;
         public static AllDataContainer DataContainer { get; private set; }
         public static AsyncOperationHandle DataContainerHandle { get; private set; }
@@ -40,8 +41,9 @@ namespace Assets.Scripts.Infrastructure
                     SetStatus("Something went wrong, restart the game");
                     return;
                 }
-                _sceneContext.Run();
-                await _gameRunner.Run();
+                SetStatus("Remote config synchronization...");
+                _remoteConfigLoader.OnInit += () => StartGame().Forget();
+                _remoteConfigLoader.Run().Forget();
             }
             catch (System.Exception e)
             {
@@ -129,7 +131,20 @@ namespace Assets.Scripts.Infrastructure
             DataContainerHandle = dataHandle;
             return loaded;
         }
-
+        private async UniTask StartGame()
+        {
+            try
+            {
+                SetStatus("Launching...");
+                _sceneContext.Run();
+                await _gameRunner.Run();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                SetStatus("Something went wrong, restart the game");
+            }
+        }
         private void SetStatus(string status)
         {
             _statusText.text = status;
