@@ -1,11 +1,13 @@
 using Assets.Scripts.Character;
 using Assets.Scripts.Data.Quests;
+using Assets.Scripts.Extensions;
 using Assets.Scripts.Logic;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.CameraService;
 using Assets.Scripts.Services.ChunkLoad;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
+using Assets.Scripts.Services.ServiceAnalytics;
 using Assets.Scripts.UI.Windows.Popup;
 using Cysharp.Threading.Tasks;
 using System;
@@ -45,7 +47,9 @@ namespace Assets.Scripts.Quests.Scenarios
         protected ShowKills ShowKills;
         protected ChunkLoaderService ChunkLoader;
         protected GameObserver GameObserver;
-        private SceneLoader SceneLoader;
+        protected SceneLoader SceneLoader;
+        protected IAnalytics Analytics;
+        private TimerService _timerService;
         protected PopupMessage PopupMessage;
 
         private bool _baseIsEnd;
@@ -54,7 +58,7 @@ namespace Assets.Scripts.Quests.Scenarios
         private CancellationToken _ct;
 
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler, ChunkLoaderService chunkLoaderService, GameObserver gameObserver, SceneLoader sceneLoader)
+        private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler, ChunkLoaderService chunkLoaderService, GameObserver gameObserver, SceneLoader sceneLoader, IAnalytics analytics, TimerService timerService)
         {
             GameStateMachine = gameStateMachine;
             ComponentsKeeper = componentsKeeper;
@@ -68,6 +72,8 @@ namespace Assets.Scripts.Quests.Scenarios
             ChunkLoader = chunkLoaderService;
             GameObserver = gameObserver;
             SceneLoader = sceneLoader;
+            Analytics = analytics;
+            _timerService = timerService;
         }
         private void Awake()
         {
@@ -210,9 +216,13 @@ namespace Assets.Scripts.Quests.Scenarios
             {
                 StarsProgress.ProtectedSetAndSave(_id, stars);
                 popup.RefreshStars(stars);
+                Analytics.WinMission(LevelProgress.QuestID, _timerService.Seconds.ToTime(), stars);
             }
             else
+            {
                 popup.RefreshStars(0);
+                Analytics.LoseMission(LevelProgress.QuestID, _timerService.Seconds.ToTime());
+            }
         }
 
         private void Restart()

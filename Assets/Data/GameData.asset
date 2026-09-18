@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4d4c6a49384747be9c75bf383ae5c, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Data.GameData
-  _isMobilePlatform: 1
-  <FrameRate>k__BackingField: 60
+  _isMobilePlatform: 0
+  <FrameRate>k__BackingField: 80

@@ -1,8 +1,10 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Quests;
+using Assets.Scripts.Extensions;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
+using Assets.Scripts.Services.ServiceAnalytics;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -24,10 +26,11 @@ namespace Assets.Scripts.UI.Windows.UIHUD
         private GameObserver _gameObserver;
         private TempLevelProgress _levelProgress;
         private GameData _gameData;
+        private IAnalytics _analytics;
         private bool _inProcess;
 
         [Inject]
-        private void Construct(UIFactory uIFactory, GameStateMachine gameStateMachine, TimerService timerService, GameObserver gameObserver, ProgressService progressService, GameData gameData)
+        private void Construct(UIFactory uIFactory, GameStateMachine gameStateMachine, TimerService timerService, GameObserver gameObserver, ProgressService progressService, GameData gameData, Services.ServiceAnalytics.IAnalytics analytics)
         {
             _uIFactory = uIFactory;
             _gameStateMachine = gameStateMachine;
@@ -35,6 +38,7 @@ namespace Assets.Scripts.UI.Windows.UIHUD
             _gameObserver = gameObserver;
             _levelProgress = progressService.TempLevelProgress;
             _gameData = gameData;
+            _analytics = analytics;
         }
 
         private void Start()
@@ -55,8 +59,7 @@ namespace Assets.Scripts.UI.Windows.UIHUD
 
         private void RefreshTimer()
         {
-            string time = $"Min: {_timerService.Seconds / 60} Sec: {_timerService.Seconds % 60:D2}";
-            _timerText.text = time;
+            _timerText.text = _timerService.Seconds.ToTime();
         }
 
         private async UniTask HomePopup()
@@ -96,6 +99,7 @@ namespace Assets.Scripts.UI.Windows.UIHUD
 
             try
             {
+                _analytics.LeaveMission(_levelProgress.QuestID, _timerService.Seconds.ToTime());
                 await _gameStateMachine.LoadMainMenu();
             }
 

@@ -4,6 +4,7 @@ using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
+using Assets.Scripts.Services.ServiceAnalytics;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading;
@@ -30,13 +31,14 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         private UIData _uIData;
         private MusicService _musicService;
         private IAssetProviderService _assetProvider;
+        private IAnalytics _analytics;
         private bool _triggered;
         private CancellationToken _ct;
         private readonly List<UIMenuSlot> _transportSlots = new();
         private readonly List<UIMenuSlot> _missionSlots = new();
 
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, UIFactory uIFactory, QuestsData questsData, ProgressService progressService, UIData uIData, MusicService musicService, IAssetProviderService assetProviderService)
+        private void Construct(GameStateMachine gameStateMachine, UIFactory uIFactory, QuestsData questsData, ProgressService progressService, UIData uIData, MusicService musicService, IAssetProviderService assetProviderService, IAnalytics analytics)
         {
             _stateMachine = gameStateMachine;
             _uIFactory = uIFactory;
@@ -47,6 +49,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             _uIData = uIData;
             _musicService = musicService;
             _assetProvider = assetProviderService;
+            _analytics = analytics;
         }
         private void Awake()
         {
@@ -137,10 +140,12 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 
         private async UniTask SetQuestCategory(QuestCategory category)
         {
-            _levelProgress.SetQuestId(category.QuestConfigs[0].QuestID);
+            QuestID questId = category.QuestConfigs[0].QuestID;
+            _levelProgress.SetQuestId(questId);
             RefreshTransports();
-            await RefreshMission();
             _musicService.Beep();
+            _analytics.SelectLevelEvent(category.TransportName, questId);
+            await RefreshMission();
         }
 
         private void SetQuestId(QuestID id)
@@ -149,6 +154,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
             RefreshMissionSelect();
             RefreshMissionDescription();
             _musicService.Beep();
+            _analytics.SelectLevelEvent(_questsData.GetCategoryByQuestId(id).TransportName, id);
         }
 
         private async UniTask LoadGame()

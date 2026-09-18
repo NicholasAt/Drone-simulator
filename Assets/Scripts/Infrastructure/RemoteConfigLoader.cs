@@ -1,10 +1,11 @@
 using Cysharp.Threading.Tasks;
 using System;
+using Unity.Services.Analytics;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
-
+using UnityEngine.UnityConsent;
 public class RemoteConfigLoader : MonoBehaviour
 {
     private const float DefaultuiAnimationSpeed = 6;
@@ -34,7 +35,8 @@ public class RemoteConfigLoader : MonoBehaviour
                     Debug.LogWarning($"Auth failed (offline?): {e.Message}");
                 }
             }
-
+            EndUserConsent.SetConsentState(new ConsentState { AnalyticsIntent = ConsentStatus.Granted, AdsIntent = ConsentStatus.Denied });
+         
             RemoteConfigService.Instance.FetchCompleted += OnConfigsFetched;
             RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());
         }

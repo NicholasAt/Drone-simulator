@@ -1,3 +1,4 @@
+using Assets.Scripts.Services;
 using UnityEngine;
 
 namespace Assets.Scripts.Extensions
@@ -13,6 +14,10 @@ namespace Assets.Scripts.Extensions
                 return $"{value} Km";
             }
             return $"{meters} M";
+        }
+        public static string ToTime(this int seconds)
+        {
+           return  $"Min: {seconds / 60} Sec: {seconds % 60:D2}";
         }
     }
 }

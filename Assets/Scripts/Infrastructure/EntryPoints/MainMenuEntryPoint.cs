@@ -3,6 +3,7 @@ using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
+using Unity.Services.Analytics;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure.EntryPoints
@@ -53,7 +54,7 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             await _musicService.PlayBackground();
             _sceneLoader.UpdateProgress(1f);
             await UniTask.NextFrame();
-            _sceneLoader.HideCurtain().Forget();
+            _sceneLoader.HideCurtain().Forget();                    
         }
     }
 }

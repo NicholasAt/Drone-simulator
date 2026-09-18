@@ -10,6 +10,7 @@ using Assets.Scripts.Services.ChunkLoad;
 using Assets.Scripts.Services.GameProgress;
 using Assets.Scripts.Services.GameStates;
 using Assets.Scripts.Services.InputService;
+using Assets.Scripts.Services.ServiceAnalytics;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
@@ -43,6 +44,7 @@ namespace Assets.Scripts.Infrastructure
             Container.Bind<PauseState>().AsSingle();
             Container.Bind<UIFactory>().AsSingle();
 
+            Container.BindInterfacesAndSelfTo<UnityAnalyticsService>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddressablesLoader>().AsSingle();
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
 

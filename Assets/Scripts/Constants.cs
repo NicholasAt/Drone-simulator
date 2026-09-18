@@ -17,5 +17,17 @@ namespace Assets.Scripts
             public const string SFXVolume = "SFXVolume";
             public const string MusicVolume = "MusicVolume";
         }
+        public class AnalyticsConstants
+        {
+            public const string SelectMissionEvent = "select_mission";
+            public const string LeaveMissionEvent = "leave_mission";
+            public const string WinMissionEvent = "win_mission";
+            public const string LoseMissionEvent = "lose_mission";
+
+            public const string TransportParameter = "transport_name";
+            public const string MissionNameParameter = "mission_name";
+            public const string TimeParameter = "mission_timer";
+            public const string StarsParameter = "stars";
+        }
     }
 }
