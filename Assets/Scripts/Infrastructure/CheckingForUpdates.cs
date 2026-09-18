@@ -31,11 +31,11 @@ namespace Assets.Scripts.Infrastructure
                 SetStatus("Initializing...");
                 await Addressables.InitializeAsync().ToUniTask();
 
-                //if (await CheckForUpdates() == false)
-                //{
-                //    SetStatus("Something went wrong, restart the game");
-                //    return;
-                //}
+                if (await CheckForUpdates() == false)
+                {
+                    SetStatus("Something went wrong, restart the game");
+                    return;
+                }
                 if (await LoadData() == false)
                 {
                     SetStatus("Something went wrong, restart the game");

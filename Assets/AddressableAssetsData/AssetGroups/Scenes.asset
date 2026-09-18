@@ -18,12 +18,14 @@ MonoBehaviour:
   - m_GUID: 308e4ad618338c048afe67cace89897c
     m_Address: MainMenu
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ad2378640ec743641b0905d490ff355e
     m_Address: Location1
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}

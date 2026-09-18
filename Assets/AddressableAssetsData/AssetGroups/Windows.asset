@@ -18,37 +18,44 @@ MonoBehaviour:
   - m_GUID: 2825f9c438c9a544a8a66b470ebe0e72
     m_Address: PopupTwoButtonsCanvas
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3acb4de86a4225f44b44b6a8c5bd152a
     m_Address: PopupMessageCanvas
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ba4c03a42824b648866861c58bc8619
     m_Address: HUD
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8081f4aa69bba4546b5ae462150b3e55
     m_Address: MobileInputWindow
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9651a7b18b1b901408e7e065bc55c221
     m_Address: ScreenTargetWindow
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c8ba444092285e941ad78c2363c0289b
     m_Address: MainMenuWindow
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f8d7ace52f2e09146a3b731a9b9959d2
     m_Address: LoadingCurtain
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}

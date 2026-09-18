@@ -18,7 +18,8 @@ MonoBehaviour:
   - m_GUID: 347160cb5f3c9c649b8b0ce72391121b
     m_Address: menu music
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cloud
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
