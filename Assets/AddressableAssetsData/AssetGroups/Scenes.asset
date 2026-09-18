@@ -10,23 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Effects
+  m_Name: Scenes
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Effects
-  m_GUID: fd148923feecea84791f7dcb676ebae6
+  m_GroupName: Scenes
+  m_GUID: 169484ae5adf303478d84f062c94e5d4
   m_SerializeEntries:
-  - m_GUID: 6a3cb4ac8fa12944ba1233cbec0e9c69
-    m_Address: WFX_SmokeGrenade Black
+  - m_GUID: 308e4ad618338c048afe67cace89897c
+    m_Address: MainMenu
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6ecf76dc4f268d340b2666896a954bcc
-    m_Address: WFX_Nuke
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a49596ebf788acd4ab1281bffea444b1
-    m_Address: WFX_Explosion StarSmoke
+  - m_GUID: ad2378640ec743641b0905d490ff355e
+    m_Address: Location1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -34,5 +29,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: ecd0f52a7edc4994b870cab7aa81c7f7, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: ab979c202e3aa0a4f88eeeff9ddaa35f, type: 2}
-    - {fileID: 11400000, guid: 06bcac67616be604db32fb5399ca1201, type: 2}
+    - {fileID: 11400000, guid: 926fcdd0b95aedd4187fb71e6e978595, type: 2}
+    - {fileID: 11400000, guid: f8a127e72bcae064abbede41e396ebf0, type: 2}
