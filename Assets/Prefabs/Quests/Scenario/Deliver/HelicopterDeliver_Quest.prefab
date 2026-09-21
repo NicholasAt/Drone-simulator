@@ -149,8 +149,8 @@ MonoBehaviour:
     WinMessage: 'Congratulations!
 
       You delivered the ammunition'
-    BestSeconds: 90
-    BadSeconds: 130
+    BestSeconds: 120
+    BadSeconds: 150
   _movementByPoints: {fileID: 1205666481666571340}
   _initPoint: {fileID: 4893933153268063403}
   _pointsRoot: {fileID: 6236537082703038097}
