@@ -41,26 +41,19 @@ namespace Assets.Scripts.Services
             return loadingCurtain;
         }
 
+        public async UniTask<PopupWarningOneButton> CreatePopupWarning(CancellationToken ct = default)
+        {
+            return await CreatePopup<PopupWarningOneButton>(_uIData.PopUpWarningReference, ct);
+        }
+
         public async UniTask<PopupMessage> CreatePopupMessage(CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpMessageReference, ct);
-            GameObject instance = InstantiateInject(prefab);
-
-            if (instance.TryGetComponent(out PopupMessage popup))
-                return popup;
-            Debug.LogError("no component");
-            return null;
+            return await CreatePopup<PopupMessage>(_uIData.PopUpMessageReference, ct);
         }
+
         public async UniTask<PopupTwoButtons> CreatePopupTwoButtons(CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.PopUpTwoButtonsReference, ct);
-            GameObject instance = InstantiateInject(prefab);
-
-            if (instance.TryGetComponent(out PopupTwoButtons popupTwo))
-                return popupTwo;
-
-            Debug.LogError("no component");
-            return null;
+            return await CreatePopup<PopupTwoButtons>(_uIData.PopUpTwoButtonsReference, ct);
         }
 
         public async UniTask CreateScreenTarget(CancellationToken ct = default)
@@ -68,6 +61,7 @@ namespace Assets.Scripts.Services
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.ScreenTargetWindowReference, ct);
             InstantiateInject(prefab);
         }
+
         public async UniTask CreateHUD(CancellationToken ct = default)
         {
             GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.HUDReference, ct);
@@ -80,6 +74,17 @@ namespace Assets.Scripts.Services
             if (instance.TryGetComponent(out MainMenuWindow mainMenu))
                 await mainMenu.Warmup();
         }
+        private async UniTask<T> CreatePopup<T>(AssetReferenceGameObject reference, CancellationToken ct) where T : BasePopup
+        {
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, ct);
+            GameObject instance = InstantiateInject(prefab);
+            if (instance.TryGetComponent(out T popup))
+                return popup;
+
+            Debug.LogError("no component");
+            return null;
+        }
+
         private GameObject InstantiateInject(GameObject prefab, Transform parent = null)
         {
             GameObject instance = _diContainer.InstantiatePrefab(prefab);

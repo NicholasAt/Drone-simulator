@@ -1,9 +1,11 @@
+using Assets.Scripts.Data;
 using Assets.Scripts.Data.Quests;
 using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
-using Unity.Services.Analytics;
+using System;
+using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure.EntryPoints
@@ -35,14 +37,17 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private TempLevelProgress _levelProgress;
         private MusicService _musicService;
         private SceneLoader _sceneLoader;
+        private GameData _gameData;
+        private static bool _isSafariMessage;
 
         [Inject]
-        private void Construct(UIFactory uIFactory, ProgressService progressService, MusicService musicService, SceneLoader sceneLoader)
+        private void Construct(UIFactory uIFactory, ProgressService progressService, MusicService musicService, SceneLoader sceneLoader, GameData gameData)
         {
             _uIFactory = uIFactory;
             _levelProgress = progressService.TempLevelProgress;
             _musicService = musicService;
             _sceneLoader = sceneLoader;
+            _gameData = gameData;
         }
 
         protected override async UniTask OnStart()
@@ -54,7 +59,31 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             await _musicService.PlayBackground();
             _sceneLoader.UpdateProgress(1f);
             await UniTask.NextFrame();
-            _sceneLoader.HideCurtain().Forget();                    
+
+            if (_gameData.IsMobile() == false)
+            {
+                if (_isSafariMessage == false)
+                {
+                    _isSafariMessage = true;
+                    InitSafariPop().Forget();
+                }
+                else if (BrowserDetector.IsSafariBrowser())
+                {
+                    InitSafariPop().Forget();
+                }
+            }
+
+            _sceneLoader.HideCurtain().Forget();
+        }
+        private async UniTask InitSafariPop()
+        {
+            UI.Windows.Popup.PopupWarningOneButton pop = await _uIFactory.CreatePopupWarning(CancelToken);
+            /*fast click */
+            pop.Refresh("May be lags on the Safari browser", "Ok");
+          
+            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: CancelToken);
+
+            pop.OnButtonClick += pop.Close;
         }
     }
 }

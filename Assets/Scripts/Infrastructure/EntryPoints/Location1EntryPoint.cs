@@ -26,8 +26,8 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             }
             public async UniTask Run()
             {
-                _cleanupService.Cleanup();
                 await _sceneLoader.ShowCurtain();
+                _cleanupService.Cleanup();
                 _assetProvider.ReleaseAll();
                 await _sceneLoader.LoadSingle(Constants.SceneConstants.Location1SceneKey);
             }

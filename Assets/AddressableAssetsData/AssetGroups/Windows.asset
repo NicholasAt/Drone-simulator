@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - cloud
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3cd3bec0263569a4a9bde66d942fc23f
+    m_Address: PopupWarningCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - cloud
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ba4c03a42824b648866861c58bc8619
     m_Address: HUD
     m_ReadOnly: 0

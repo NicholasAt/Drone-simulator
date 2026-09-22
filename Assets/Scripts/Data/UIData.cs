@@ -14,6 +14,7 @@ namespace Assets.Scripts.Data
         [field: SerializeField] public AssetReferenceGameObject HUDReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject PopUpTwoButtonsReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject PopUpMessageReference { get; private set; }
+        [field: SerializeField] public AssetReferenceGameObject PopUpWarningReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject ScreenTargetWindowReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject LoadingCurtainReference { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject MobileInputReference { get; private set; }

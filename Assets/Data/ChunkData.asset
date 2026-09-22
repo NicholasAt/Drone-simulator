@@ -513,6 +513,12 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  <MacWorldReference>k__BackingField:
+    m_AssetGUID: 51ed65c5b39d35d498f1de27ea23000d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
   <OutsideMapReference>k__BackingField:
     m_AssetGUID: 74aa8d499a210ed4882d6a5c92a46430
     m_SubObjectName: 

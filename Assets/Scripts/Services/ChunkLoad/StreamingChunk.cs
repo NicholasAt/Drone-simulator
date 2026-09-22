@@ -11,6 +11,9 @@ namespace Assets.Scripts.Services.ChunkLoad
 {
     public class StreamingChunk
     {
+        private const int MaxTreeDistance = 500;
+        private const int MinTreeDistance = 0;
+
         public readonly Dictionary<Vector2Int, AsyncOperationHandle> Active = new();
         private readonly HashSet<Vector2Int> _candidatesForUnloading = new();
         private readonly ChunkData _chunkData;
@@ -27,10 +30,20 @@ namespace Assets.Scripts.Services.ChunkLoad
                 {
                     try
                     {
-
                         AsyncOperationHandle<GameObject> handler = Addressables.InstantiateAsync(cfg.ChunkReference);
                         Active.Add(key, handler);
-                        await handler.ToUniTask(cancellationToken: ct);
+                        GameObject instance = await handler.ToUniTask(cancellationToken: ct);
+                        if (instance.TryGetComponent(out Terrain terrain))
+                        {
+                            if (BrowserDetector.IsSafariBrowser())
+                            {
+                                terrain.treeDistance = MinTreeDistance;
+                            }
+                            else
+                            {
+                                terrain.treeDistance = MaxTreeDistance;
+                            }
+                        }
                         return true;
                     }
                     catch (OperationCanceledException)

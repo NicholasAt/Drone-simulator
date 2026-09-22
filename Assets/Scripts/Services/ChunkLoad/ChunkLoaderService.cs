@@ -1,4 +1,5 @@
 using Assets.Scripts.Data;
+using Assets.Scripts.Services.AssetProvider;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
@@ -14,12 +15,14 @@ namespace Assets.Scripts.Services.ChunkLoad
         private Vector2Int _chunkKey;
         private CancellationTokenSource _cts;
         private readonly ChunkData _chunkData;
+        private readonly IAssetProviderService _assetProvider;
         private readonly StreamingChunk _streamingChunk;
         private bool _isUnload = true;
-        public ChunkLoaderService(StreamingChunk streamingChunk, ChunkData chunkData)
+        public ChunkLoaderService(StreamingChunk streamingChunk, ChunkData chunkData, IAssetProviderService assetProviderService)
         {
             _streamingChunk = streamingChunk;
             _chunkData = chunkData;
+            _assetProvider = assetProviderService;
         }
         public void SetUnload(bool isUnload)
         {
@@ -37,6 +40,7 @@ namespace Assets.Scripts.Services.ChunkLoad
                 Debug.LogWarning("already working");
                 return;
             }
+
             _cts = new CancellationTokenSource();
             await UpdateLoad(GetChunkKey(), _cts.Token);
             CheckChunkTimer(0.5f, _cts.Token).Forget();
@@ -87,7 +91,7 @@ namespace Assets.Scripts.Services.ChunkLoad
                     float distance = Vector2.Distance(key, new Vector2(_target.position.x, _target.position.z));
                     if (distance > _chunkData.LoadDistance)
                         continue;
-                 
+
                     await _streamingChunk.TryLoad(key, ct);
                     await UniTask.NextFrame(cancellationToken: ct);
                 }
