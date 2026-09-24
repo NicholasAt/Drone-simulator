@@ -1,4 +1,4 @@
-# About
+# 🎮 About
 * Solo project — developed entirely by me
 * A drone and helicopter simulator featuring six missions using various vehicles and incorporating all modern features.
 * To launch it in Unity, find the "init" scene.
