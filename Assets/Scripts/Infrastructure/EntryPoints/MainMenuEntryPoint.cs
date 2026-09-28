@@ -80,9 +80,6 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
             UI.Windows.Popup.PopupWarningOneButton pop = await _uIFactory.CreatePopupWarning(CancelToken);
             /*fast click */
             pop.Refresh("May be lags on the Safari browser", "Ok");
-          
-            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: CancelToken);
-
             pop.OnButtonClick += pop.Close;
         }
     }

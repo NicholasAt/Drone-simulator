@@ -28,7 +28,7 @@ namespace Assets.Scripts.Infrastructure
         {
             try
             {
-                SetStatus("Initializing...");
+                SetStatus("Initialization...");
                 await Addressables.InitializeAsync().ToUniTask();
 
                 if (await CheckForUpdates() == false)

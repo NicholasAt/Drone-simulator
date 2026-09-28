@@ -85,7 +85,7 @@ namespace Assets.Scripts.Drone
             Vector3 localVelocity = transform.InverseTransformDirection(_body.linearVelocity);
             Vector3 drag = new Vector3(
                 -localVelocity.x * _config.Drag.x,
-                -(localVelocity.y * 0.5f) * _config.Drag.y,
+                -(localVelocity.y * 0.5f) * (localVelocity.y > 0 ? _config.Drag.y : _config.Drag.w),
                 -localVelocity.z * _config.Drag.z);
 
             _body.AddRelativeForce(drag);

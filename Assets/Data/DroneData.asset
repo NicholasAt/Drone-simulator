@@ -21,3 +21,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    <PitchForce>k__BackingField: 4
+    <YawForce>k__BackingField: 15
+    <Force>k__BackingField: 140
+    <Gravity>k__BackingField: -50
+    <Drag>k__BackingField: {x: 0.7, y: 2, z: 0.7, w: 0.5}
+    <AngularDrag>k__BackingField: {x: 2, y: 1.5, z: 2}
+    <MinMaxAudio>k__BackingField: {x: 0.5, y: 0.9}
+    <SpeedUpAudio>k__BackingField: 3
+    <SpeedDownAudio>k__BackingField: 1
+    <EffectSpeedRotate>k__BackingField: {x: 700, y: 2100}
