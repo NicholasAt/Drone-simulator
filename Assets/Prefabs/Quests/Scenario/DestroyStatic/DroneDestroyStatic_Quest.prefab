@@ -83,7 +83,7 @@ MonoBehaviour:
     DieImpulse: 20
     PlayerDamageRadius: 4.5
     BestSeconds: 65
-    BadSeconds: 85
+    BadSeconds: 95
   _targetsRoot: {fileID: 7867328676289207682}
   _playerInitPoint: {fileID: 2015069983624001833}
 --- !u!1 &3265287397962244683
