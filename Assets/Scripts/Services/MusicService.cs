@@ -3,6 +3,7 @@ using Assets.Scripts.Logic;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
@@ -42,9 +43,9 @@ namespace Assets.Scripts.Services
             Refresh();
         }
 
-        public async UniTask PlayBackground()
+        public async UniTask PlayBackground(System.Action<float> updateProgress = null, CancellationToken ct = default)
         {
-            AudioClip clip = await _assetProviderService.LoadAsync<AudioClip>(_musicData.BackgroundClipReference);
+            AudioClip clip = await _assetProviderService.LoadAsync<AudioClip>(_musicData.BackgroundClipReference, updateProgress, ct);
             _bgSource.clip = clip;
             _bgSource.Play();
         }

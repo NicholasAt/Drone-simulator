@@ -4,8 +4,6 @@ using Assets.Scripts.Services;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
-using System;
-using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure.EntryPoints
@@ -53,11 +51,8 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         protected override async UniTask OnStart()
         {
             _levelProgress.SetQuestId(QuestID.Drone_Move);//first quest
-            _sceneLoader.UpdateProgress(0.4f);
-            await _uIFactory.CreateMenu(CancelToken);
-            _sceneLoader.UpdateProgress(0.7f);
-            await _musicService.PlayBackground();
-            _sceneLoader.UpdateProgress(1f);
+            await _uIFactory.CreateMenu((progress) => _sceneLoader.UpdateProgress(progress, 0.5f), CancelToken);
+            await _musicService.PlayBackground((progress) => _sceneLoader.UpdateProgress(progress, 1f), CancelToken);
             await UniTask.NextFrame();
 
             if (_gameData.IsMobile() == false)
@@ -78,7 +73,6 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         private async UniTask InitSafariPop()
         {
             UI.Windows.Popup.PopupWarningOneButton pop = await _uIFactory.CreatePopupWarning(CancelToken);
-            /*fast click */
             pop.Refresh("May be lags on the Safari browser", "Ok");
             pop.OnButtonClick += pop.Close;
         }

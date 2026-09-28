@@ -5,7 +5,6 @@ using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.CameraService;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure.EntryPoints
@@ -56,22 +55,18 @@ namespace Assets.Scripts.Infrastructure.EntryPoints
         protected override async UniTask OnStart()
         {
             _cleanupService.Cleanup();
-            _sceneLoader.UpdateProgress(0.1f);
-            await _gameFactory.CreateCinemaCamera(CancelToken);
-            _sceneLoader.UpdateProgress(0.2f);
+            await _gameFactory.CreateCinemaCamera((progress) => _sceneLoader.UpdateProgress(progress, 0.2f), CancelToken);
             await _cameraService.Prepare();
-            _sceneLoader.UpdateProgress(0.3f);
-            await _gameFactory.CreateBases(CancelToken);
-            _sceneLoader.UpdateProgress(0.5f);
-
-            _gameFactory.CreateOutsideMap(CancelToken).Forget();
-            _uIFactory.CreateHUD(CancelToken).Forget();
-            _uIFactory.CreateScreenTarget(CancelToken).Forget();
+            await _gameFactory.CreateBases(null, CancelToken);
             _gameFactory.CreateClouds(CancelToken).Forget();
+
+            _gameFactory.CreateOutsideMap((progress) => _sceneLoader.UpdateProgress(progress, 0.3f), CancelToken).Forget();
+            _uIFactory.CreateHUD((progress) => _sceneLoader.UpdateProgress(progress, 0.5f), CancelToken).Forget();
+            _uIFactory.CreateScreenTarget((progress) => _sceneLoader.UpdateProgress(progress, 0.6f), CancelToken).Forget();
 
             IScenario qeustInstance = await _gameFactory.CreateQuest(_levelProgress.QuestID, CancelToken);
             await qeustInstance.Run();
-            _sceneLoader.UpdateProgress(1f);
+            _sceneLoader.UpdateProgress(1f, 1f);
 
             if (_gameData.IsMobile())
                 await _uIFactory.CreateMobileInput(CancelToken);

@@ -46,7 +46,7 @@ namespace Assets.Scripts.Quests
             InitPoints();
             await NextPoint();
         }
-       
+
         private async UniTask NextPoint()
         {
             _currentPointIndex++;
@@ -57,7 +57,7 @@ namespace Assets.Scripts.Quests
             else
             {
                 Transform movePoint = CurrentPoint();
-                GameObject questPoint = await _gameFactory.CreateQuestPoint(_pointId, movePoint.position, movePoint.rotation, _ct);
+                GameObject questPoint = await _gameFactory.CreateQuestPoint(_pointId, movePoint.position, movePoint.rotation, null, _ct);
 
                 if (questPoint.TryGetComponent(out TriggerReporter triggerReporter) == false)
                     Debug.LogError("no reporter");

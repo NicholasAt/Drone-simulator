@@ -36,16 +36,15 @@ namespace Assets.Scripts.Services
         }
         public async UniTask ShowCurtain()
         {
-            _curtain.UpdateProgress(0);
             await _curtain.Show();
         }
         public async UniTask HideCurtain()
         {
             await _curtain.Hide();
         }
-        public void UpdateProgress(float progress)
+        public void UpdateProgress(float progress, float weight)
         {
-            _curtain.UpdateProgress(progress);
+            _curtain.UpdateProgress(progress, weight);
         }
         private async UniTask CreateCurtain()
         {

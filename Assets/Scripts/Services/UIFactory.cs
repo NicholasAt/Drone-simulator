@@ -4,6 +4,7 @@ using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.UI.Windows.Popup;
 using Assets.Scripts.UI.Windows.UIMainMenu;
 using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -27,7 +28,7 @@ namespace Assets.Scripts.Services
 
         public async UniTask CreateMobileInput(CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MobileInputReference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MobileInputReference, null, ct);
             InstantiateInject(prefab);
         }
 
@@ -56,27 +57,27 @@ namespace Assets.Scripts.Services
             return await CreatePopup<PopupTwoButtons>(_uIData.PopUpTwoButtonsReference, ct);
         }
 
-        public async UniTask CreateScreenTarget(CancellationToken ct = default)
+        public async UniTask CreateScreenTarget(Action<float> updateProgress, CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.ScreenTargetWindowReference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.ScreenTargetWindowReference, updateProgress, ct);
             InstantiateInject(prefab);
         }
 
-        public async UniTask CreateHUD(CancellationToken ct = default)
+        public async UniTask CreateHUD(Action<float> updateProgress, CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.HUDReference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.HUDReference, updateProgress, ct);
             InstantiateInject(prefab);
         }
-        public async UniTask CreateMenu(CancellationToken ct = default)
+        public async UniTask CreateMenu(Action<float> updateProgress = null, CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MainMenuWindowReference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_uIData.MainMenuWindowReference, updateProgress, ct);
             GameObject instance = InstantiateInject(prefab);
             if (instance.TryGetComponent(out MainMenuWindow mainMenu))
                 await mainMenu.Warmup();
         }
         private async UniTask<T> CreatePopup<T>(AssetReferenceGameObject reference, CancellationToken ct) where T : BasePopup
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, null, ct);
             GameObject instance = InstantiateInject(prefab);
             if (instance.TryGetComponent(out T popup))
                 return popup;

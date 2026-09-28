@@ -67,7 +67,7 @@ namespace Assets.Scripts.Quests.Scenarios
                 for (int i = 0; i < marker.Root.childCount; i++)
                 {
                     Transform point = marker.Root.GetChild(i);
-                    BotCarMove car = await _gameFactory.CreateCar(marker.CarID, point.position, point.rotation, this.GetCancellationTokenOnDestroy());
+                    BotCarMove car = await _gameFactory.CreateCar(marker.CarID, point.position, point.rotation, null, Ct);
                     car.SetPoint(marker.EndPoint.position);
                     if (car.TryGetComponent(out IApplyDamage applyDamage) == false)
                     {

@@ -88,7 +88,7 @@ namespace Assets.Scripts.Quests.Scenarios
                 SpawnMarker marker = _spawnMarkers[UnityEngine.Random.Range(0, _spawnMarkers.Count - 1)];
                 Vector3 pos = RandomSpawnPos();
                 Quaternion rotate = RandomRotate();
-                BotMovementByArea instance = await _gameFactory.CreateFlying(marker.Id, pos, rotate, this.GetCancellationTokenOnDestroy());
+                BotMovementByArea instance = await _gameFactory.CreateFlying(marker.Id, pos, rotate, null, Ct);
                 instance.SetArea(matrix, size);
                 if (instance.TryGetComponent(out IApplyDamage applyDamage) == false)
                 {

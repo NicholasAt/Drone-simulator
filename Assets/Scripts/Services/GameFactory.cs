@@ -17,6 +17,7 @@ using Assets.Scripts.Quests.Scenarios;
 using Assets.Scripts.Services.AssetProvider;
 using Assets.Scripts.Services.GameProgress;
 using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -64,35 +65,35 @@ namespace Assets.Scripts.Services
         {
             foreach (AssetReferenceGameObject cloudReference in _chunkData.Clouds)
             {
-                GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cloudReference, ct);
+                GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cloudReference, null, ct);
                 await UniTask.NextFrame();
-                Object.Instantiate(prefab);
+                UnityEngine.Object.Instantiate(prefab);
             }
         }
-        public async UniTask CreateOutsideMap(CancellationToken ct = default)
+        public async UniTask CreateOutsideMap(Action<float> updateProgress = null, CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_chunkData.OutsideMapReference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_chunkData.OutsideMapReference, updateProgress, ct);
             InstantiateInject(prefab);
         }
-        public async UniTask CreateBases(CancellationToken ct = default)
+        public async UniTask CreateBases(System.Action<float> updateProgress = null, CancellationToken ct = default)
         {
             Transform root = new GameObject("Bases").transform;
             foreach (AssetReferenceGameObject baseReference in _chunkData.Bases)
             {
-                GameObject prefab = await _assetProvider.LoadAsync<GameObject>(baseReference, ct);
-                Object.Instantiate(prefab, root);
+                GameObject prefab = await _assetProvider.LoadAsync<GameObject>(baseReference, updateProgress, ct);
+                UnityEngine.Object.Instantiate(prefab, root);
             }
         }
-        public async UniTask CreateCinemaCamera(CancellationToken ct = default)
+        public async UniTask CreateCinemaCamera(System.Action<float> updateProgress = null, CancellationToken ct = default)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_cameraData.CinemaCameraReference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(_cameraData.CinemaCameraReference, updateProgress, ct);
             GameObject instance = InstantiateInject(prefab);
             CinemaCamera = instance;
         }
-        public async UniTask<IVehiclesDestroyEffect> CreateVehiclesDestroyEffect(DestroyEffectId id, CancellationToken ct)
+        public async UniTask<IVehiclesDestroyEffect> CreateVehiclesDestroyEffect(DestroyEffectId id, System.Action<float> updateProgress, CancellationToken ct)
         {
             VehiclesDestroyEffectConfig config = _destroyVehiclesEffectData.GetConfig(id);
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(config.Reference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(config.Reference, updateProgress, ct);
             GameObject instance = InstantiateInject(prefab);
             if (instance.TryGetComponent(out IVehiclesDestroyEffect effect) == false)
                 Debug.LogError("no component");
@@ -113,9 +114,9 @@ namespace Assets.Scripts.Services
             return effect;
         }
 
-        public async UniTask<GameObject> CreateQuestObject(AssetReferenceGameObject reference, Vector3 pos, Quaternion rotate, CancellationToken ct, string objectName)
+        public async UniTask<GameObject> CreateQuestObject(AssetReferenceGameObject reference, Vector3 pos, Quaternion rotate, System.Action<float> updateProgress, CancellationToken ct, string objectName)
         {
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, updateProgress, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
             if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))
             {
@@ -128,10 +129,10 @@ namespace Assets.Scripts.Services
             return instance;
         }
 
-        public async UniTask<GameObject> CreateQuestPoint(QuestPointId questPointId, Vector3 pos, Quaternion rotate, CancellationToken ct = default)
+        public async UniTask<GameObject> CreateQuestPoint(QuestPointId questPointId, Vector3 pos, Quaternion rotate, System.Action<float> updateProgress = null, CancellationToken ct = default)
         {
             AssetReferenceGameObject reference = questPointId == QuestPointId.Cube ? _questObjectsData.QuestPointCubeReference : _questObjectsData.QuestPointCircleReference;
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(reference, updateProgress, ct);
             GameObject instance = InstantiateInject(prefab);
             instance.transform.SetPositionAndRotation(pos, rotate);
             return instance;
@@ -140,7 +141,7 @@ namespace Assets.Scripts.Services
         public async UniTask<IScenario> CreateQuest(QuestID questID, CancellationToken ct)
         {
             QuestConfig cfg = _questsData.GetQuest(questID);
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.QuestReference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.QuestReference, null, ct);
             GameObject instance = InstantiateInject(prefab);
             IScenario scenario = instance.GetComponent<IScenario>();
 
@@ -177,10 +178,10 @@ namespace Assets.Scripts.Services
             }
             return instance;
         }
-        public async UniTask<BotMovementByArea> CreateFlying(FlyingTransportID id, Vector3 pos, Quaternion rotate, CancellationToken ct = default)
+        public async UniTask<BotMovementByArea> CreateFlying(FlyingTransportID id, Vector3 pos, Quaternion rotate, System.Action<float> updateProgress = null, CancellationToken ct = default)
         {
             FlyingTransportConfig cfg = _flyingTransportData.GetConfig(id);
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, updateProgress, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
             if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))
             {
@@ -199,10 +200,10 @@ namespace Assets.Scripts.Services
             return null;
         }
 
-        public async UniTask<BotCarMove> CreateCar(CarID id, Vector3 pos, Quaternion rotate, CancellationToken ct = default)
+        public async UniTask<BotCarMove> CreateCar(CarID id, Vector3 pos, Quaternion rotate, System.Action<float> updateProgress = null, CancellationToken ct = default)
         {
             CarConfig cfg = _carData.GetConfig(id);
-            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, ct);
+            GameObject prefab = await _assetProvider.LoadAsync<GameObject>(cfg.PrefabReference, updateProgress, ct);
             GameObject instance = InstantiateInject(prefab, pos, rotate);
 
             if (instance.TryGetComponent(out VehiclesDestroyEffectPlayer effectPlayer))

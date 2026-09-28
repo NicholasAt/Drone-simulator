@@ -55,7 +55,7 @@ namespace Assets.Scripts.Quests.Scenarios
             for (int i = 0; i < _targetsRoot.childCount; i++)
             {
                 Transform point = _targetsRoot.GetChild(i);
-                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DestroyableItemReference, point.position, point.rotation, this.GetCancellationTokenOnDestroy(), "Helicopter");
+                GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DestroyableItemReference, point.position, point.rotation, null, Ct, "Helicopter");
                 if (instance.TryGetComponent(out IApplyDamage applyDamage) == false)
                     Debug.LogError("no damage");
 

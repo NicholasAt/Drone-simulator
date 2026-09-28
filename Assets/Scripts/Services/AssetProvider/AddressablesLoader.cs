@@ -10,9 +10,9 @@ namespace Assets.Scripts.Services.AssetProvider
 {
     public class AddressablesLoader : IAssetProviderService
     {
-        private readonly Dictionary<object, AsyncOperationHandle> _handles = new();      
+        private readonly Dictionary<object, AsyncOperationHandle> _handles = new();
 
-        public async UniTask<T> LoadAsync<T>(AssetReference reference, CancellationToken ct = default)
+        public async UniTask<T> LoadAsync<T>(AssetReference reference, Action<float> updateProgress = null, CancellationToken ct = default)
         {
             if (reference == null)
             {
@@ -25,7 +25,9 @@ namespace Assets.Scripts.Services.AssetProvider
             if (_handles.TryGetValue(key, out AsyncOperationHandle existingHandle) && existingHandle.IsValid())
             {
                 AsyncOperationHandle<T> typedHandle = existingHandle.Convert<T>();
-                return await typedHandle.ToUniTask(cancellationToken: ct);
+                T result = await typedHandle.ToUniTask(cancellationToken: ct, progress: Progress.Create<float>(_ => updateProgress?.Invoke(typedHandle.PercentComplete)));
+                updateProgress?.Invoke(1);
+                return result;
             }
 
             AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(reference);
@@ -33,7 +35,8 @@ namespace Assets.Scripts.Services.AssetProvider
 
             try
             {
-                T asset = await handle.ToUniTask(cancellationToken: ct);
+                T asset = await handle.ToUniTask(cancellationToken: ct, progress: Progress.Create<float>(_ => updateProgress?.Invoke(handle.PercentComplete)));
+                updateProgress?.Invoke(1);
                 return asset;
             }
             catch (Exception)

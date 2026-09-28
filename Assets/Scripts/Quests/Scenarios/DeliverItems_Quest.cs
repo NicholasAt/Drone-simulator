@@ -3,7 +3,6 @@ using Assets.Scripts.Services;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
-using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -27,7 +26,6 @@ namespace Assets.Scripts.Quests.Scenarios
         private QuestObjectsData _questObjectsData;
         private TimerService _timerService;
         private CalculateStarsService _calculateStars;
-        private CancellationToken _ct;
         [Inject]
         private void Construct(GameFactory gameFactory, QuestObjectsData questObjectsData, TimerService timerService, CalculateStarsService calculateStarsService)
         {
@@ -41,10 +39,7 @@ namespace Assets.Scripts.Quests.Scenarios
         {
             RefreshNames();
         }
-        private void Awake()
-        {
-            _ct = this.GetCancellationTokenOnDestroy();
-        }
+
         protected override async UniTask OnRun()
         {
             _movementByPoints.OnTriggered += (point) => Triggered(point).Forget();
@@ -71,8 +66,8 @@ namespace Assets.Scripts.Quests.Scenarios
                 return;
             }
             Transform point = triggerPoint.GetChild(0);
-          
-            GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, CharacterPos(), Quaternion.identity, _ct, "");
+
+            GameObject instance = await _gameFactory.CreateQuestObject(_questObjectsData.DeliveryItemReference, CharacterPos(), Quaternion.identity, null, Ct, "");
             instance.transform.DOJump(point.position, 5, 1, 1).SetEase(Ease.Linear);
             instance.transform.DORotate(point.eulerAngles, 1);
         }

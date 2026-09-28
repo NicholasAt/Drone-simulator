@@ -65,7 +65,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
         {
             foreach (QuestCategory category in _questsData.CategoryConfigs)
             {
-                await _assetProvider.LoadAsync<Sprite>(category.IconReference, _ct);
+                await _assetProvider.LoadAsync<Sprite>(category.IconReference, null, _ct);
                 foreach (QuestConfig cfg in category.QuestConfigs)
                 {
                     await _assetProvider.LoadAsync<Sprite>(cfg.IconReference);
@@ -82,7 +82,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 
                 slot.SetColors(_uIData.SelectBgColor, _uIData.DefaultBgColor, _uIData.SelectPointColor, _uIData.DefaultPointColor);
                 slot.SetId(categoryConfig.TransportName);
-                slot.Refresh(categoryConfig.TransportName, await _assetProvider.LoadAsync<Sprite>(categoryConfig.IconReference, _ct));
+                slot.Refresh(categoryConfig.TransportName, await _assetProvider.LoadAsync<Sprite>(categoryConfig.IconReference, null, _ct));
                 slot.ShowHideStars(false);
                 slot.OnClick += () => SetQuestCategory(categoryConfig).Forget();
             }
@@ -114,7 +114,7 @@ namespace Assets.Scripts.UI.Windows.UIMainMenu
 
                 slot.SetColors(_uIData.SelectBgColor, _uIData.DefaultBgColor, _uIData.SelectPointColor, _uIData.DefaultPointColor);
                 slot.SetId(cfg.QuestID);
-                slot.Refresh(cfg.MissionName, await _assetProvider.LoadAsync<Sprite>(cfg.IconReference, _ct));
+                slot.Refresh(cfg.MissionName, await _assetProvider.LoadAsync<Sprite>(cfg.IconReference, null, _ct));
                 slot.RefreshStars(_starsProgress.GetStars(cfg.QuestID));
                 slot.OnClick += () => SetQuestId(cfg.QuestID);
             }

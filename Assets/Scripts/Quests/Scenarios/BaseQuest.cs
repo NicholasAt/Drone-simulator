@@ -49,13 +49,13 @@ namespace Assets.Scripts.Quests.Scenarios
         protected GameObserver GameObserver;
         protected SceneLoader SceneLoader;
         protected IAnalytics Analytics;
-        private TimerService _timerService;
         protected PopupMessage PopupMessage;
+        protected CancellationToken Ct;
+        private TimerService _timerService;
 
         private bool _baseIsEnd;
         private bool _baseInProcess;
         private QuestID _id;
-        private CancellationToken _ct;
 
         [Inject]
         private void Construct(GameStateMachine gameStateMachine, CharacterComponentsKeeperService componentsKeeper, ShowKills showKills, ProgressService progressService, TransportFactory transportFactory, UIFactory uIFactory, CameraStateService cameraStateService, HitHandler hitHandler, ChunkLoaderService chunkLoaderService, GameObserver gameObserver, SceneLoader sceneLoader, IAnalytics analytics, TimerService timerService)
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Quests.Scenarios
         }
         private void Awake()
         {
-            _ct = this.GetCancellationTokenOnDestroy();
+            Ct = this.GetCancellationTokenOnDestroy();
         }
         private void OnDestroy()
         {
@@ -96,21 +96,21 @@ namespace Assets.Scripts.Quests.Scenarios
 
         public async UniTask Run()
         {
-            PopupMessage = await UIFactory.CreatePopupMessage(_ct);
-            SceneLoader.UpdateProgress(0.7f);
+            PopupMessage = await UIFactory.CreatePopupMessage(Ct);
+            SceneLoader.UpdateProgress(1, 0.7f);
             ShowKills.Init(PopupMessage);
             HitHandler.Init(Config.PlayerDamageRadius);
 
             (Vector3 pos, Quaternion rotate) = InitPositionAndRotate();
 
             await TransportFactory.CreateTransport(LevelProgress.QuestID, pos, rotate);
-            SceneLoader.UpdateProgress(0.8f);
+            SceneLoader.UpdateProgress(1f, 0.8f);
             ComponentsKeeper.CharacterHit.OnHit += OnPlayerHit;
             ComponentsKeeper.CharacterHit.OnTurned += OnPlayerTurned;
             GameObserver.OnOutsideMap += OnOutsideMap;
             ChunkLoader.SetTarget(MainCamera());
             await ChunkLoader.Run();
-            SceneLoader.UpdateProgress(0.9f);
+            SceneLoader.UpdateProgress(1f, 0.9f);
             await OnRun();
         }
 
@@ -179,7 +179,7 @@ namespace Assets.Scripts.Quests.Scenarios
             ChunkLoader.SetTarget(InitPoint());
             (Vector3 pos, Quaternion rotate) = InitPositionAndRotate();
             ComponentsKeeper.CharacterRefresher.Hide();
-            CameraState.Enter<CameraAnimationState, Vector3, Action, CancellationToken>(CharacterPos(), RestartPlayer, _ct).Forget();
+            CameraState.Enter<CameraAnimationState, Vector3, Action, CancellationToken>(CharacterPos(), RestartPlayer, Ct).Forget();
         }
 
         protected virtual void RestartPlayer()
@@ -203,7 +203,7 @@ namespace Assets.Scripts.Quests.Scenarios
             _baseIsEnd = true;
             GameStateMachine.SetPause(true);
 
-            PopupTwoButtons popup = await UIFactory.CreatePopupTwoButtons(_ct);
+            PopupTwoButtons popup = await UIFactory.CreatePopupTwoButtons(Ct);
 
             popup.OnLeftButtonClick += ToMainMenu;
             popup.OnRightButtonClick += Restart;
