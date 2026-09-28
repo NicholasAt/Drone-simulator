@@ -11,7 +11,8 @@ namespace Assets.Scripts.Services.ServiceAnalytics
             CustomEvent @event = new(SelectMissionEvent)
             {
                 { TransportParameter, transport },
-                { MissionNameParameter, questID.ToString()}
+                { MissionNameParameter, questID.ToString()},
+                { SafariParameter, BrowserDetector.IsSafariBrowser() }
             };
             AnalyticsService.Instance.RecordEvent(@event);
         }
@@ -22,6 +23,7 @@ namespace Assets.Scripts.Services.ServiceAnalytics
             {
                 { TimeParameter, time},
                 { MissionNameParameter, quest.ToString()},
+                { SafariParameter, BrowserDetector.IsSafariBrowser() }
             };
             AnalyticsService.Instance.RecordEvent(@event);
         }
@@ -33,6 +35,7 @@ namespace Assets.Scripts.Services.ServiceAnalytics
                 { TimeParameter, time},
                 { MissionNameParameter, quest.ToString()},
                 { StarsParameter, stars},
+                { SafariParameter, BrowserDetector.IsSafariBrowser() }
             };
             AnalyticsService.Instance.RecordEvent(@event);
         }
@@ -43,6 +46,7 @@ namespace Assets.Scripts.Services.ServiceAnalytics
             {
                 { TimeParameter, time},
                 { MissionNameParameter, quest.ToString()},
+                { SafariParameter, BrowserDetector.IsSafariBrowser() }
             };
             AnalyticsService.Instance.RecordEvent(@event);
         }
